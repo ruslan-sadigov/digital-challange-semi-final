@@ -1,4 +1,4 @@
-// Command server runs the Agilli Mobillik ve Neqliyyat web app: HTTP + WebSocket, background workers and the optional simulator.
+// Command server runs the Smart City Transportation web app: HTTP + WebSocket, background workers and the optional simulator.
 package main
 
 import (
@@ -12,14 +12,14 @@ import (
 	"syscall"
 	"time"
 
-	"agilli/internal/bl"
-	"agilli/internal/dl/osrm"
-	"agilli/internal/dl/postgres"
-	"agilli/internal/pl"
-	"agilli/internal/pl/controller"
-	"agilli/internal/pl/ws"
-	"agilli/internal/worker"
-	"agilli/migrations"
+	"smartcity/internal/bl"
+	"smartcity/internal/dl/osrm"
+	"smartcity/internal/dl/postgres"
+	"smartcity/internal/pl"
+	"smartcity/internal/pl/controller"
+	"smartcity/internal/pl/ws"
+	"smartcity/internal/worker"
+	"smartcity/migrations"
 )
 
 func env(key, def string) string {
@@ -63,7 +63,6 @@ func main() {
 		cfg.UserSampleInterval = 10 * time.Second
 		cfg.BusMatchTolerance = 10 * time.Second
 		cfg.PositionFreshness = time.Minute
-		cfg.OverrideDuration = 15 * time.Minute
 		checkEvery, heatEvery = 10*time.Second, 5*time.Second
 	}
 	cfg.AnomalyThreshold = envDur("ANOMALY_THRESHOLD", cfg.AnomalyThreshold)
@@ -76,7 +75,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	pool, err := postgres.Connect(ctx, env("DATABASE_URL", "postgres://postgres:postgres@localhost:5432/agilli?sslmode=disable"))
+	pool, err := postgres.Connect(ctx, env("DATABASE_URL", "postgres://postgres:postgres@localhost:5432/smartcity?sslmode=disable"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -101,7 +100,7 @@ func main() {
 	heat := bl.NewHeatmapService(store, clock, cfg, hub)
 	anomaly := bl.NewAnomalyService(store, clock, cfg, density, hub, hub)
 
-	if err := auth.EnsureOperator(ctx, env("OPERATOR_EMAIL", "operator@agilli.az"), env("OPERATOR_PASSWORD", "operator123")); err != nil {
+	if err := auth.EnsureOperator(ctx, env("OPERATOR_EMAIL", "operator@smartcity.az"), env("OPERATOR_PASSWORD", "operator123")); err != nil {
 		log.Fatalf("seed operator: %v", err)
 	}
 	if envBool("SEED", true) {
@@ -120,7 +119,7 @@ func main() {
 	go worker.RunScheduler(ctx, anomaly, heat, checkEvery, heatEvery)
 	if envBool("SIMULATE", true) {
 		sim := &worker.Simulator{Store: store, Location: location, Density: density, Settings: cfg,
-			Tick: envDur("SIM_TICK", 5*time.Second), CrowdedRoute: env("SIM_CROWDED_ROUTE", "65"), Walkers: 80}
+			Tick: envDur("SIM_TICK", 5*time.Second), CrowdedRoute: env("SIM_CROWDED_ROUTE", "65"), Walkers: 80, Planner: planner}
 		go sim.Run(ctx)
 	}
 

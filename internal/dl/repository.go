@@ -6,7 +6,7 @@ import (
 	"context"
 	"time"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 type UserRepository interface {
@@ -88,8 +88,17 @@ type OverrideRepository interface {
 	Update(ctx context.Context, o *domain.RouteOverride) error
 }
 
+type MetaRepository interface {
+	// Get returns the value for key, or "" when unset.
+	Get(ctx context.Context, key string) (string, error)
+	Set(ctx context.Context, key, value string) error
+	// ResetNetwork deletes all stations, routes, buses and the data that depends on them.
+	ResetNetwork(ctx context.Context) error
+}
+
 // Store groups all repositories for dependency injection.
 type Store struct {
+	Meta      MetaRepository
 	Users     UserRepository
 	Stations  StationRepository
 	Routes    RouteRepository

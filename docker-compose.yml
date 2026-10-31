@@ -3,23 +3,23 @@ services:
     image: postgres:16
     environment:
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: agilli
+      POSTGRES_DB: smartcity
     ports: ["5432:5432"]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 2s
       retries: 20
-    volumes: [pgdata:/var/lib/postgresql/data]
+    volumes: [smartcity-pgdata:/var/lib/postgresql/data]
 
   app:
     build: .
     depends_on:
       db: { condition: service_healthy }
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/agilli?sslmode=disable
+      DATABASE_URL: postgres://postgres:postgres@db:5432/smartcity?sslmode=disable
       DEMO: "true"
       SESSION_SECRET: change-me
     ports: ["8080:8080"]
 
 volumes:
-  pgdata:
+  smartcity-pgdata:

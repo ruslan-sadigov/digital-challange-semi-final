@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"agilli/internal/dl"
-	"agilli/internal/domain"
+	"smartcity/internal/dl"
+	"smartcity/internal/domain"
 )
 
 // ---------- fleet (buses, routes, stations) ----------
@@ -204,6 +204,10 @@ type BusDetail struct {
 	HomeRoute       *domain.Route `json:"homeRoute"` // permanent route
 	TemporaryRoute  bool          `json:"temporaryRoute"`
 	TemporaryEndsAt *time.Time    `json:"temporaryEndsAt"`
+	// Joining: rerouted but still driving over the road network to the new line.
+	Joining bool `json:"joining"`
+	// JoinDistanceM: straight-line distance to the new line while joining.
+	JoinDistanceM float64 `json:"joinDistanceM,omitempty"`
 }
 
 func (s *FleetService) BusDetail(ctx context.Context, id int64) (*BusDetail, error) {
@@ -221,6 +225,11 @@ func (s *FleetService) BusDetail(ctx context.Context, id int64) (*BusDetail, err
 	if b.ActiveRouteID != nil {
 		if d.Route, err = s.store.Routes.Get(ctx, *b.ActiveRouteID); err != nil {
 			return nil, err
+		}
+		if b.HasPosition() {
+			if _, off := ProjectOnPath(EffectivePath(d.Route), *b.LastLat, *b.LastLng); off > JoinRadiusM {
+				d.Joining, d.JoinDistanceM = true, math.Round(off)
+			}
 		}
 		active, err := s.store.Overrides.ListByStatus(ctx, domain.OverrideActive)
 		if err != nil {
@@ -409,8 +418,18 @@ func (s *ETAService) ETA(ctx context.Context, busID, stationID int64) (*ETAResul
 	if !ok {
 		speed = s.cfg.FallbackSpeedKmh
 	}
-	st := r.Stops[target]
-	dist := PathDistanceM(EffectivePath(r), *b.LastLat, *b.LastLng, st.Lat, st.Lng)
+	// Direction-aware placement: stops in travel order, the bus by its heading over the recent track.
+	path := EffectivePath(r)
+	var prev *[2]float64
+	for i := len(track) - 2; i >= 0; i-- {
+		if DistanceM(track[i].Lat, track[i].Lng, *b.LastLat, *b.LastLng) >= 10 {
+			prev = &[2]float64{track[i].Lat, track[i].Lng}
+			break
+		}
+	}
+	busArc := ProjectWithHeading(path, *b.LastLat, *b.LastLng, prev)
+	stopArc := StopArcs(path, r.Stops)[target]
+	dist := LoopDistance(busArc, stopArc, PathLengthM(path))
 	return &ETAResult{BusID: busID, StationID: stationID, DistanceM: math.Round(dist), SpeedKmh: math.Round(speed*10) / 10,
 		Seconds: math.Round(dist / (speed / 3.6))}, nil
 }

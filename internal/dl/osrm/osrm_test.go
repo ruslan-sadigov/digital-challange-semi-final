@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 func TestRoadPath(t *testing.T) {
@@ -53,5 +53,24 @@ func TestRoadPathErrors(t *testing.T) {
 	}
 	if _, err := p.RoadPath(context.Background(), two[:1]); err == nil {
 		t.Fatal("one stop must be an error")
+	}
+}
+
+func TestRoadBetween(t *testing.T) {
+	var gotPath string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		gotPath = r.URL.Path
+		_, _ = w.Write([]byte(`{"code":"Ok","routes":[{"geometry":{"coordinates":[[49.85,40.40],[49.85,40.41],[49.86,40.41]]}}]}`))
+	}))
+	defer srv.Close()
+	path, err := New(srv.URL).RoadBetween(context.Background(), [2]float64{40.40, 49.85}, [2]float64{40.41, 49.86})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := "/route/v1/driving/49.850000,40.400000;49.860000,40.410000"; gotPath != want {
+		t.Fatalf("open route request %q (must not loop back)", gotPath)
+	}
+	if len(path) != 3 || path[2] != [2]float64{40.41, 49.86} {
+		t.Fatalf("path %v", path)
 	}
 }

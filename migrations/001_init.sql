@@ -1,4 +1,4 @@
--- Agilli Mobillik ve Neqliyyat: initial schema
+-- Smart City Transportation: initial schema
 
 CREATE TYPE user_role AS ENUM ('guest', 'passenger', 'operator');
 CREATE TYPE density_level AS ENUM ('unknown', 'low', 'medium', 'high');

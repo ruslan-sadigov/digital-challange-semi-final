@@ -1,13 +1,16 @@
-// Command seedgen builds the demo network from real OpenStreetMap data:
-//   - real bus stops (highway=bus_stop) in central Baku, via Nominatim
-//   - road-following route geometry between those stops, via OSRM
+// Command seedgen builds the demo network from real OpenStreetMap bus routes in Baku.
 //
-// The result is written to internal/worker/seeddata/baku.json and embedded in the server,
-// so running the app needs no internet access. Re-run only to refresh the data:
+// For each configured bus line it downloads the OSM route relations (both directions, linked by
+// their route_master) from the OSM API, stitches the member ways into the exact road path the bus
+// drives, and takes the stops (platform members, real names) in their official order. The forward
+// and return directions are joined into one loop.
+//
+// The result is written to internal/worker/seeddata/baku.json and embedded in the server, so the
+// app runs offline. Re-run only to refresh the data:
 //
 //	go run ./cmd/seedgen
 //
-// It respects Nominatim's usage policy (1 request per second, identifying User-Agent).
+// Data (c) OpenStreetMap contributors, ODbL.
 package main
 
 import (
@@ -16,22 +19,38 @@ import (
 	"log"
 	"math"
 	"net/http"
-	"net/url"
 	"os"
-	"sort"
-	"strconv"
+	"strings"
 	"time"
 
-	"agilli/internal/bl"
+	"smartcity/internal/bl"
 )
 
 const (
-	userAgent = "agilli-mobillik-hackathon/1.0 (seed generator)"
-	osrmBase  = "https://router.project-osrm.org"
+	userAgent = "smart-city-transportation/1.0 (hackathon seed generator)"
+	osmAPI    = "https://api.openstreetmap.org/api/0.6"
 	outFile   = "internal/worker/seeddata/baku.json"
 )
 
-type stop struct {
+// Real Baku bus lines (one OSM route relation per line; the other direction is found through its route_master).
+// Relation ids were discovered by asking the OSM API which bus routes serve real bus stops in central Baku.
+var lines = []struct {
+	ref      string
+	relation int64
+	reverse  int64 // return direction when OSM has no route_master linking them
+	buses    int
+}{
+	{"65", 21213015, 0, 2},        // Azneft meydanı - 9-cu mikrorayon (overloaded in the demo)
+	{"88", 2393325, 0, 3},         // 20-ci sahə - Dərnəgül m/st
+	{"13", 2835830, 0, 3},         // Avtovağzal - Koroğlu m/st
+	{"3", 21212095, 0, 3},         // Dərnəgül m/st - Badamdar qəs.
+	{"85", 21204983, 0, 3},        // 28 Mall - 9-cu mikrorayon
+	{"10", 2439658, 0, 3},         // MİDA Yasamal - Ağ Şəhər
+	{"93", 21233102, 21233065, 2}, // Dərnəgül m/st - Sabunçu stansiyası
+	{"2", 21214695, 0, 3},         // Dərnəgül m/st - Avtovağzal
+}
+
+type station struct {
 	OSMID int64   `json:"osmId"`
 	Name  string  `json:"name"`
 	Lat   float64 `json:"lat"`
@@ -39,187 +58,211 @@ type stop struct {
 }
 
 type routeOut struct {
-	Code  string       `json:"code"`
-	Name  string       `json:"name"`
-	Buses int          `json:"buses"`
-	Stops []int        `json:"stops"` // indexes into stations, in travel order
-	Path  [][2]float64 `json:"path"`  // [lat, lng] along real roads, closed loop
+	Code      string       `json:"code"`
+	Name      string       `json:"name"`
+	Buses     int          `json:"buses"`
+	OSMRoutes []int64      `json:"osmRelations"`
+	Stops     []int        `json:"stops"` // indexes into stations, in travel order around the loop
+	Path      [][2]float64 `json:"path"`  // [lat, lng] along the real roads, closed loop
 }
 
 type dataset struct {
 	Source   string     `json:"source"`
-	Stations []stop     `json:"stations"`
+	Stations []station  `json:"stations"`
 	Routes   []routeOut `json:"routes"`
 }
 
-// Route definitions: anchor points near well-known places; each anchor is snapped to the nearest
-// real bus stop, and real stops lying on the road path in between are added automatically.
-type anchor struct {
-	label    string
-	lat, lng float64
-}
+// ---------- OSM API ----------
 
-var routes = []struct {
-	code, name string
-	buses      int
-	anchors    []anchor
-}{
-	{"65", "Icherisheher - Koroglu", 2, []anchor{
-		{"Icherisheher", 40.3661, 49.8352}, {"Sahil", 40.3716, 49.8432}, {"28 May", 40.3795, 49.8486},
-		{"Ganjlik", 40.4003, 49.8516}, {"Narimanov", 40.4026, 49.8706}, {"Koroglu", 40.4182, 49.9178}}},
-	{"13", "Elmlar - Azadliq", 3, []anchor{
-		{"Elmlar", 40.3753, 49.8122}, {"Inshaatchilar", 40.3910, 49.8037}, {"20 Yanvar", 40.4045, 49.8085},
-		{"Memar Ajami", 40.4113, 49.8154}, {"Nasimi", 40.4249, 49.8227}, {"Azadliq", 40.4253, 49.8429}}},
-	{"88", "Nizami - Darnagul", 3, []anchor{
-		{"Nizami", 40.3793, 49.8302}, {"28 May", 40.3795, 49.8486}, {"Khatai", 40.3832, 49.8721},
-		{"Narimanov", 40.4026, 49.8706}, {"Darnagul", 40.4253, 49.8616}}},
-	{"5", "Sahil - 20 Yanvar", 3, []anchor{
-		{"Sahil", 40.3716, 49.8432}, {"Nizami", 40.3793, 49.8302}, {"Elmlar", 40.3753, 49.8122},
-		{"Inshaatchilar", 40.3910, 49.8037}, {"20 Yanvar", 40.4045, 49.8085}}},
+type element struct {
+	Type    string            `json:"type"`
+	ID      int64             `json:"id"`
+	Lat     float64           `json:"lat"`
+	Lon     float64           `json:"lon"`
+	Nodes   []int64           `json:"nodes"`
+	Tags    map[string]string `json:"tags"`
+	Members []struct {
+		Type string `json:"type"`
+		Ref  int64  `json:"ref"`
+		Role string `json:"role"`
+	} `json:"members"`
 }
 
 var client = &http.Client{Timeout: 60 * time.Second}
 
-// getJSON fetches JSON, backing off on HTTP 429 (rate limit).
-func getJSON(u string, out any) error {
+func getElements(path string) ([]element, error) {
 	for attempt := 0; ; attempt++ {
-		req, _ := http.NewRequest("GET", u, nil)
+		req, _ := http.NewRequest("GET", osmAPI+path, nil)
 		req.Header.Set("User-Agent", userAgent)
 		res, err := client.Do(req)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		if res.StatusCode == http.StatusTooManyRequests && attempt < 5 {
+		if (res.StatusCode == 429 || res.StatusCode >= 500) && attempt < 4 {
 			res.Body.Close()
-			wait := time.Duration(15*(attempt+1)) * time.Second
-			log.Printf("rate limited, waiting %s", wait)
-			time.Sleep(wait)
+			time.Sleep(time.Duration(5*(attempt+1)) * time.Second)
 			continue
 		}
 		defer res.Body.Close()
 		if res.StatusCode != 200 {
-			return fmt.Errorf("GET %s: %s", u, res.Status)
+			return nil, fmt.Errorf("GET %s: %s", path, res.Status)
 		}
-		return json.NewDecoder(res.Body).Decode(out)
+		var body struct {
+			Elements []element `json:"elements"`
+		}
+		if err := json.NewDecoder(res.Body).Decode(&body); err != nil {
+			return nil, err
+		}
+		time.Sleep(400 * time.Millisecond) // be gentle with the OSM API
+		return body.Elements, nil
 	}
 }
 
-const cacheFile = ".cache/osm_bus_stops.json"
-
-// loadStops returns the cached stop list, or fetches it from Nominatim and caches it.
-func loadStops() ([]stop, error) {
-	if b, err := os.ReadFile(cacheFile); err == nil {
-		var cached []stop
-		if json.Unmarshal(b, &cached) == nil && len(cached) > 0 {
-			log.Printf("using cached bus stops from %s (delete it to refresh)", cacheFile)
-			return cached, nil
-		}
-	}
-	log.Println("fetching real bus stops from Nominatim (about 40 s)...")
-	stops, err := fetchStops()
+// directions returns the route relation ids of both directions of a line (via route_master).
+func directions(rel int64) ([]int64, error) {
+	parents, err := getElements(fmt.Sprintf("/relation/%d/relations.json", rel))
 	if err != nil {
 		return nil, err
 	}
-	_ = os.MkdirAll(".cache", 0o755)
-	b, _ := json.Marshal(stops)
-	_ = os.WriteFile(cacheFile, b, 0o644)
-	return stops, nil
+	for _, p := range parents {
+		if p.Tags["type"] != "route_master" {
+			continue
+		}
+		var out []int64
+		for _, m := range p.Members {
+			if m.Type == "relation" {
+				out = append(out, m.Ref)
+			}
+		}
+		for i, id := range out { // start with the configured direction
+			if id == rel {
+				out = append(out[i:], out[:i]...)
+				break
+			}
+		}
+		if len(out) > 2 {
+			out = out[:2]
+		}
+		return out, nil
+	}
+	return []int64{rel}, nil
 }
 
-// fetchStops tiles the area and asks Nominatim for bus stops in each tile.
-func fetchStops() ([]stop, error) {
-	seen := map[int64]bool{}
-	var out []stop
-	const step = 0.02
-	for lat := 40.355; lat < 40.44; lat += step {
-		for lng := 49.79; lng < 49.935; lng += step {
-			q := url.Values{
-				"q": {"bus stop"}, "format": {"jsonv2"}, "limit": {"50"}, "bounded": {"1"},
-				"viewbox": {fmt.Sprintf("%f,%f,%f,%f", lng, lat+step, lng+step, lat)},
-			}
-			var res []struct {
-				OSMID    int64  `json:"osm_id"`
-				OSMType  string `json:"osm_type"`
-				Category string `json:"category"`
-				Type     string `json:"type"`
-				Name     string `json:"name"`
-				Lat      string `json:"lat"`
-				Lon      string `json:"lon"`
-			}
-			if err := getJSON("https://nominatim.openstreetmap.org/search?"+q.Encode(), &res); err != nil {
-				return nil, err
-			}
-			for _, r := range res {
-				if r.Category != "highway" || r.Type != "bus_stop" || r.OSMType != "node" || seen[r.OSMID] {
-					continue
-				}
-				la, _ := strconv.ParseFloat(r.Lat, 64)
-				lo, _ := strconv.ParseFloat(r.Lon, 64)
-				name := r.Name
-				if name == "" {
-					name = fmt.Sprintf("Bus stop %d", r.OSMID)
-				}
-				seen[r.OSMID] = true
-				out = append(out, stop{OSMID: r.OSMID, Name: name, Lat: la, Lng: lo})
-			}
-			time.Sleep(1100 * time.Millisecond) // Nominatim policy: max 1 req/s
-		}
-	}
-	return out, nil
+type direction struct {
+	rel   element
+	path  [][2]float64
+	stops []station
+	gaps  int
 }
 
-// roadPath asks OSRM for the driving route through the points and back to the first one.
-func roadPath(pts [][2]float64) ([][2]float64, error) {
-	coords := ""
-	for i, p := range append(pts, pts[0]) {
-		if i > 0 {
-			coords += ";"
-		}
-		coords += fmt.Sprintf("%.6f,%.6f", p[1], p[0])
-	}
-	var res struct {
-		Code   string `json:"code"`
-		Routes []struct {
-			Geometry struct {
-				Coordinates [][2]float64 `json:"coordinates"` // [lng, lat]
-			} `json:"geometry"`
-		} `json:"routes"`
-	}
-	if err := getJSON(osrmBase+"/route/v1/driving/"+coords+"?overview=full&geometries=geojson", &res); err != nil {
+func isPlatform(role string) bool { return strings.HasPrefix(role, "platform") }
+
+// loadDirection downloads a route relation with its ways and nodes and builds its road path and stops.
+func loadDirection(id int64) (*direction, error) {
+	els, err := getElements(fmt.Sprintf("/relation/%d/full.json", id))
+	if err != nil {
 		return nil, err
 	}
-	if res.Code != "Ok" || len(res.Routes) == 0 {
-		return nil, fmt.Errorf("osrm: %s", res.Code)
-	}
-	var out [][2]float64
-	for _, c := range res.Routes[0].Geometry.Coordinates {
-		out = append(out, [2]float64{round6(c[1]), round6(c[0])})
-	}
-	return out, nil
-}
-
-func round6(v float64) float64 { return math.Round(v*1e6) / 1e6 }
-
-func nearestStop(stops []stop, lat, lng float64) (int, float64) {
-	bi, bd := -1, math.Inf(1)
-	for i, s := range stops {
-		if d := bl.DistanceM(lat, lng, s.Lat, s.Lng); d < bd {
-			bi, bd = i, d
+	nodes := map[int64]element{}
+	ways := map[int64]element{}
+	var rel element
+	for _, e := range els {
+		switch e.Type {
+		case "node":
+			nodes[e.ID] = e
+		case "way":
+			ways[e.ID] = e
+		case "relation":
+			if e.ID == id {
+				rel = e
+			}
 		}
 	}
-	return bi, bd
+	d := &direction{rel: rel}
+	// Stops: platform members in order (real bus stop nodes with names).
+	for _, m := range rel.Members {
+		if m.Type != "node" || !isPlatform(m.Role) {
+			continue
+		}
+		n, ok := nodes[m.Ref]
+		if !ok {
+			continue
+		}
+		name := n.Tags["name"]
+		if name == "" {
+			name = n.Tags["name:az"]
+		}
+		if name == "" {
+			name = fmt.Sprintf("Bus stop %d", n.ID)
+		}
+		d.stops = append(d.stops, station{OSMID: n.ID, Name: name, Lat: n.Lat, Lng: n.Lon})
+	}
+	// Path: stitch the road ways (members without a stop/platform role) in order.
+	var seq [][]int64
+	for _, m := range rel.Members {
+		if m.Type == "way" && (m.Role == "" || m.Role == "forward" || m.Role == "backward") {
+			if w, ok := ways[m.Ref]; ok && len(w.Nodes) > 1 {
+				seq = append(seq, w.Nodes)
+			}
+		}
+	}
+	if len(seq) == 0 {
+		return nil, fmt.Errorf("relation %d has no road ways", id)
+	}
+	coord := func(n int64) [2]float64 { e := nodes[n]; return [2]float64{e.Lat, e.Lon} }
+	reverse := func(a []int64) []int64 {
+		b := make([]int64, len(a))
+		for i := range a {
+			b[i] = a[len(a)-1-i]
+		}
+		return b
+	}
+	first := seq[0] // orient the first way towards the second
+	if len(seq) > 1 {
+		nx := seq[1]
+		if first[0] == nx[0] || first[0] == nx[len(nx)-1] {
+			first = reverse(first)
+		}
+	}
+	chain := append([]int64{}, first...)
+	for _, w := range seq[1:] {
+		end := chain[len(chain)-1]
+		switch {
+		case w[0] == end:
+			chain = append(chain, w[1:]...)
+		case w[len(w)-1] == end:
+			chain = append(chain, reverse(w)[1:]...)
+		default:
+			// not connected (incomplete mapping): take the orientation whose start is closer
+			e := coord(end)
+			a, b := coord(w[0]), coord(w[len(w)-1])
+			if bl.DistanceM(e[0], e[1], b[0], b[1]) < bl.DistanceM(e[0], e[1], a[0], a[1]) {
+				w = reverse(w)
+			}
+			d.gaps++
+			chain = append(chain, w...)
+		}
+	}
+	for _, n := range chain {
+		if _, ok := nodes[n]; ok {
+			d.path = append(d.path, coord(n))
+		}
+	}
+	return d, nil
+}
+
+func round6(p [][2]float64) [][2]float64 {
+	out := make([][2]float64, len(p))
+	for i, c := range p {
+		out[i] = [2]float64{math.Round(c[0]*1e6) / 1e6, math.Round(c[1]*1e6) / 1e6}
+	}
+	return out
 }
 
 func main() {
-	pool, err := loadStops()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("%d bus stops found", len(pool))
-
-	ds := dataset{Source: "OpenStreetMap contributors (ODbL): stops via Nominatim, road geometry via OSRM"}
+	ds := dataset{Source: "OpenStreetMap contributors (ODbL): real Baku bus route relations via the OSM API"}
 	stationIdx := map[int64]int{}
-	addStation := func(s stop) int {
+	addStation := func(s station) int {
 		if i, ok := stationIdx[s.OSMID]; ok {
 			return i
 		}
@@ -228,78 +271,62 @@ func main() {
 		return len(ds.Stations) - 1
 	}
 
-	for _, r := range routes {
-		// 1. snap anchors to real stops
-		var anchorStops []stop
-		for _, a := range r.anchors {
-			i, d := nearestStop(pool, a.lat, a.lng)
-			if i < 0 || d > 600 {
-				log.Fatalf("route %s: no real bus stop within 600 m of %s", r.code, a.label)
-			}
-			anchorStops = append(anchorStops, pool[i])
-		}
-		pts := make([][2]float64, len(anchorStops))
-		for i, s := range anchorStops {
-			pts[i] = [2]float64{s.Lat, s.Lng}
-		}
-		// 2. real road geometry through them
-		path, err := roadPath(pts)
+	for _, ln := range lines {
+		dirIDs, err := directions(ln.relation)
 		if err != nil {
-			log.Fatalf("route %s: %v", r.code, err)
+			log.Fatalf("line %s: %v", ln.ref, err)
 		}
-		path = bl.SimplifyPath(path, 3)
-		time.Sleep(500 * time.Millisecond)
+		if len(dirIDs) == 1 && ln.reverse != 0 {
+			dirIDs = append(dirIDs, ln.reverse)
+		}
+		var dirs []*direction
+		for _, id := range dirIDs {
+			d, err := loadDirection(id)
+			if err != nil {
+				log.Fatalf("line %s: %v", ln.ref, err)
+			}
+			dirs = append(dirs, d)
+		}
+		// One loop: forward path + return path (or back along the same roads if only one direction is mapped).
+		var path [][2]float64
+		var stops []station
+		gaps := 0
+		for _, d := range dirs {
+			path = append(path, d.path...)
+			stops = append(stops, d.stops...)
+			gaps += d.gaps
+		}
+		if len(dirs) == 1 {
+			for i := len(dirs[0].path) - 2; i >= 0; i-- {
+				path = append(path, dirs[0].path[i])
+			}
+		}
+		if len(path) > 0 {
+			path = append(path, path[0]) // close the loop
+		}
+		path = round6(bl.SimplifyPath(path, 2))
 
-		// 3. every real stop within 20 m of the road becomes a stop, in travel order, at least 300 m apart
-		type onPath struct {
-			s   stop
-			arc float64
+		name := dirs[0].rel.Tags["from"] + " - " + dirs[0].rel.Tags["to"]
+		if strings.TrimSpace(name) == "-" {
+			name = dirs[0].rel.Tags["name"]
 		}
-		var cand []onPath
-		total := bl.PathLengthM(path)
-		for _, s := range pool {
-			arc, off := bl.ProjectOnPath(path, s.Lat, s.Lng)
-			if off <= 20 && arc < total-50 {
-				cand = append(cand, onPath{s, arc})
-			}
+		ro := routeOut{Code: ln.ref, Name: name, Buses: ln.buses, Path: path}
+		for _, d := range dirs {
+			ro.OSMRoutes = append(ro.OSMRoutes, d.rel.ID)
 		}
-		for _, a := range anchorStops { // anchors are preferred, but only if the bus really passes them
-			arc, off := bl.ProjectOnPath(path, a.Lat, a.Lng)
-			if off <= 20 {
-				cand = append(cand, onPath{a, arc})
-			} else {
-				log.Printf("route %s: anchor stop %q is %.0f m off the road, skipped", r.code, a.Name, off)
-			}
-		}
-		sort.Slice(cand, func(i, j int) bool { return cand[i].arc < cand[j].arc })
-		isAnchor := map[int64]bool{}
-		for _, a := range anchorStops {
-			isAnchor[a.OSMID] = true
-		}
-		var chosen []onPath
-		used := map[int64]bool{}
-		for _, c := range cand {
-			if used[c.s.OSMID] {
+		for _, s := range stops { // a terminal shared by both directions appears once
+			idx := addStation(s)
+			if n := len(ro.Stops); n > 0 && ro.Stops[n-1] == idx {
 				continue
 			}
-			if n := len(chosen); n > 0 && c.arc-chosen[n-1].arc < 300 {
-				if !isAnchor[c.s.OSMID] {
-					continue
-				}
-				if !isAnchor[chosen[n-1].s.OSMID] { // anchor replaces a too-close plain stop
-					used[chosen[n-1].s.OSMID] = false
-					chosen = chosen[:n-1]
-				}
-			}
-			chosen = append(chosen, c)
-			used[c.s.OSMID] = true
+			ro.Stops = append(ro.Stops, idx)
 		}
-		ro := routeOut{Code: r.code, Name: r.name, Buses: r.buses, Path: path}
-		for _, c := range chosen {
-			ro.Stops = append(ro.Stops, addStation(c.s))
+		if n := len(ro.Stops); n > 1 && ro.Stops[0] == ro.Stops[n-1] {
+			ro.Stops = ro.Stops[:n-1]
 		}
 		ds.Routes = append(ds.Routes, ro)
-		log.Printf("route %s: %d stops, %d path points, %.1f km loop", r.code, len(ro.Stops), len(path), total/1000)
+		log.Printf("line %-3s %-45s %d dir, %3d stops, %4d points, %.1f km loop, %d gap(s)",
+			ln.ref, name, len(dirs), len(ro.Stops), len(path), bl.PathLengthM(path)/1000, gaps)
 	}
 
 	if err := os.MkdirAll("internal/worker/seeddata", 0o755); err != nil {

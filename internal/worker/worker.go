@@ -3,15 +3,17 @@ package worker
 
 import (
 	"context"
+	"crypto/sha256"
 	_ "embed"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
 	"time"
 
-	"agilli/internal/bl"
-	"agilli/internal/dl"
-	"agilli/internal/domain"
+	"smartcity/internal/bl"
+	"smartcity/internal/dl"
+	"smartcity/internal/domain"
 )
 
 // RunScheduler runs the anomaly check and the heatmap broadcast on their intervals until ctx is cancelled.
@@ -56,14 +58,33 @@ type seedData struct {
 	} `json:"routes"`
 }
 
-// Seed inserts the real Baku demo network (stops, road-following routes, buses) when the database has no stations.
+// SeedVersion identifies the embedded network; when it changes, existing databases are re-seeded.
+func SeedVersion() string {
+	sum := sha256.Sum256(bakuJSON)
+	return hex.EncodeToString(sum[:6])
+}
+
+// Seed loads the real Baku network (OSM bus lines, stops and road paths) and its buses.
+// It runs when the database has no network yet, or when the embedded seed data has changed since the
+// last seed: then the demo network (stations, routes, buses and their live data) is replaced.
 func Seed(ctx context.Context, store *dl.Store, fleet *bl.FleetService) error {
+	version := SeedVersion()
+	loaded, err := store.Meta.Get(ctx, "seed_version")
+	if err != nil {
+		return err
+	}
 	existing, err := store.Stations.List(ctx)
 	if err != nil {
 		return err
 	}
-	if len(existing) > 0 {
+	if loaded == version && len(existing) > 0 {
 		return nil
+	}
+	if len(existing) > 0 {
+		log.Printf("seed data changed (%q -> %q): replacing the demo network", loaded, version)
+		if err := store.Meta.ResetNetwork(ctx); err != nil {
+			return err
+		}
 	}
 	var data seedData
 	if err := json.Unmarshal(bakuJSON, &data); err != nil {
@@ -94,6 +115,6 @@ func Seed(ctx context.Context, store *dl.Store, fleet *bl.FleetService) error {
 			}
 		}
 	}
-	log.Printf("seeded %d real bus stops and %d road routes (%s)", len(data.Stations), len(data.Routes), data.Source)
-	return nil
+	log.Printf("seeded %d real bus stops and %d bus lines (%s)", len(data.Stations), len(data.Routes), data.Source)
+	return store.Meta.Set(ctx, "seed_version", version)
 }

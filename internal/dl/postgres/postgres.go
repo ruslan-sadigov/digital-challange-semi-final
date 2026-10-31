@@ -12,8 +12,8 @@ import (
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"agilli/internal/dl"
-	"agilli/internal/domain"
+	"smartcity/internal/dl"
+	"smartcity/internal/domain"
 )
 
 // NewStore wires every repository on one connection pool.
@@ -27,7 +27,32 @@ func NewStore(pool *pgxpool.Pool) *dl.Store {
 		Reports:   &ReportRepo{pool},
 		Anomalies: &AnomalyRepo{pool},
 		Overrides: &OverrideRepo{pool},
+		Meta:      &MetaRepo{pool},
 	}
+}
+
+// ---------- meta ----------
+
+type MetaRepo struct{ pool *pgxpool.Pool }
+
+func (r *MetaRepo) Get(ctx context.Context, key string) (string, error) {
+	var v string
+	err := r.pool.QueryRow(ctx, `SELECT value FROM app_meta WHERE key=$1`, key).Scan(&v)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return "", nil
+	}
+	return v, err
+}
+
+func (r *MetaRepo) Set(ctx context.Context, key, value string) error {
+	_, err := r.pool.Exec(ctx, `INSERT INTO app_meta(key, value) VALUES ($1,$2) ON CONFLICT (key) DO UPDATE SET value=EXCLUDED.value`, key, value)
+	return err
+}
+
+func (r *MetaRepo) ResetNetwork(ctx context.Context) error {
+	_, err := r.pool.Exec(ctx, `TRUNCATE route_override, density_anomaly, route_density_state, bus_status, bus_location,
+		route_stop, bus, route, station RESTART IDENTITY CASCADE`)
+	return err
 }
 
 // Connect opens a pool and pings it.

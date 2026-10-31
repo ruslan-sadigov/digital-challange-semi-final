@@ -47,8 +47,10 @@ async function select(id) {
   $('d-pass').textContent = `Estimated passengers: ${b.currentPassengerCount} / ${b.passengerCapacity}`;
   const temp = $('d-temp');
   if (d.temporaryRoute && d.homeRoute) {
-    temp.textContent = `Temporarily serving route ${d.route.code} (normally ${d.homeRoute.code}) to relieve crowding` +
-      (d.temporaryEndsAt ? ` until ${new Date(d.temporaryEndsAt).toLocaleTimeString()}` : '') + '.';
+    temp.textContent = (d.joining
+      ? `On its way to route ${d.route.code} to relieve crowding, ${(d.joinDistanceM / 1000).toFixed(1)} km away. Still serving route ${d.homeRoute.code} until it joins.`
+      : `Temporarily serving route ${d.route.code} (normally ${d.homeRoute.code}) to relieve crowding`) +
+      (d.temporaryEndsAt ? ` Until ${new Date(d.temporaryEndsAt).toLocaleTimeString()}.` : (d.joining ? '' : '.'));
     temp.classList.remove('hidden');
   } else temp.classList.add('hidden');
   $('d-msg').textContent = '';

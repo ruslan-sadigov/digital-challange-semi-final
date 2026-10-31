@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 // An L-shaped closed loop: 1 km north, 1 km east, then straight back (~1.41 km).
@@ -106,5 +106,78 @@ func TestRouteDistanceUsesRoadNotStraightLine(t *testing.T) {
 	}
 	if straight := DistanceM(p[0][0], p[0][1], cLat, cLng); d <= straight {
 		t.Fatal("road distance must exceed straight-line distance here")
+	}
+}
+
+// An out-and-back street: east along the north lane, back west along the south lane 12 m away.
+func twoLaneLoop() [][2]float64 {
+	lat, lng := 40.40, 49.85
+	k := 111320 * math.Cos(rad(lat))
+	south := lat - 12.0/111320
+	end := lng + 2000/k
+	return [][2]float64{{lat, lng}, {lat, end}, {south, end}, {south, lng}, {lat, lng}}
+}
+
+func TestStopArcsFollowTravelOrderOnParallelLanes(t *testing.T) {
+	p := twoLaneLoop()
+	k := 111320 * math.Cos(rad(40.40))
+	mid := 49.85 + 1000/k
+	// Outbound stop at 1 km, terminal at the far end, then a return stop 300 m back west.
+	// The return stop is closer to the outbound lane, but it comes after the terminal in travel order,
+	// so it must land on the return lane (~3.3 km along the loop), not the outbound lane (~0.7 km).
+	stops := []domain.Station{
+		{Lat: 40.40 + 6.0/111320, Lng: mid},            // outbound pavement
+		{Lat: 40.40 - 6.0/111320, Lng: 49.85 + 2000/k}, // terminal at the turnaround
+		{Lat: 40.40 - 3.0/111320, Lng: 49.85 + 700/k},  // return stop, nearer the outbound lane
+	}
+	arcs := StopArcs(p, stops)
+	if math.Abs(arcs[0]-1000) > 5 {
+		t.Fatalf("outbound stop arc %v, want ~1000", arcs[0])
+	}
+	if math.Abs(arcs[2]-3312) > 10 {
+		t.Fatalf("return stop arc %v, want ~3312 (return lane)", arcs[2])
+	}
+	// plain nearest-road projection gets it wrong, which is why StopArcs exists
+	if a, _ := ProjectOnPath(p, stops[2].Lat, stops[2].Lng); math.Abs(a-700) > 10 {
+		t.Fatalf("expected nearest projection on the outbound lane, got %v", a)
+	}
+}
+
+func TestProjectWithHeadingPicksTheLaneOfTravel(t *testing.T) {
+	p := twoLaneLoop()
+	k := 111320 * math.Cos(rad(40.40))
+	lat := 40.40 - 5.0/111320 // between the lanes, nearer the outbound one
+	lng := 49.85 + 1000/k
+	westward := &[2]float64{lat, lng + 30/k} // came from the east => driving west => return lane
+	if a := ProjectWithHeading(p, lat, lng, westward); math.Abs(a-3012) > 10 {
+		t.Fatalf("westbound bus arc %v, want ~3012", a)
+	}
+	eastward := &[2]float64{lat, lng - 30/k}
+	if a := ProjectWithHeading(p, lat, lng, eastward); math.Abs(a-1000) > 10 {
+		t.Fatalf("eastbound bus arc %v, want ~1000", a)
+	}
+	if a := ProjectWithHeading(p, lat, lng, nil); math.Abs(a-1000) > 10 {
+		t.Fatalf("no heading: nearest lane expected, got %v", a)
+	}
+	// ETA distance: westbound bus to the return-side stop just ahead vs. behind
+	if d := LoopDistance(3012, 3112, PathLengthM(p)); math.Abs(d-100) > 1 {
+		t.Fatalf("loop distance %v", d)
+	}
+	if d := LoopDistance(3112, 3012, 4024); math.Abs(d-3924) > 1 {
+		t.Fatalf("wrapped loop distance %v", d)
+	}
+}
+
+func TestPointAtArcOpenClamps(t *testing.T) {
+	p := [][2]float64{{40.40, 49.85}, {40.41, 49.85}}
+	if lat, _ := PointAtArcOpen(p, -5); lat != 40.40 {
+		t.Fatal("before start should clamp to start")
+	}
+	if lat, _ := PointAtArcOpen(p, 1e9); lat != 40.41 {
+		t.Fatal("past end should clamp to end (no wrap)")
+	}
+	lat, _ := PointAtArcOpen(p, PathLengthM(p)/2)
+	if math.Abs(lat-40.405) > 1e-6 {
+		t.Fatalf("middle: %v", lat)
 	}
 }

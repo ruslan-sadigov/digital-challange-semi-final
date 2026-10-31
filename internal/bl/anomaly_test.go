@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 const threshold = 10 * time.Minute

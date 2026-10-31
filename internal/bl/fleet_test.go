@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 func TestDistanceM(t *testing.T) {

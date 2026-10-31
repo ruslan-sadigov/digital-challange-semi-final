@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 var t0 = time.Date(2026, 10, 31, 9, 0, 0, 0, time.UTC)

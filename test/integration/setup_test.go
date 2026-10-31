@@ -2,7 +2,7 @@
 
 // Package integration runs the system against a real PostgreSQL database.
 //
-//	TEST_DATABASE_URL=postgres://postgres@localhost:5432/agilli_test?sslmode=disable go test -tags=integration ./test/integration/...
+//	TEST_DATABASE_URL=postgres://postgres@localhost:5432/smartcity_test?sslmode=disable go test -tags=integration ./test/integration/...
 //
 // Each test resets the public schema, applies the migrations and seeds the demo network.
 package integration
@@ -22,14 +22,14 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"agilli/internal/bl"
-	"agilli/internal/dl"
-	"agilli/internal/dl/postgres"
-	"agilli/internal/pl"
-	"agilli/internal/pl/controller"
-	"agilli/internal/pl/ws"
-	"agilli/internal/worker"
-	"agilli/migrations"
+	"smartcity/internal/bl"
+	"smartcity/internal/dl"
+	"smartcity/internal/dl/postgres"
+	"smartcity/internal/pl"
+	"smartcity/internal/pl/controller"
+	"smartcity/internal/pl/ws"
+	"smartcity/internal/worker"
+	"smartcity/migrations"
 )
 
 const deviceKey = "test-device-key"
@@ -98,7 +98,7 @@ func setup(t *testing.T) *env {
 	if err := worker.Seed(ctx, e.store, e.fleet); err != nil {
 		t.Fatalf("seed: %v", err)
 	}
-	if err := e.auth.EnsureOperator(ctx, "op@agilli.az", "operator123"); err != nil {
+	if err := e.auth.EnsureOperator(ctx, "op@smartcity.az", "operator123"); err != nil {
 		t.Fatal(err)
 	}
 	handler, err := pl.NewRouter(&controller.Services{

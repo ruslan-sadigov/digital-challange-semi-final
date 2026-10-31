@@ -6,10 +6,10 @@ import (
 	"io/fs"
 	"net/http"
 
-	"agilli/internal/domain"
-	"agilli/internal/pl/controller"
-	mw "agilli/internal/pl/middleware"
-	"agilli/internal/pl/view"
+	"smartcity/internal/domain"
+	"smartcity/internal/pl/controller"
+	mw "smartcity/internal/pl/middleware"
+	"smartcity/internal/pl/view"
 )
 
 // NewRouter wires every route. deviceKey protects the bus GPS endpoint.

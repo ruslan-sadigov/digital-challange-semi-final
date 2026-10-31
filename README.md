@@ -1,4 +1,4 @@
-# Agilli Mobillik ve Neqliyyat
+# Smart City Transportation
 
 Real-time bus tracking and crowd management for Baku, with two map panels on OpenStreetMap:
 
@@ -15,9 +15,12 @@ docker compose up --build
 ```
 
 Open http://localhost:8080 (passenger, auto guest session) and http://localhost:8080/operator
-(operator sign-in `operator@agilli.az` / `operator123`). Compose runs in **demo mode**: a simulator drives
-11 buses along real Baku roads on 4 routes with ~85 riders and 80 pedestrians, and route **65** is overloaded, so
+(operator sign-in `operator@smartcity.az` / `operator123`). Compose runs in **demo mode**: a simulator drives
+22 buses on 8 real Baku bus lines with ~120 riders and 80 pedestrians, and line **65** is overloaded, so
 within about 3 minutes you see an anomaly, reroute suggestions, and can approve one.
+
+If you ran an earlier version, the app notices that the embedded network changed and replaces the old demo
+network on start (the log says `seed data changed ... replacing the demo network`).
 
 Without Docker for the app (PostgreSQL 16 still required):
 
@@ -28,11 +31,15 @@ make demo    # fast timings; `make run` uses the real 10-minute rule
 
 ## Real map data
 
-The seed network is built from OpenStreetMap: **107 real bus stops** (OSM `highway=bus_stop`, found via
-Nominatim) and **road-following route geometry** (via OSRM). It is generated once by `go run ./cmd/seedgen`
-and embedded in the binary (`internal/worker/seeddata/baku.json`), so the app runs offline. Each route
-anchors on well-known places and includes every real stop the bus passes within 20 m of its road, in
-travel order, at least 300 m apart.
+The network is **real Baku bus lines from OpenStreetMap**: lines 2, 3, 10, 13, 65, 85, 88 and 93 with their
+official numbers, **374 real bus stops** (platform members of the OSM route relations, with their real names)
+and the **exact roads each line drives** (the relation's member ways, stitched in order, outbound and return
+joined into one loop; 0 gaps). `go run ./cmd/seedgen` downloads them from the OSM API and writes
+`internal/worker/seeddata/baku.json`, which is embedded in the binary, so the app runs offline.
+
+The seed is versioned (hash of that file, stored in `app_meta`): when the data changes, the demo network
+(stations, routes, buses and their live data) is replaced on the next start. Set `SEED=false` to keep a
+hand-built network.
 
 Routes created or edited by an operator are routed along roads at save time through OSRM (`OSRM_URL`,
 default `https://router.project-osrm.org`, `off` to disable); if OSRM is unreachable the route falls back to
@@ -47,7 +54,9 @@ straight lines between stops. Buses in the simulator drive the road path, and ET
 | Route density | Average score of the buses currently serving the route (including temporarily rerouted ones), recomputed every check |
 | Anomaly | Route High continuously for >= 10 min opens one anomaly (one alert per episode). A dip before 10 min resets the clock; 2 consecutive non-High checks resolve it. The clock is persisted, so restarts do not reset it |
 | Reroute suggestion | Up to 3 buses from other routes: Low density first (Medium only if no Low), donor route keeps >= 1 bus. Ranked by distance to the crowded route + donor route density - shared stations |
-| Approval | Manual. An approved reroute lasts 60 min (or until an operator ends it). It is **not** ended when the anomaly resolves, because the reroute is usually what resolved it |
+| Approval and interval | Both manual. The operator approves a suggestion and picks its interval: **Until I end it** (default) or 15 min to 4 h. Nothing ends on its own unless the operator set an interval. A reroute is not ended when the anomaly resolves, because the reroute is usually what resolved it |
+| Rerouting in real time | An approved bus does not jump: it drives from where it is to the nearest point of the new line over real roads (OSRM route), at normal speed, then continues on the new line. Until it joins (within 60 m of the line) it still counts for its home route, so the crowded route is only relieved once the extra bus is really there; passengers see "On its way to route 65, 2.7 km away" |
+| ETA | Road distance along the loop from the bus to the stop, divided by the bus's recent speed. Stops are placed in travel order and the bus by its heading, so where outbound and return roads run side by side the right direction is used |
 | Notifications | WebSocket alert to every open operator panel + browser Notification API |
 | Location sampling | Users every 2 min (foreground, opt-in), buses every 1 min via `POST /api/device/buses/{id}/location` with `X-Device-Key` |
 
@@ -68,7 +77,7 @@ test/integration/    end-to-end tests against PostgreSQL
 
 ```bash
 make test               # unit tests, no database
-make test-integration   # needs PostgreSQL (TEST_DATABASE_URL, database agilli_test)
+make test-integration   # needs PostgreSQL (TEST_DATABASE_URL, database smartcity_test)
 make cover              # combined coverage (71% of internal/ at the time of writing)
 ```
 
@@ -83,10 +92,10 @@ expiry scenario with a fake clock.
 
 | Variable | Default | Notes |
 | --- | --- | --- |
-| `DATABASE_URL` | `postgres://postgres:postgres@localhost:5432/agilli?sslmode=disable` | |
+| `DATABASE_URL` | `postgres://postgres:postgres@localhost:5432/smartcity?sslmode=disable` | |
 | `ADDR` | `:8080` | |
 | `SESSION_SECRET` | `dev-secret-change-me` | HMAC key for session cookies |
-| `OPERATOR_EMAIL` / `OPERATOR_PASSWORD` | `operator@agilli.az` / `operator123` | Created on first start |
+| `OPERATOR_EMAIL` / `OPERATOR_PASSWORD` | `operator@smartcity.az` / `operator123` | Created on first start |
 | `DEVICE_API_KEY` | `dev-device-key` | For bus GPS devices |
 | `OSRM_URL` | `https://router.project-osrm.org` | Road routing for operator-created routes; `off` = straight lines |
 | `DEMO` | `false` | Fast timings (2 min anomaly, 10 s checks) |
@@ -94,7 +103,8 @@ expiry scenario with a fake clock.
 | `ANOMALY_THRESHOLD` | `10m` (`2m` in demo) | |
 | `CHECK_INTERVAL` / `HEATMAP_INTERVAL` | `60s` / `30s` | |
 | `USER_SAMPLE_INTERVAL` | `2m` | |
-| `REPORT_WINDOW`, `OVERRIDE_DURATION` | `10m`, `60m` | |
+| `REPORT_WINDOW` | `10m` | |
+| `OVERRIDE_DURATION` | `0` | Interval pre-selected in the approve picker (`0` = until ended) |
 | `SIM_TICK`, `SIM_CROWDED_ROUTE` | `5s`, `65` | |
 
 ## Known limits (competition scope)

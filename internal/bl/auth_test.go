@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 // memUsers is an in-memory dl.UserRepository for unit tests.
@@ -73,54 +73,54 @@ func TestRegisterLoginGuest(t *testing.T) {
 	if _, err := a.Register(ctx, "a@b.az", "123"); err == nil {
 		t.Fatal("short password must fail")
 	}
-	u, err := a.Register(ctx, "Rider@Agilli.az", "secret1")
+	u, err := a.Register(ctx, "Rider@SmartCity.az", "secret1")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if u.Role != domain.RolePassenger || *u.Email != "rider@agilli.az" {
+	if u.Role != domain.RolePassenger || *u.Email != "rider@smartcity.az" {
 		t.Fatalf("unexpected user %+v", u)
 	}
-	if _, err := a.Register(ctx, "rider@agilli.az", "secret1"); !errors.Is(err, domain.ErrConflict) {
+	if _, err := a.Register(ctx, "rider@smartcity.az", "secret1"); !errors.Is(err, domain.ErrConflict) {
 		t.Fatalf("duplicate email: want conflict, got %v", err)
 	}
-	if _, err := a.Login(ctx, "rider@agilli.az", "nope00", domain.RolePassenger); !errors.Is(err, domain.ErrUnauthorized) {
+	if _, err := a.Login(ctx, "rider@smartcity.az", "nope00", domain.RolePassenger); !errors.Is(err, domain.ErrUnauthorized) {
 		t.Fatalf("wrong password: got %v", err)
 	}
-	if _, err := a.Login(ctx, "ghost@agilli.az", "secret1", domain.RolePassenger); !errors.Is(err, domain.ErrUnauthorized) {
+	if _, err := a.Login(ctx, "ghost@smartcity.az", "secret1", domain.RolePassenger); !errors.Is(err, domain.ErrUnauthorized) {
 		t.Fatalf("unknown email: got %v", err)
 	}
-	if _, err := a.Login(ctx, "RIDER@agilli.az", "secret1", domain.RolePassenger); err != nil {
+	if _, err := a.Login(ctx, "RIDER@smartcity.az", "secret1", domain.RolePassenger); err != nil {
 		t.Fatalf("login: %v", err)
 	}
 	g, err := a.Guest(ctx)
 	if err != nil || g.Role != domain.RoleGuest || g.Email != nil {
 		t.Fatalf("guest: %+v %v", g, err)
 	}
-	if err := a.EnsureOperator(ctx, "op@agilli.az", "operator1"); err != nil {
+	if err := a.EnsureOperator(ctx, "op@smartcity.az", "operator1"); err != nil {
 		t.Fatal(err)
 	}
-	if err := a.EnsureOperator(ctx, "op@agilli.az", "operator1"); err != nil {
+	if err := a.EnsureOperator(ctx, "op@smartcity.az", "operator1"); err != nil {
 		t.Fatal("EnsureOperator must be idempotent")
 	}
-	op, err := a.Login(ctx, "op@agilli.az", "operator1", domain.RoleOperator)
+	op, err := a.Login(ctx, "op@smartcity.az", "operator1", domain.RoleOperator)
 	if err != nil || op.Role != domain.RoleOperator {
 		t.Fatalf("operator portal: %v", err)
 	}
 	// Portals are separate: operators cannot use the passenger sign-in and vice versa.
-	if _, err := a.Login(ctx, "op@agilli.az", "operator1", domain.RolePassenger); !errors.Is(err, domain.ErrForbidden) {
+	if _, err := a.Login(ctx, "op@smartcity.az", "operator1", domain.RolePassenger); !errors.Is(err, domain.ErrForbidden) {
 		t.Fatalf("operator on passenger portal: %v", err)
 	}
-	if _, err := a.Login(ctx, "rider@agilli.az", "secret1", domain.RoleOperator); !errors.Is(err, domain.ErrForbidden) {
+	if _, err := a.Login(ctx, "rider@smartcity.az", "secret1", domain.RoleOperator); !errors.Is(err, domain.ErrForbidden) {
 		t.Fatalf("passenger on operator portal: %v", err)
 	}
 	// Wrong password on the operator portal is still a plain 401, not a hint that the account exists.
-	if _, err := a.Login(ctx, "rider@agilli.az", "wrong00", domain.RoleOperator); !errors.Is(err, domain.ErrUnauthorized) {
+	if _, err := a.Login(ctx, "rider@smartcity.az", "wrong00", domain.RoleOperator); !errors.Is(err, domain.ErrUnauthorized) {
 		t.Fatalf("wrong password on operator portal: %v", err)
 	}
-	if _, err := a.RegisterWithConfirmation(ctx, "new@agilli.az", "secret1", "secret2"); err == nil {
+	if _, err := a.RegisterWithConfirmation(ctx, "new@smartcity.az", "secret1", "secret2"); err == nil {
 		t.Fatal("mismatched confirmation must fail")
 	}
-	if _, err := a.RegisterWithConfirmation(ctx, "new@agilli.az", "secret1", "secret1"); err != nil {
+	if _, err := a.RegisterWithConfirmation(ctx, "new@smartcity.az", "secret1", "secret1"); err != nil {
 		t.Fatal(err)
 	}
 }

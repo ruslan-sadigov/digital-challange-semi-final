@@ -8,9 +8,9 @@ import (
 	"math/rand"
 	"time"
 
-	"agilli/internal/bl"
-	"agilli/internal/dl"
-	"agilli/internal/domain"
+	"smartcity/internal/bl"
+	"smartcity/internal/dl"
+	"smartcity/internal/domain"
 )
 
 // Simulator feeds the system with realistic demo data: buses driving their routes, app users riding
@@ -24,6 +24,7 @@ type Simulator struct {
 	Tick         time.Duration
 	CrowdedRoute string
 	Walkers      int
+	Planner      bl.RoutePlanner // road routing for moving a rerouted bus to its new line (nil = straight line)
 
 	rng     *rand.Rand
 	buses   map[int64]*simBus
@@ -38,6 +39,12 @@ type simBus struct {
 	speed   float64 // m/s
 	lat     float64
 	lng     float64
+
+	// While changing routes the bus drives a transfer path over real roads to the new line,
+	// then joins it at joinArc. It never jumps.
+	transfer    [][2]float64
+	transferArc float64
+	joinArc     float64
 }
 
 type simUser struct {
@@ -172,12 +179,27 @@ func (s *Simulator) step(ctx context.Context) error {
 			sb = &simBus{routeID: r.ID, arc: s.rng.Float64() * bl.PathLengthM(path), speed: 6 + s.rng.Float64()*3}
 			s.buses[b.ID] = sb
 		} else if sb.routeID != r.ID {
-			// rerouted (or back home): join the new route's road at the point closest to the bus
+			// Rerouted (or sent back home): drive over real roads to the nearest point of the new line.
 			sb.routeID = r.ID
-			sb.arc, _ = bl.ProjectOnPath(path, sb.lat, sb.lng)
+			sb.joinArc, _ = bl.ProjectOnPath(path, sb.lat, sb.lng)
+			jLat, jLng := bl.PointAtArc(path, sb.joinArc)
+			sb.transfer = s.transferPath(ctx, [2]float64{sb.lat, sb.lng}, [2]float64{jLat, jLng})
+			sb.transferArc = 0
 		}
-		sb.arc += sb.speed * s.Tick.Seconds()
-		sb.lat, sb.lng = bl.PointAtArc(path, sb.arc)
+		step := sb.speed * s.Tick.Seconds()
+		if sb.transfer != nil {
+			sb.transferArc += step
+			if over := sb.transferArc - bl.PathLengthM(sb.transfer); over >= 0 {
+				sb.arc = sb.joinArc + over // reached the new line
+				sb.transfer = nil
+				sb.lat, sb.lng = bl.PointAtArc(path, sb.arc)
+			} else {
+				sb.lat, sb.lng = bl.PointAtArcOpen(sb.transfer, sb.transferArc)
+			}
+		} else {
+			sb.arc += step
+			sb.lat, sb.lng = bl.PointAtArc(path, sb.arc)
+		}
 		if err := s.Location.RecordBus(ctx, b.ID, sb.lat, sb.lng); err != nil {
 			return err
 		}
@@ -248,6 +270,9 @@ func (s *Simulator) rebalance(buses map[int64]domain.Bus) {
 		if helper.ActiveRouteID == nil {
 			continue
 		}
+		if sb := s.buses[helper.ID]; sb != nil && sb.transfer != nil {
+			continue // still driving to the new line: passengers there cannot board yet
+		}
 		for moved := 0; moved < 3; moved++ {
 			var fullest int64
 			for _, b := range buses {
@@ -273,4 +298,23 @@ func (s *Simulator) rebalance(buses map[int64]domain.Bus) {
 			}
 		}
 	}
+}
+
+// transferPath is the road route from the bus to the point where it joins its new line.
+// Without a road router (or if it fails) the bus still drives there gradually in a straight line.
+func (s *Simulator) transferPath(ctx context.Context, from, to [2]float64) [][2]float64 {
+	if bl.DistanceM(from[0], from[1], to[0], to[1]) < 5 {
+		return nil
+	}
+	if s.Planner != nil {
+		rctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+		defer cancel()
+		if p, err := s.Planner.RoadBetween(rctx, from, to); err == nil && len(p) >= 2 {
+			// start exactly at the bus and end exactly at the join point
+			return append(append([][2]float64{from}, p...), to)
+		} else if err != nil {
+			log.Printf("simulator: road route for reroute unavailable, driving straight: %v", err)
+		}
+	}
+	return [][2]float64{from, to}
 }

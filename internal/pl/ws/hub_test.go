@@ -10,8 +10,8 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"agilli/internal/bl"
-	"agilli/internal/domain"
+	"smartcity/internal/bl"
+	"smartcity/internal/domain"
 )
 
 func TestCanSubscribe(t *testing.T) {

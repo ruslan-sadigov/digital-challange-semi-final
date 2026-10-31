@@ -1,23 +1,335 @@
 {
- "source": "OpenStreetMap contributors (ODbL): stops via Nominatim, road geometry via OSRM",
+ "source": "OpenStreetMap contributors (ODbL): real Baku bus route relations via the OSM API",
  "stations": [
+  {
+   "osmId": 2214813761,
+   "name": "Filarmoniya bağı",
+   "lat": 40.3628725,
+   "lng": 49.8343909
+  },
+  {
+   "osmId": 4905789822,
+   "name": "İçərişəhər m/st",
+   "lat": 40.3650245,
+   "lng": 49.8311514
+  },
+  {
+   "osmId": 1863175579,
+   "name": "Nizami bağı",
+   "lat": 40.3700156,
+   "lng": 49.8344627
+  },
+  {
+   "osmId": 11942272369,
+   "name": "Respublika Şahmat Mərkəzi",
+   "lat": 40.3741622,
+   "lng": 49.8326256
+  },
+  {
+   "osmId": 4427688091,
+   "name": "Xarici İşlər Nazirliyi",
+   "lat": 40.3765636,
+   "lng": 49.8322247
+  },
+  {
+   "osmId": 4424828102,
+   "name": "Nizami m/st",
+   "lat": 40.3803808,
+   "lng": 49.8312621
+  },
+  {
+   "osmId": 11876427070,
+   "name": "Zivərbəy Əhmədbəyov küçəsi 72",
+   "lat": 40.3849783,
+   "lng": 49.8295933
+  },
+  {
+   "osmId": 11876399270,
+   "name": "Tbilisi prospekti 2",
+   "lat": 40.3880517,
+   "lng": 49.8271444
+  },
+  {
+   "osmId": 11876436469,
+   "name": "H.Əliyev adına İdman Konsert Kompleksi",
+   "lat": 40.3911987,
+   "lng": 49.8237393
+  },
+  {
+   "osmId": 4426782592,
+   "name": "Tbilisi pr. - Azər Əliyev küç. ilə kəs.",
+   "lat": 40.3940159,
+   "lng": 49.8201603
+  },
+  {
+   "osmId": 4491247273,
+   "name": "Tbilisi prospekti 34",
+   "lat": 40.3955492,
+   "lng": 49.8179661
+  },
+  {
+   "osmId": 11876463969,
+   "name": "Qaçqın və Məcburi Köçkünlərin işləri üzrə DK",
+   "lat": 40.3987558,
+   "lng": 49.8125205
+  },
+  {
+   "osmId": 11876145769,
+   "name": "Tbilisi prospekti 92",
+   "lat": 40.4006931,
+   "lng": 49.8107152
+  },
+  {
+   "osmId": 12186768904,
+   "name": "20 Yanvar m/st (Tbilisi pr.)",
+   "lat": 40.4030346,
+   "lng": 49.8087268
+  },
+  {
+   "osmId": 1812267114,
+   "name": "14 saylı notariat ofisi",
+   "lat": 40.406717,
+   "lng": 49.8065904
+  },
+  {
+   "osmId": 4130122390,
+   "name": "134 saylı poçt şöbəsi",
+   "lat": 40.4121435,
+   "lng": 49.8044616
+  },
+  {
+   "osmId": 11891071769,
+   "name": "Mir Cəlal küçəsi 10",
+   "lat": 40.4137439,
+   "lng": 49.804511
+  },
+  {
+   "osmId": 11891074869,
+   "name": "Mir Cəlal küçəsi 132",
+   "lat": 40.415583,
+   "lng": 49.80704
+  },
+  {
+   "osmId": 11891081369,
+   "name": "267 nömrəli tam orta məktəb",
+   "lat": 40.4169671,
+   "lng": 49.8089155
+  },
+  {
+   "osmId": 4593280991,
+   "name": "Mir Cəlal 276",
+   "lat": 40.4193432,
+   "lng": 49.8122791
+  },
+  {
+   "osmId": 11891083569,
+   "name": "Mir Cəlal küçəsi 310",
+   "lat": 40.4206815,
+   "lng": 49.8140842
+  },
+  {
+   "osmId": 11880955170,
+   "name": "9 nömrəli Şəhər Poliklinikası",
+   "lat": 40.4236199,
+   "lng": 49.8178034
+  },
+  {
+   "osmId": 1213299601,
+   "name": "Mir Cəlal küçəsi elektrik yarımstansiyası",
+   "lat": 40.4209224,
+   "lng": 49.8139666
+  },
+  {
+   "osmId": 11880946070,
+   "name": "Bus stop 11880946070",
+   "lat": 40.4199365,
+   "lng": 49.8126887
+  },
+  {
+   "osmId": 3174407381,
+   "name": "267 saylı məktəb",
+   "lat": 40.4183946,
+   "lng": 49.8104598
+  },
+  {
+   "osmId": 11880975269,
+   "name": "32 saylı notariat kontoru",
+   "lat": 40.4158176,
+   "lng": 49.8069977
+  },
+  {
+   "osmId": 4617240389,
+   "name": "Təhsil İşçilərinin Peşəkar İnkişafı İnstitutu",
+   "lat": 40.4144514,
+   "lng": 49.8051223
+  },
+  {
+   "osmId": 11880998969,
+   "name": "Asif Məhərrəmov küçəsi 86",
+   "lat": 40.4116625,
+   "lng": 49.8044739
+  },
+  {
+   "osmId": 5695774321,
+   "name": "Moskva prospekti 45A",
+   "lat": 40.4101829,
+   "lng": 49.8035969
+  },
+  {
+   "osmId": 11875844673,
+   "name": "Azərbaycanfilm Kinostudiyası",
+   "lat": 40.4068904,
+   "lng": 49.8056214
+  },
+  {
+   "osmId": 4692245590,
+   "name": "20 Yanvar m/st (Tbilisi pr.)",
+   "lat": 40.4026858,
+   "lng": 49.8083927
+  },
+  {
+   "osmId": 8598872787,
+   "name": "FHN-nin Bakı Regional Mərkəzi",
+   "lat": 40.3974898,
+   "lng": 49.8136031
+  },
+  {
+   "osmId": 8507345238,
+   "name": "Tbilisi prospekti 49",
+   "lat": 40.3951418,
+   "lng": 49.8175757
+  },
+  {
+   "osmId": 11875844975,
+   "name": "Tbilisi prospekti 45",
+   "lat": 40.3930219,
+   "lng": 49.8209526
+  },
+  {
+   "osmId": 11875853969,
+   "name": "Mehdi Hüseynzadə parkı",
+   "lat": 40.3865889,
+   "lng": 49.8276776
+  },
+  {
+   "osmId": 11875854272,
+   "name": "3 nömrəli Şəhər Poliklinikası",
+   "lat": 40.3836778,
+   "lng": 49.829007
+  },
+  {
+   "osmId": 11875855769,
+   "name": "Nizami m/st",
+   "lat": 40.3794751,
+   "lng": 49.8302561
+  },
+  {
+   "osmId": 11875855770,
+   "name": "Xarici İşlər Nazirliyi",
+   "lat": 40.3765042,
+   "lng": 49.8319236
+  },
+  {
+   "osmId": 7293266091,
+   "name": "Akademik Milli Dram Teatrı",
+   "lat": 40.3754846,
+   "lng": 49.8297819
+  },
+  {
+   "osmId": 11942262969,
+   "name": "Murtuza Muxtarov küçəsi 29",
+   "lat": 40.3722301,
+   "lng": 49.8306692
+  },
+  {
+   "osmId": 11942263769,
+   "name": "Respublika Prokurorluğunun Tarix Muzeyi",
+   "lat": 40.3706666,
+   "lng": 49.8310077
+  },
+  {
+   "osmId": 11809252074,
+   "name": "Axundov bağı",
+   "lat": 40.3680506,
+   "lng": 49.8299851
+  },
+  {
+   "osmId": 11942263770,
+   "name": "İçərişəhər m/st",
+   "lat": 40.365617,
+   "lng": 49.8308939
+  },
+  {
+   "osmId": 3528404701,
+   "name": "20-ci Sahə dairəsi",
+   "lat": 40.3298916,
+   "lng": 49.8191639
+  },
+  {
+   "osmId": 3528407493,
+   "name": "23 saylı poçt şöbəsi",
+   "lat": 40.3335939,
+   "lng": 49.8203755
+  },
+  {
+   "osmId": 8594168107,
+   "name": "Səbail Rayon Mühafizə İdarəsi",
+   "lat": 40.3363607,
+   "lng": 49.8246429
+  },
+  {
+   "osmId": 8594168108,
+   "name": "Bibiheybət yolu",
+   "lat": 40.335041,
+   "lng": 49.827985
+  },
+  {
+   "osmId": 5316161822,
+   "name": "Su İdmanı Sarayı",
+   "lat": 40.337662,
+   "lng": 49.8337241
+  },
+  {
+   "osmId": 8594168109,
+   "name": "Bakı Kristal Zalı",
+   "lat": 40.3412847,
+   "lng": 49.8403899
+  },
+  {
+   "osmId": 3528407129,
+   "name": "Dövlət Bayrağı Meydanı",
+   "lat": 40.3461317,
+   "lng": 49.8410406
+  },
+  {
+   "osmId": 3528415089,
+   "name": "Bakı müşahidə çarxı",
+   "lat": 40.3529979,
+   "lng": 49.8346014
+  },
+  {
+   "osmId": 3528415870,
+   "name": "Əl oyunları sarayı",
+   "lat": 40.3585487,
+   "lng": 49.8345485
+  },
+  {
+   "osmId": 3528416593,
+   "name": "Beynəlxalq Muğam Mərkəzi",
+   "lat": 40.3617983,
+   "lng": 49.8352451
+  },
+  {
+   "osmId": 3528416858,
+   "name": "Kukla teatrı",
+   "lat": 40.3674776,
+   "lng": 49.8394173
+  },
   {
    "osmId": 3528419167,
    "name": "Sahil metrosu",
    "lat": 40.3703161,
    "lng": 49.8463031
-  },
-  {
-   "osmId": 8595317971,
-   "name": "Sahil metrostansiyası",
-   "lat": 40.3710028,
-   "lng": 49.8446207
-  },
-  {
-   "osmId": 11952255269,
-   "name": "Azərbaycan Dövlət Pedaqoji Universiteti",
-   "lat": 40.3726005,
-   "lng": 49.8478695
   },
   {
    "osmId": 3131687715,
@@ -50,148 +362,244 @@
    "lng": 49.8394798
   },
   {
-   "osmId": 11876758270,
-   "name": "Dədə Qorqud parkı",
-   "lat": 40.3946609,
-   "lng": 49.847712
+   "osmId": 2119769691,
+   "name": "Koroğlu parkı",
+   "lat": 40.3914289,
+   "lng": 49.843238
   },
   {
-   "osmId": 14208263719,
-   "name": "Gənclik m/st (M6)",
-   "lat": 40.4004325,
-   "lng": 49.8519791
+   "osmId": 8594848337,
+   "name": "Ceyhun Hacıbəyli küç. 146",
+   "lat": 40.3940556,
+   "lng": 49.8447776
   },
   {
-   "osmId": 11942868070,
-   "name": "Respublika Talassemiya Mərkəzi",
-   "lat": 40.4022103,
-   "lng": 49.8603705
+   "osmId": 4799886827,
+   "name": "3 nömrəli Bakı Peşə Məktəbi",
+   "lat": 40.3974225,
+   "lng": 49.8434112
   },
   {
-   "osmId": 11942899870,
-   "name": "2 nömrəli Bakı Peşə Məktəbi",
-   "lat": 40.4043819,
-   "lng": 49.8664036
+   "osmId": 4799886825,
+   "name": "47 saylı məktəb",
+   "lat": 40.400198,
+   "lng": 49.8384207
   },
   {
-   "osmId": 4749747762,
-   "name": "N. Nərimanov m/st (Təbriz küç.)",
-   "lat": 40.403032,
-   "lng": 49.8705902
+   "osmId": 8506776530,
+   "name": "Neftçi bazası",
+   "lat": 40.4021383,
+   "lng": 49.8377126
   },
   {
-   "osmId": 1461550207,
-   "name": "N. Nərimanov m/st (A. Nemətulla küç.)",
-   "lat": 40.4027969,
-   "lng": 49.872199
+   "osmId": 8506797164,
+   "name": "Bakı Dövlət Cıdır Meydanı",
+   "lat": 40.4059489,
+   "lng": 49.83624
   },
   {
-   "osmId": 4434812494,
-   "name": "Bakı Uşaq Bərpa Mərkəzi",
-   "lat": 40.3993326,
-   "lng": 49.8752709
+   "osmId": 4246681897,
+   "name": "Binəqədi Rayon Dövlət Əmək Müfəttişliyi Xidməti",
+   "lat": 40.414966,
+   "lng": 49.8358093
   },
   {
-   "osmId": 3114746864,
-   "name": "Heydər Əliyev Mərkəzi",
-   "lat": 40.3961557,
-   "lng": 49.8702237
+   "osmId": 8519104118,
+   "name": "Corce Enesku parkı",
+   "lat": 40.4173058,
+   "lng": 49.8385471
   },
   {
-   "osmId": 1461533898,
-   "name": "Heydər Əliyev prospekti 36",
-   "lat": 40.398644,
-   "lng": 49.8753045
+   "osmId": 8594848336,
+   "name": "Bakı Turism Peşə Məktəbi",
+   "lat": 40.4188942,
+   "lng": 49.8427783
   },
   {
-   "osmId": 8596753273,
-   "name": "Bus stop 8596753273",
-   "lat": 40.4093932,
-   "lng": 49.8934516
+   "osmId": 8594848335,
+   "name": "Hidrotexnika və Meliorasiya İnstitutu",
+   "lat": 40.4212178,
+   "lng": 49.842869
   },
   {
-   "osmId": 8596753272,
-   "name": "Milli Sağlamlıq Mərkəzi",
-   "lat": 40.4124279,
-   "lng": 49.8989957
+   "osmId": 8519137548,
+   "name": "Bakı Tennis Akademiyası",
+   "lat": 40.4239714,
+   "lng": 49.8429784
   },
   {
-   "osmId": 8596753269,
-   "name": "5 saylı ASAN xidmət mərkəzi",
-   "lat": 40.4164997,
-   "lng": 49.9077246
+   "osmId": 8594848334,
+   "name": "Abay Kunanbayev küçəsi 36",
+   "lat": 40.4271347,
+   "lng": 49.8478482
   },
   {
-   "osmId": 14213691646,
-   "name": "Koroğlu NMM",
-   "lat": 40.41983,
-   "lng": 49.9188662
+   "osmId": 8594848333,
+   "name": "Abay Kunanbayev küçəsi 107",
+   "lat": 40.4300508,
+   "lng": 49.8502606
   },
   {
-   "osmId": 12734240007,
-   "name": "Express Bus to Airport",
-   "lat": 40.4222171,
-   "lng": 49.9202863
+   "osmId": 8594848332,
+   "name": "151 saylı uşaq bağçası",
+   "lat": 40.4320414,
+   "lng": 49.8519525
   },
   {
-   "osmId": 11922170569,
-   "name": "5 saylı ASAN xidmət mərkəzi",
-   "lat": 40.417218,
-   "lng": 49.9080446
+   "osmId": 8594848331,
+   "name": "Abay Kunanbayev küçəsi 4",
+   "lat": 40.4324205,
+   "lng": 49.854565
   },
   {
-   "osmId": 8596753270,
-   "name": "Dövlət Neft Fondu",
-   "lat": 40.4141353,
-   "lng": 49.9015814
+   "osmId": 8594848330,
+   "name": "244 nömrəli tam orta məktəb",
+   "lat": 40.4299028,
+   "lng": 49.8562067
   },
   {
-   "osmId": 11922170570,
-   "name": "Milli Gəlirlər Departamenti",
-   "lat": 40.4109716,
-   "lng": 49.8950588
+   "osmId": 8594848329,
+   "name": "Binəqədi Polis İdarəsi",
+   "lat": 40.4265077,
+   "lng": 49.8560858
   },
   {
-   "osmId": 11922180569,
-   "name": "Mərkəzi İncəsənət Məktəbi",
-   "lat": 40.4008579,
-   "lng": 49.8779882
+   "osmId": 3610932316,
+   "name": "Dərnəgül m/st (88)",
+   "lat": 40.4255901,
+   "lng": 49.8600966
   },
   {
-   "osmId": 8531649735,
-   "name": "Elm və Təhsil Nazirliyi",
-   "lat": 40.3912322,
-   "lng": 49.8617255
+   "osmId": 8594603378,
+   "name": "Binəqədi Rayon Məhkəməsi",
+   "lat": 40.426224,
+   "lng": 49.8563486
   },
   {
-   "osmId": 8531624155,
-   "name": "Xətai prospekti 124",
-   "lat": 40.3884855,
-   "lng": 49.8585621
+   "osmId": 1936368741,
+   "name": "244 nömrəli tam orta məktəb",
+   "lat": 40.42932,
+   "lng": 49.8563756
   },
   {
-   "osmId": 8531539573,
-   "name": "Nərimanov Rayon İcra Hakimiyyəti",
-   "lat": 40.3859148,
-   "lng": 49.855467
+   "osmId": 1936368875,
+   "name": "Abay Kunanbayev küçəsi 76",
+   "lat": 40.4324887,
+   "lng": 49.8560666
   },
   {
-   "osmId": 5101061322,
-   "name": "Xətai prospekti",
-   "lat": 40.3839628,
-   "lng": 49.8529762
+   "osmId": 1936368893,
+   "name": "Abay Kunanbayev küçəsi 82",
+   "lat": 40.4325397,
+   "lng": 49.8542061
   },
   {
-   "osmId": 11909140770,
-   "name": "Təbriz küçəsi 3",
-   "lat": 40.3840464,
-   "lng": 49.8499888
+   "osmId": 8594603379,
+   "name": "Abay Kunanbayev küçəsi 145",
+   "lat": 40.4323222,
+   "lng": 49.8519628
   },
   {
-   "osmId": 4803004422,
-   "name": "28 May m/st (S. Ələsgərova küç)",
-   "lat": 40.38262,
-   "lng": 49.8468486
+   "osmId": 8594603380,
+   "name": "Abay Kunanbayev küçəsi 107",
+   "lat": 40.4297938,
+   "lng": 49.8498561
+  },
+  {
+   "osmId": 8594603381,
+   "name": "Abay Kunanbayev küçəsi 3",
+   "lat": 40.4269566,
+   "lng": 49.8475094
+  },
+  {
+   "osmId": 11364615395,
+   "name": "Bus stop 11364615395",
+   "lat": 40.4265273,
+   "lng": 49.8432792
+  },
+  {
+   "osmId": 4162457495,
+   "name": "Azadlıq prospekti m/st",
+   "lat": 40.4252862,
+   "lng": 49.8417887
+  },
+  {
+   "osmId": 8505999581,
+   "name": "83 nömrəli tam orta məktəb",
+   "lat": 40.4237838,
+   "lng": 49.8427927
+  },
+  {
+   "osmId": 8505999582,
+   "name": "135 nömrəli tam orta məktəb",
+   "lat": 40.4207884,
+   "lng": 49.8427289
+  },
+  {
+   "osmId": 8505999583,
+   "name": "Bakı Turizm Peşə Məktəbi",
+   "lat": 40.4185381,
+   "lng": 49.842664
+  },
+  {
+   "osmId": 852866220,
+   "name": "Corce Enesku parkı",
+   "lat": 40.4174825,
+   "lng": 49.8383836
+  },
+  {
+   "osmId": 4246682294,
+   "name": "Siyasi Sənədlər Arxivi idarəsi",
+   "lat": 40.4154611,
+   "lng": 49.8358674
+  },
+  {
+   "osmId": 11933021971,
+   "name": "Azadlıq prospekti 287",
+   "lat": 40.405687,
+   "lng": 49.8360839
+  },
+  {
+   "osmId": 8506783909,
+   "name": "Nərimanov Rayon qeydiyyat Şöbəsi",
+   "lat": 40.4020536,
+   "lng": 49.837432
+  },
+  {
+   "osmId": 11933034369,
+   "name": "23 saylı musiqi məktəbi",
+   "lat": 40.3985212,
+   "lng": 49.8387466
+  },
+  {
+   "osmId": 11944145669,
+   "name": "Azadlıq prospekti 175",
+   "lat": 40.3941139,
+   "lng": 49.8406207
+  },
+  {
+   "osmId": 2094921856,
+   "name": "Azadlıq prospekti 145",
+   "lat": 40.3896892,
+   "lng": 49.8425423
+  },
+  {
+   "osmId": 12059913869,
+   "name": "Nəsimi Rayon Polis İdarəsi",
+   "lat": 40.3865777,
+   "lng": 49.8440347
+  },
+  {
+   "osmId": 2094922889,
+   "name": "Bakı Slavyan Universiteti",
+   "lat": 40.3850021,
+   "lng": 49.8447229
+  },
+  {
+   "osmId": 8594848338,
+   "name": "28 May m/st (Pantomima teatrı)",
+   "lat": 40.3827106,
+   "lng": 49.8458089
   },
   {
    "osmId": 12344890757,
@@ -212,136 +620,334 @@
    "lng": 49.8505162
   },
   {
+   "osmId": 8595317971,
+   "name": "Sahil metrostansiyası",
+   "lat": 40.3710028,
+   "lng": 49.8446207
+  },
+  {
    "osmId": 12695993101,
    "name": "Kukla teatrı",
    "lat": 40.3674411,
    "lng": 49.8388308
   },
   {
-   "osmId": 11981527470,
-   "name": "Yasamal Rayon İcra Hakimiyyəti",
-   "lat": 40.3777898,
-   "lng": 49.8090286
+   "osmId": 3528415891,
+   "name": "Azneft meydanı",
+   "lat": 40.3618189,
+   "lng": 49.8348136
   },
   {
-   "osmId": 11875871169,
-   "name": "Qəzənfər Musabəyov parkı",
-   "lat": 40.3807839,
-   "lng": 49.8078472
+   "osmId": 3528415686,
+   "name": "Əl oyunları sarayı",
+   "lat": 40.3587038,
+   "lng": 49.8343093
   },
   {
-   "osmId": 11875876569,
-   "name": "A. M. Şərifzadə küçəsi 228",
-   "lat": 40.3799527,
-   "lng": 49.8044247
+   "osmId": 8594168101,
+   "name": "Dövlət Yanğından Mühafizə hissəsi",
+   "lat": 40.3529303,
+   "lng": 49.8334667
   },
   {
-   "osmId": 11874824269,
-   "name": "1 saylı Rabitə Xidmətləri Mərkəzi",
-   "lat": 40.3848041,
-   "lng": 49.8034414
+   "osmId": 8594168102,
+   "name": "Neftçi Qurban küçəsi 84",
+   "lat": 40.349786,
+   "lng": 49.8348156
   },
   {
-   "osmId": 11874818469,
-   "name": "İnşaatçılar m/st",
-   "lat": 40.3915529,
-   "lng": 49.8024158
+   "osmId": 11952262169,
+   "name": "33 nömrəli Şəhər Poliklinikası",
+   "lat": 40.3474995,
+   "lng": 49.8366121
   },
   {
-   "osmId": 14134763142,
-   "name": "İsmayıl Talıblı küçəsi",
-   "lat": 40.3947764,
-   "lng": 49.8044075
+   "osmId": 3528411099,
+   "name": "5 saylı doğum evi",
+   "lat": 40.3450226,
+   "lng": 49.8382741
   },
   {
-   "osmId": 11876671669,
-   "name": "Bakı Biznes Universiteti",
-   "lat": 40.3970683,
-   "lng": 49.8061123
+   "osmId": 3528408812,
+   "name": "Səbail meydanı",
+   "lat": 40.3415762,
+   "lng": 49.8391077
   },
   {
-   "osmId": 4513842289,
-   "name": "20 Yanvar m/st (Velotrek)",
-   "lat": 40.4042198,
-   "lng": 49.8089262
+   "osmId": 3528408299,
+   "name": "Bayıl dairəsi",
+   "lat": 40.3390827,
+   "lng": 49.8349598
   },
   {
-   "osmId": 4643611890,
-   "name": "S.C.Pişəvəri küçəsi 27",
-   "lat": 40.40683,
-   "lng": 49.8137794
+   "osmId": 3528408193,
+   "name": "Boulevard Residence",
+   "lat": 40.3381317,
+   "lng": 49.830576
   },
   {
-   "osmId": 14133175307,
-   "name": "Memar Əcəmi m/st (92, 158)",
-   "lat": 40.410557,
-   "lng": 49.8148477
+   "osmId": 8594168103,
+   "name": "Arif İsmayılov küçəsi 6",
+   "lat": 40.3363822,
+   "lng": 49.8240153
   },
   {
-   "osmId": 4692426306,
-   "name": "Memar Əcəmi m/st",
-   "lat": 40.4107965,
-   "lng": 49.8151767
+   "osmId": 3528407494,
+   "name": "Bibiheybət yolu - A. İsmayılov küçəsi",
+   "lat": 40.3341341,
+   "lng": 49.8204741
   },
   {
-   "osmId": 14118540735,
-   "name": "4-cü mikrorayon dairәsi",
-   "lat": 40.4165177,
-   "lng": 49.8161426
+   "osmId": 3528404479,
+   "name": "20-ci Sahə dairəsi",
+   "lat": 40.3297695,
+   "lng": 49.8184739
   },
   {
-   "osmId": 1213299578,
-   "name": "Göz klinikası 1",
-   "lat": 40.4193679,
-   "lng": 49.8179871
+   "osmId": 12042324969,
+   "name": "Avtovağzal NMM (7A, 13, 96)",
+   "lat": 40.4171474,
+   "lng": 49.7969349
   },
   {
-   "osmId": 11891096169,
-   "name": "Milli Oftalmologiya Mərkəzi",
-   "lat": 40.4218705,
-   "lng": 49.820422
+   "osmId": 1808978628,
+   "name": "Biləcəri dairəsi",
+   "lat": 40.4208497,
+   "lng": 49.7993316
   },
   {
-   "osmId": 11891097069,
-   "name": "Zeytun bağı",
-   "lat": 40.4248896,
-   "lng": 49.8225385
+   "osmId": 4554483491,
+   "name": "Həsən Əliyev küçəsi 40",
+   "lat": 40.3963161,
+   "lng": 49.822814
   },
   {
-   "osmId": 11766165307,
-   "name": "Nəsimi metrosu 3",
-   "lat": 40.4241486,
-   "lng": 49.823723
+   "osmId": 4520419931,
+   "name": "78 saylı poçt şöbəsi",
+   "lat": 40.3975893,
+   "lng": 49.8285488
   },
   {
-   "osmId": 12117567436,
-   "name": "246 saylı mәktәb",
-   "lat": 40.424903,
-   "lng": 49.8289212
+   "osmId": 11922139769,
+   "name": "Azərbaycan Tibb Universiteti",
+   "lat": 40.3984379,
+   "lng": 49.8320853
   },
   {
-   "osmId": 11953130070,
-   "name": "Məsud Davudoğlu küçəsi 30",
-   "lat": 40.4230266,
-   "lng": 49.830484
+   "osmId": 14116161670,
+   "name": "Həsən Əliyev küçəsi 164A",
+   "lat": 40.3993451,
+   "lng": 49.8362385
   },
   {
-   "osmId": 11953130069,
-   "name": "Məsud Davudoğlu küçəsi 37",
-   "lat": 40.4234747,
-   "lng": 49.8340406
+   "osmId": 11922142169,
+   "name": "42 saylı uşaq bağçası",
+   "lat": 40.3999989,
+   "lng": 49.8392163
   },
   {
-   "osmId": 11953125470,
-   "name": "115 nömrəli tam orta məktəb",
-   "lat": 40.4213901,
-   "lng": 49.8370176
+   "osmId": 4572830690,
+   "name": "4 saylı uşaq bağçası",
+   "lat": 40.4007159,
+   "lng": 49.8425114
   },
   {
-   "osmId": 11941564569,
-   "name": "Azadlıq prospekti m/st",
-   "lat": 40.4253363,
-   "lng": 49.8406315
+   "osmId": 11922142172,
+   "name": "Həsən Əliyev küçəsi 80",
+   "lat": 40.4015781,
+   "lng": 49.8461168
+  },
+  {
+   "osmId": 14206171828,
+   "name": "71 saylı uşaq bağçası",
+   "lat": 40.4035104,
+   "lng": 49.8548051
+  },
+  {
+   "osmId": 14206171830,
+   "name": "Koroğlu Rəhimov küçəsi, giriş 77F",
+   "lat": 40.402967,
+   "lng": 49.8565961
+  },
+  {
+   "osmId": 7756962418,
+   "name": "6 saylı Uşaq Klinik Xəstəxanası",
+   "lat": 40.3980445,
+   "lng": 49.8592423
+  },
+  {
+   "osmId": 11922149369,
+   "name": "Qərbi Azərbaycan İcması - Gülarə Qədirbəyova küçəsi",
+   "lat": 40.3938727,
+   "lng": 49.8626242
+  },
+  {
+   "osmId": 1461533898,
+   "name": "Heydər Əliyev prospekti 36",
+   "lat": 40.398644,
+   "lng": 49.8753045
+  },
+  {
+   "osmId": 4796131422,
+   "name": "Heydər Əliyev prospekti 60",
+   "lat": 40.4002467,
+   "lng": 49.8779728
+  },
+  {
+   "osmId": 8596753276,
+   "name": "Dövlət Neft Şirkəti",
+   "lat": 40.4039052,
+   "lng": 49.8845601
+  },
+  {
+   "osmId": 8596753275,
+   "name": "Nəqliyyatı İntellektual İdarəetmə Mərkəzi",
+   "lat": 40.4074325,
+   "lng": 49.8902196
+  },
+  {
+   "osmId": 11922156869,
+   "name": "Heydər Əliyev prospekti 94",
+   "lat": 40.4104514,
+   "lng": 49.8951041
+  },
+  {
+   "osmId": 8596753272,
+   "name": "Milli Sağlamlıq Mərkəzi",
+   "lat": 40.4124279,
+   "lng": 49.8989957
+  },
+  {
+   "osmId": 8596753271,
+   "name": "Dövlət Neft Fondu",
+   "lat": 40.4136813,
+   "lng": 49.90167
+  },
+  {
+   "osmId": 8596753269,
+   "name": "5 saylı ASAN xidmət mərkəzi",
+   "lat": 40.4164997,
+   "lng": 49.9077246
+  },
+  {
+   "osmId": 11922170569,
+   "name": "5 saylı ASAN xidmət mərkəzi",
+   "lat": 40.417218,
+   "lng": 49.9080446
+  },
+  {
+   "osmId": 8596753270,
+   "name": "Dövlət Neft Fondu",
+   "lat": 40.4141353,
+   "lng": 49.9015814
+  },
+  {
+   "osmId": 11922170570,
+   "name": "Milli Gəlirlər Departamenti",
+   "lat": 40.4109716,
+   "lng": 49.8950588
+  },
+  {
+   "osmId": 8596753274,
+   "name": "Heydər Əliyev prospekti 137",
+   "lat": 40.4069768,
+   "lng": 49.8883881
+  },
+  {
+   "osmId": 11302302421,
+   "name": "Dövlət Neft Şirkəti",
+   "lat": 40.4049041,
+   "lng": 49.8848568
+  },
+  {
+   "osmId": 11922180569,
+   "name": "Mərkəzi İncəsənət Məktəbi",
+   "lat": 40.4008579,
+   "lng": 49.8779882
+  },
+  {
+   "osmId": 4434812494,
+   "name": "Bakı Uşaq Bərpa Mərkəzi",
+   "lat": 40.3993326,
+   "lng": 49.8752709
+  },
+  {
+   "osmId": 3114746864,
+   "name": "Heydər Əliyev Mərkəzi",
+   "lat": 40.3961557,
+   "lng": 49.8702237
+  },
+  {
+   "osmId": 8531689100,
+   "name": "Gülarə Qədirbəyova küçəsi 4",
+   "lat": 40.3935696,
+   "lng": 49.8633665
+  },
+  {
+   "osmId": 7756962417,
+   "name": "Auditorlar Palatası",
+   "lat": 40.3983392,
+   "lng": 49.8593818
+  },
+  {
+   "osmId": 14206171831,
+   "name": "Koroğlu Rəhimov küçəsi 106",
+   "lat": 40.402984,
+   "lng": 49.8574951
+  },
+  {
+   "osmId": 14206171829,
+   "name": "71 saylı uşaq bağçası",
+   "lat": 40.4037316,
+   "lng": 49.8548734
+  },
+  {
+   "osmId": 4572830789,
+   "name": "71 saylı uşaq bağçası",
+   "lat": 40.401235,
+   "lng": 49.8436262
+  },
+  {
+   "osmId": 8594168099,
+   "name": "47 nömrəli məktəb",
+   "lat": 40.3997899,
+   "lng": 49.8374619
+  },
+  {
+   "osmId": 11922190871,
+   "name": "Dövlət İmtahan Mərkəzi",
+   "lat": 40.3983772,
+   "lng": 49.831205
+  },
+  {
+   "osmId": 4515437889,
+   "name": "Həsən Əliyev küçəsi 101",
+   "lat": 40.3973166,
+   "lng": 49.8266268
+  },
+  {
+   "osmId": 4554400191,
+   "name": "Həsən Əliyev küçəsi 55",
+   "lat": 40.3962799,
+   "lng": 49.8218204
+  },
+  {
+   "osmId": 4130102790,
+   "name": "Moskva prospekti 254",
+   "lat": 40.4116708,
+   "lng": 49.8034072
+  },
+  {
+   "osmId": 6239478385,
+   "name": "Rəşid İsmayılov küçəsi 74",
+   "lat": 40.4198981,
+   "lng": 49.8019371
+  },
+  {
+   "osmId": 11941520969,
+   "name": "Dərnəgül m/st (3, 93)",
+   "lat": 40.4255991,
+   "lng": 49.8596803
   },
   {
    "osmId": 8594674681,
@@ -350,52 +956,94 @@
    "lng": 49.8433481
   },
   {
-   "osmId": 11953126969,
-   "name": "Əmək və Sosial Münasibətlər Akademiyası",
-   "lat": 40.4190362,
-   "lng": 49.8366608
+   "osmId": 11941530069,
+   "name": "178 saylı uşaq bağçası",
+   "lat": 40.4242686,
+   "lng": 49.8462456
   },
   {
-   "osmId": 4246682294,
-   "name": "Siyasi Sənədlər Arxivi idarəsi",
-   "lat": 40.4154611,
-   "lng": 49.8358674
+   "osmId": 11941531069,
+   "name": "Şövkət Məmmədova küçəsi 25",
+   "lat": 40.4216439,
+   "lng": 49.8461562
   },
   {
-   "osmId": 11953128369,
-   "name": "Milli Arxiv İdarəsi",
-   "lat": 40.4115353,
-   "lng": 49.8348487
+   "osmId": 4803010923,
+   "name": "Bakı Humanitar Kolleci",
+   "lat": 40.4193538,
+   "lng": 49.8460074
   },
   {
-   "osmId": 8506797164,
-   "name": "Bakı Dövlət Cıdır Meydanı",
-   "lat": 40.4059489,
-   "lng": 49.83624
+   "osmId": 11941531569,
+   "name": "Atatürk prospekti 211",
+   "lat": 40.4166618,
+   "lng": 49.8448398
   },
   {
-   "osmId": 8506776530,
-   "name": "Neftçi bazası",
-   "lat": 40.4021383,
-   "lng": 49.8377126
+   "osmId": 3960019487,
+   "name": "Bakı Şəhər Regional Miqrasiya İdarəsi",
+   "lat": 40.4140426,
+   "lng": 49.8454549
   },
   {
-   "osmId": 11933034369,
-   "name": "23 saylı musiqi məktəbi",
-   "lat": 40.3985212,
-   "lng": 49.8387466
+   "osmId": 11891098871,
+   "name": "Atatürk prospekti 159",
+   "lat": 40.4121686,
+   "lng": 49.8462652
   },
   {
-   "osmId": 11944145669,
-   "name": "Azadlıq prospekti 175",
-   "lat": 40.3941139,
-   "lng": 49.8406207
+   "osmId": 7709704177,
+   "name": "Atatürk prospekti 117",
+   "lat": 40.4080425,
+   "lng": 49.8478829
   },
   {
-   "osmId": 8499546007,
-   "name": "Zorge parkı",
-   "lat": 40.3894909,
-   "lng": 49.8359468
+   "osmId": 11891112569,
+   "name": "Nərimanov Rayon Prokurorluğu",
+   "lat": 40.4030522,
+   "lng": 49.8495294
+  },
+  {
+   "osmId": 12041288169,
+   "name": "Gənclik m/st",
+   "lat": 40.3996157,
+   "lng": 49.8518161
+  },
+  {
+   "osmId": 11944144369,
+   "name": "200 saylı məktəb",
+   "lat": 40.4011536,
+   "lng": 49.8543672
+  },
+  {
+   "osmId": 11365027907,
+   "name": "Gənclik metro stansiyası",
+   "lat": 40.4005006,
+   "lng": 49.8508967
+  },
+  {
+   "osmId": 11944145069,
+   "name": "Bakı Sağlamlıq Mərkəzi",
+   "lat": 40.3982618,
+   "lng": 49.8399539
+  },
+  {
+   "osmId": 11933030170,
+   "name": "ADPU 3-cü korpus",
+   "lat": 40.397212,
+   "lng": 49.8351323
+  },
+  {
+   "osmId": 4707711989,
+   "name": "Qarayev adına 2 nömrəli Uşaq Xəstəxanası",
+   "lat": 40.3933807,
+   "lng": 49.8344917
+  },
+  {
+   "osmId": 11944149569,
+   "name": "Müasir Təhsil Kompleksi",
+   "lat": 40.3897799,
+   "lng": 49.8340931
   },
   {
    "osmId": 11944145070,
@@ -416,40 +1064,616 @@
    "lng": 49.8224216
   },
   {
+   "osmId": 4714597689,
+   "name": "Mədəniyyət və İncəsənət Universiteti",
+   "lat": 40.3798471,
+   "lng": 49.8200589
+  },
+  {
+   "osmId": 2173026878,
+   "name": "Hüseyn Cavid prospekti 205A",
+   "lat": 40.3798288,
+   "lng": 49.815132
+  },
+  {
+   "osmId": 2173026854,
+   "name": "Elmlər Akademiyası m/st",
+   "lat": 40.3750775,
+   "lng": 49.8157453
+  },
+  {
+   "osmId": 2173026862,
+   "name": "Azərbaycan Texniki Universiteti",
+   "lat": 40.3707248,
+   "lng": 49.8163221
+  },
+  {
+   "osmId": 6187298098,
+   "name": "73 saylı poçt şöbəsi",
+   "lat": 40.3672851,
+   "lng": 49.8167971
+  },
+  {
+   "osmId": 2173026892,
+   "name": "16 nömrəli Uşaq Musiqi Məktəbi",
+   "lat": 40.3647418,
+   "lng": 49.8170804
+  },
+  {
+   "osmId": 11945152870,
+   "name": "20 nömrəli tam orta məktəb",
+   "lat": 40.3638852,
+   "lng": 49.8188343
+  },
+  {
+   "osmId": 2173026883,
+   "name": "Fəxri Xiyaban",
+   "lat": 40.3618557,
+   "lng": 49.8218579
+  },
+  {
+   "osmId": 2173026871,
+   "name": "Milli Məclis",
+   "lat": 40.3588077,
+   "lng": 49.8262352
+  },
+  {
+   "osmId": 11978978169,
+   "name": "AzTV",
+   "lat": 40.3576318,
+   "lng": 49.8245323
+  },
+  {
+   "osmId": 11978959974,
+   "name": "Səbail rayon Polis İdarəsi",
+   "lat": 40.3557369,
+   "lng": 49.8209289
+  },
+  {
+   "osmId": 11978979369,
+   "name": "Bakı Oksford Məktəbi",
+   "lat": 40.3547756,
+   "lng": 49.8178401
+  },
+  {
+   "osmId": 11978978170,
+   "name": "Abbasqulu Abbaszadə küçəsi 9",
+   "lat": 40.3522307,
+   "lng": 49.8120116
+  },
+  {
+   "osmId": 11978960070,
+   "name": "Badamdar şosesi 296",
+   "lat": 40.3509908,
+   "lng": 49.8107039
+  },
+  {
+   "osmId": 11978985369,
+   "name": "Badamdar şosesi 40",
+   "lat": 40.3469158,
+   "lng": 49.8104007
+  },
+  {
+   "osmId": 11978987869,
+   "name": "41-ci polis bölməsi",
+   "lat": 40.3444336,
+   "lng": 49.8103703
+  },
+  {
+   "osmId": 11978988469,
+   "name": "Badamdar şosesi 7",
+   "lat": 40.3419751,
+   "lng": 49.8102728
+  },
+  {
+   "osmId": 11978988969,
+   "name": "Gülarə Əliyeva parkı",
+   "lat": 40.3393313,
+   "lng": 49.8078233
+  },
+  {
+   "osmId": 11978992069,
+   "name": "Neftçilər küçəsi 9",
+   "lat": 40.3398434,
+   "lng": 49.8093852
+  },
+  {
+   "osmId": 11978992469,
+   "name": "Badamdar şosesi 96",
+   "lat": 40.3422662,
+   "lng": 49.8105026
+  },
+  {
+   "osmId": 11978979370,
+   "name": "Badamdar şosesi 123",
+   "lat": 40.3442558,
+   "lng": 49.8105684
+  },
+  {
+   "osmId": 11978979371,
+   "name": "Badamdar şosesi 143",
+   "lat": 40.348205,
+   "lng": 49.8107611
+  },
+  {
+   "osmId": 11978995269,
+   "name": "Badamdar şosesi 151",
+   "lat": 40.3507472,
+   "lng": 49.8109321
+  },
+  {
+   "osmId": 11978995469,
+   "name": "Abbasqulu Abbaszadə küçəsi 16",
+   "lat": 40.3521231,
+   "lng": 49.8115623
+  },
+  {
+   "osmId": 11978992470,
+   "name": "Bakı Oksford Məktəbi",
+   "lat": 40.3551145,
+   "lng": 49.8188622
+  },
+  {
+   "osmId": 11978995270,
+   "name": "Səbail rayon Polis İdarəsi",
+   "lat": 40.3561763,
+   "lng": 49.822099
+  },
+  {
+   "osmId": 11978995271,
+   "name": "İzzət Nəbiyev küçəsi 26D",
+   "lat": 40.3583022,
+   "lng": 49.8234436
+  },
+  {
+   "osmId": 11978995272,
+   "name": "İ. Nəbiyev – M. Müşfiq küç. kəs.",
+   "lat": 40.3616872,
+   "lng": 49.8159189
+  },
+  {
+   "osmId": 1771370121,
+   "name": "Respublika İncəsənət Gimnaziyası",
+   "lat": 40.3649524,
+   "lng": 49.8179742
+  },
+  {
+   "osmId": 8507345237,
+   "name": "225 nömrəli tam orta məktəb",
+   "lat": 40.3677266,
+   "lng": 49.8170295
+  },
+  {
+   "osmId": 2173026865,
+   "name": "5 nömrəli uşaq poliklinikası",
+   "lat": 40.3703878,
+   "lng": 49.8166439
+  },
+  {
+   "osmId": 2173026857,
+   "name": "Hüseyn Cavid parkı",
+   "lat": 40.3726654,
+   "lng": 49.8173041
+  },
+  {
+   "osmId": 2173026881,
+   "name": "Elmlər Akademiyası m/st",
+   "lat": 40.375922,
+   "lng": 49.8158607
+  },
+  {
+   "osmId": 2173026858,
+   "name": "Hüseyn Cavid prospekti 168",
+   "lat": 40.3798782,
+   "lng": 49.8153322
+  },
+  {
+   "osmId": 11876357570,
+   "name": "Mərkəzi Dənizçilər Xəstəxanası",
+   "lat": 40.3800109,
+   "lng": 49.8187083
+  },
+  {
    "osmId": 4714597789,
    "name": "12 saylı notariat ofisi",
    "lat": 40.3797505,
    "lng": 49.8214243
   },
   {
-   "osmId": 4714598289,
-   "name": "Elmlər Akademiyası m/st (B. Vahabzadə küç.)",
-   "lat": 40.3754714,
-   "lng": 49.8146945
+   "osmId": 7293240922,
+   "name": "Respublika Gənclər Kitabxanası",
+   "lat": 40.380922,
+   "lng": 49.8232664
   },
   {
-   "osmId": 4427688091,
-   "name": "Xarici İşlər Nazirliyi",
-   "lat": 40.3765636,
-   "lng": 49.8322247
+   "osmId": 11876399269,
+   "name": "Vergi Cinayətlərinin İbtidai Araşdırılma Dep.",
+   "lat": 40.3812108,
+   "lng": 49.8245506
   },
   {
-   "osmId": 11876790469,
-   "name": "Füzuli meydanı",
-   "lat": 40.3751637,
-   "lng": 49.833673
+   "osmId": 4714597790,
+   "name": "54 saylı uşaq bağçası",
+   "lat": 40.3848783,
+   "lng": 49.8239048
   },
   {
-   "osmId": 11876790470,
-   "name": "Azərbaycan Milli Konservatoriyası",
-   "lat": 40.3780349,
-   "lng": 49.8456277
+   "osmId": 8591438760,
+   "name": "Bakı Tikiş Evi",
+   "lat": 40.3878842,
+   "lng": 49.831709
   },
   {
-   "osmId": 12223155296,
-   "name": "Səməd Vurğun bağı",
-   "lat": 40.3787054,
-   "lng": 49.85231
+   "osmId": 2336972256,
+   "name": "22 saylı poçt şöbəsi",
+   "lat": 40.3886581,
+   "lng": 49.8354921
+  },
+  {
+   "osmId": 11876758270,
+   "name": "Dədə Qorqud parkı",
+   "lat": 40.3946609,
+   "lng": 49.847712
+  },
+  {
+   "osmId": 11365027908,
+   "name": "Gənclik m/st (Atatürk pr.)",
+   "lat": 40.4011627,
+   "lng": 49.8519804
+  },
+  {
+   "osmId": 7709704178,
+   "name": "Atatürk prospekti 98",
+   "lat": 40.4080306,
+   "lng": 49.8487421
+  },
+  {
+   "osmId": 11891117169,
+   "name": "Atatürk parkı",
+   "lat": 40.4119814,
+   "lng": 49.8472039
+  },
+  {
+   "osmId": 3959999530,
+   "name": "Ayna Sultanova parkı",
+   "lat": 40.4141669,
+   "lng": 49.8463608
+  },
+  {
+   "osmId": 11941548369,
+   "name": "Atatürk prospekti 220",
+   "lat": 40.4169566,
+   "lng": 49.8460271
+  },
+  {
+   "osmId": 11941548370,
+   "name": "Şövkət Məmmədova küçəsi 24",
+   "lat": 40.4194758,
+   "lng": 49.8462302
+  },
+  {
+   "osmId": 11941549169,
+   "name": "Şövkət Məmmədova küçəsi 36",
+   "lat": 40.4219534,
+   "lng": 49.8463414
+  },
+  {
+   "osmId": 11941549369,
+   "name": "Şövkət Məmmədova küçəsi 48",
+   "lat": 40.424663,
+   "lng": 49.8464055
+  },
+  {
+   "osmId": 4554547889,
+   "name": "28 Mall ticarət mərkəzi",
+   "lat": 40.3793086,
+   "lng": 49.8454135
+  },
+  {
+   "osmId": 14134881840,
+   "name": "Bakı Dövlət Cıdır Meydanı",
+   "lat": 40.4100654,
+   "lng": 49.8389155
+  },
+  {
+   "osmId": 6602747630,
+   "name": "Bakı Biznes və Kooperasiya Kolleci",
+   "lat": 40.4117243,
+   "lng": 49.8411439
+  },
+  {
+   "osmId": 6602747629,
+   "name": "Sənayecihaz elmi-istehsalat müəssisəsi",
+   "lat": 40.4127446,
+   "lng": 49.8434104
+  },
+  {
+   "osmId": 11876685669,
+   "name": "Ziya Bünyadov prospekti 7",
+   "lat": 40.4118325,
+   "lng": 49.8394489
+  },
+  {
+   "osmId": 2572626839,
+   "name": "Milli Arxiv İdarəsi",
+   "lat": 40.4110709,
+   "lng": 49.8358202
+  },
+  {
+   "osmId": 14124908881,
+   "name": "Eldar Babayev küçəsi 32",
+   "lat": 40.4124637,
+   "lng": 49.8300598
+  },
+  {
+   "osmId": 11900373959,
+   "name": "Eldar Babayev",
+   "lat": 40.4134083,
+   "lng": 49.8276545
+  },
+  {
+   "osmId": 14320253941,
+   "name": "Eldar Babayev küçəsi",
+   "lat": 40.4129975,
+   "lng": 49.824634
+  },
+  {
+   "osmId": 14098502973,
+   "name": "Hüseynbala Əliyev küçəsi 15",
+   "lat": 40.4117103,
+   "lng": 49.8204265
+  },
+  {
+   "osmId": 4692426306,
+   "name": "Memar Əcəmi m/st",
+   "lat": 40.4107965,
+   "lng": 49.8151767
+  },
+  {
+   "osmId": 4643611890,
+   "name": "S.C.Pişəvəri küçəsi 27",
+   "lat": 40.40683,
+   "lng": 49.8137794
+  },
+  {
+   "osmId": 11891264869,
+   "name": "Asif Məhərrəmov küçəsi 22",
+   "lat": 40.4076538,
+   "lng": 49.8115315
+  },
+  {
+   "osmId": 11891265369,
+   "name": "Asif Məhərrəmov küçəsi 140A",
+   "lat": 40.4091328,
+   "lng": 49.8089254
+  },
+  {
+   "osmId": 5695774322,
+   "name": "96 saylı uşaq bağçası",
+   "lat": 40.4107646,
+   "lng": 49.8060151
+  },
+  {
+   "osmId": 14206196100,
+   "name": "Adil Məmmədov küçəsi 56",
+   "lat": 40.4206352,
+   "lng": 49.8087928
+  },
+  {
+   "osmId": 14206196098,
+   "name": "Adil Məmmədov küçəsi",
+   "lat": 40.4228219,
+   "lng": 49.8102688
+  },
+  {
+   "osmId": 14090081060,
+   "name": "Adil Məmmədov küçəsi 171B",
+   "lat": 40.4255977,
+   "lng": 49.8142161
+  },
+  {
+   "osmId": 14206196097,
+   "name": "Adil Məmmədov küçəsi 139",
+   "lat": 40.4228709,
+   "lng": 49.8101663
+  },
+  {
+   "osmId": 14206196099,
+   "name": "Dövlət yanğından mühafizə hissəsi",
+   "lat": 40.4203592,
+   "lng": 49.8087021
+  },
+  {
+   "osmId": 8498607992,
+   "name": "Asif Məhərrəmov küçəsi 141",
+   "lat": 40.4106078,
+   "lng": 49.8058926
+  },
+  {
+   "osmId": 11891252170,
+   "name": "12 nömrəli Uşaq Poliklinikası",
+   "lat": 40.4086639,
+   "lng": 49.8093445
+  },
+  {
+   "osmId": 11891254069,
+   "name": "Asif Məhərrəmov küçəsi 17",
+   "lat": 40.4071955,
+   "lng": 49.8119346
+  },
+  {
+   "osmId": 4682055392,
+   "name": "S.C.Pişəvəri küç. 3-cü mkr. dairəsi",
+   "lat": 40.4069843,
+   "lng": 49.8140384
+  },
+  {
+   "osmId": 11891258169,
+   "name": "Memar Əcəmi m/st",
+   "lat": 40.410588,
+   "lng": 49.8154245
+  },
+  {
+   "osmId": 14098609107,
+   "name": "Heydər Əliyev adına Park",
+   "lat": 40.411717,
+   "lng": 49.8209059
+  },
+  {
+   "osmId": 14320253942,
+   "name": "Eldar Babayev küçəsi",
+   "lat": 40.4129813,
+   "lng": 49.8248168
+  },
+  {
+   "osmId": 11900373958,
+   "name": "Eldar Babayev küçəsi 15",
+   "lat": 40.4131019,
+   "lng": 49.8280757
+  },
+  {
+   "osmId": 14320253943,
+   "name": "Eldar Babayev küçəsi",
+   "lat": 40.4120358,
+   "lng": 49.8308335
+  },
+  {
+   "osmId": 11875839469,
+   "name": "Ziya Bünyadov prospekti 3",
+   "lat": 40.4085599,
+   "lng": 49.826298
+  },
+  {
+   "osmId": 2522904670,
+   "name": "Milli Arxiv İdarəsi",
+   "lat": 40.4107805,
+   "lng": 49.8365563
+  },
+  {
+   "osmId": 12333958701,
+   "name": "Məmməd Araz 23",
+   "lat": 40.4051147,
+   "lng": 49.8374997
+  },
+  {
+   "osmId": 14087359973,
+   "name": "Şöhrət küçəsi",
+   "lat": 40.3726451,
+   "lng": 49.7979375
+  },
+  {
+   "osmId": 14206372545,
+   "name": "Müstəqillik küçəsi, giriş 71",
+   "lat": 40.3715928,
+   "lng": 49.7967972
+  },
+  {
+   "osmId": 11948462969,
+   "name": "Müstəqillik küçəsi 7",
+   "lat": 40.3742449,
+   "lng": 49.7959511
+  },
+  {
+   "osmId": 11948465869,
+   "name": "Yasamal Yaşayış Kompleksi (MİDA)",
+   "lat": 40.3765571,
+   "lng": 49.795435
+  },
+  {
+   "osmId": 11948471469,
+   "name": "N. Hikmət və Ü. Ələkbərov küç. kəs.",
+   "lat": 40.3788071,
+   "lng": 49.7982763
+  },
+  {
+   "osmId": 11948465870,
+   "name": "3 saylı ASAN xidmət mərkəzi",
+   "lat": 40.3792561,
+   "lng": 49.8028819
+  },
+  {
+   "osmId": 11876182669,
+   "name": "21 nömrəli tam orta məktəb",
+   "lat": 40.3794937,
+   "lng": 49.8060989
+  },
+  {
+   "osmId": 11876184369,
+   "name": "Ə. Haqverdiyev küçəsi 28",
+   "lat": 40.3799206,
+   "lng": 49.8109112
+  },
+  {
+   "osmId": 11876185769,
+   "name": "Ə. Haqverdiyev küçəsi 50",
+   "lat": 40.3801412,
+   "lng": 49.813702
+  },
+  {
+   "osmId": 8508876784,
+   "name": "Respublika İncəsənət Gimnaziyası",
+   "lat": 40.3647649,
+   "lng": 49.8189855
+  },
+  {
+   "osmId": 8508876786,
+   "name": "10 nömrəli Uşaq Poliklinikası",
+   "lat": 40.3664231,
+   "lng": 49.8215005
+  },
+  {
+   "osmId": 8594168100,
+   "name": "Nəriman Nərimanov heykəli",
+   "lat": 40.3679624,
+   "lng": 49.8245603
+  },
+  {
+   "osmId": 11945163769,
+   "name": "Mehdi Hüseyn küçəsi 28",
+   "lat": 40.3650367,
+   "lng": 49.8273676
+  },
+  {
+   "osmId": 11945165269,
+   "name": "Dövlət İdarəçilik Akademiyası",
+   "lat": 40.3664994,
+   "lng": 49.8290622
+  },
+  {
+   "osmId": 11952255269,
+   "name": "Azərbaycan Dövlət Pedaqoji Universiteti",
+   "lat": 40.3726005,
+   "lng": 49.8478695
+  },
+  {
+   "osmId": 12344890752,
+   "name": "28 May F",
+   "lat": 40.3793508,
+   "lng": 49.8489683
+  },
+  {
+   "osmId": 11942162569,
+   "name": "Muğan bağı",
+   "lat": 40.3786119,
+   "lng": 49.8520619
+  },
+  {
+   "osmId": 11942162869,
+   "name": "Hökümət evi",
+   "lat": 40.3750697,
+   "lng": 49.854131
+  },
+  {
+   "osmId": 13374354717,
+   "name": "Port Baku parkı",
+   "lat": 40.3749927,
+   "lng": 49.8624383
+  },
+  {
+   "osmId": 4820676721,
+   "name": "Respublika Perinatal Mərkəzi",
+   "lat": 40.3787436,
+   "lng": 49.8652637
   },
   {
    "osmId": 12005696871,
@@ -464,10 +1688,466 @@
    "lng": 49.8725375
   },
   {
+   "osmId": 5998675891,
+   "name": "İzzət Orucova küçəsi 11",
+   "lat": 40.3807801,
+   "lng": 49.8758568
+  },
+  {
+   "osmId": 13449794412,
+   "name": "Maliyyə İqtisad Kolleci",
+   "lat": 40.3787768,
+   "lng": 49.8731094
+  },
+  {
+   "osmId": 3639372141,
+   "name": "2 saylı ASAN xidmət mərkəzi",
+   "lat": 40.3787558,
+   "lng": 49.8792652
+  },
+  {
+   "osmId": 14206035289,
+   "name": "Xəqani Rüstəmov küçəsi",
+   "lat": 40.3766441,
+   "lng": 49.8817206
+  },
+  {
+   "osmId": 14206035290,
+   "name": "Azərbaycan Boks Federasiyası",
+   "lat": 40.3801095,
+   "lng": 49.8813186
+  },
+  {
+   "osmId": 14206035291,
+   "name": "Xəqani Rüstəmov küçəsi 23",
+   "lat": 40.3839221,
+   "lng": 49.88032
+  },
+  {
+   "osmId": 14206035292,
+   "name": "Mərkəzi Bulvar küçəsi 2",
+   "lat": 40.3847157,
+   "lng": 49.8819836
+  },
+  {
+   "osmId": 14206035293,
+   "name": "Mərkəzi Bulvar 2-ci fəvvarələr küç. kəs.",
+   "lat": 40.3834052,
+   "lng": 49.889181
+  },
+  {
+   "osmId": 14093756663,
+   "name": "Mərkəzi Bulvar küçəsi 123",
+   "lat": 40.379204,
+   "lng": 49.8935277
+  },
+  {
+   "osmId": 13770765234,
+   "name": "Mərkəzi Bulvar 1-ci fəvvarələr küç. kəs.",
+   "lat": 40.3843266,
+   "lng": 49.8869405
+  },
+  {
+   "osmId": 6766377501,
+   "name": "Mərkəzi Bulvar küçəsi 3",
+   "lat": 40.3848579,
+   "lng": 49.8829739
+  },
+  {
+   "osmId": 14206035294,
+   "name": "Xəqani Rüstəmov küçəsi 10",
+   "lat": 40.3824411,
+   "lng": 49.8803374
+  },
+  {
+   "osmId": 14104941840,
+   "name": "2 saylı ASAN xidmət mərkəzi",
+   "lat": 40.3790573,
+   "lng": 49.8788525
+  },
+  {
+   "osmId": 14102942834,
+   "name": "55 nömrəli tam orta məktəb",
+   "lat": 40.381451,
+   "lng": 49.8758987
+  },
+  {
+   "osmId": 11942153270,
+   "name": "Xətai m/st",
+   "lat": 40.3829643,
+   "lng": 49.8722523
+  },
+  {
    "osmId": 14102954933,
    "name": "Xocalı prospekti 3A",
    "lat": 40.3820854,
    "lng": 49.8651761
+  },
+  {
+   "osmId": 4803485622,
+   "name": "Mərkəzi Neftçilər Xəstəxanası",
+   "lat": 40.3805893,
+   "lng": 49.8634276
+  },
+  {
+   "osmId": 11942169171,
+   "name": "28 May küçəsi 71",
+   "lat": 40.3798525,
+   "lng": 49.8591364
+  },
+  {
+   "osmId": 4803485822,
+   "name": "Azәrbaycan Dәmir Yolları",
+   "lat": 40.378387,
+   "lng": 49.8537779
+  },
+  {
+   "osmId": 4423203089,
+   "name": "Muğan bağı",
+   "lat": 40.3779542,
+   "lng": 49.8517839
+  },
+  {
+   "osmId": 8594168110,
+   "name": "2 nömrəli Şəhər Poliklinikası",
+   "lat": 40.3676736,
+   "lng": 49.8293266
+  },
+  {
+   "osmId": 8594168111,
+   "name": "44 saylı uşaq bağçası",
+   "lat": 40.3668588,
+   "lng": 49.826454
+  },
+  {
+   "osmId": 8594168112,
+   "name": "6 saylı poçt şöbəsi",
+   "lat": 40.3674369,
+   "lng": 49.8250711
+  },
+  {
+   "osmId": 11876396869,
+   "name": "Nəriman Nərimanov heykəli",
+   "lat": 40.3680475,
+   "lng": 49.8232518
+  },
+  {
+   "osmId": 8508876785,
+   "name": "Mikayıl Müsfiq küçəsi 28",
+   "lat": 40.3663922,
+   "lng": 49.8211168
+  },
+  {
+   "osmId": 4562408493,
+   "name": "Ə. Haqverdiyev küçəsi 25",
+   "lat": 40.3803941,
+   "lng": 49.8145301
+  },
+  {
+   "osmId": 11875869669,
+   "name": "Ə. Haqverdiyev küçəsi 11",
+   "lat": 40.3801113,
+   "lng": 49.8107918
+  },
+  {
+   "osmId": 11875871169,
+   "name": "Qəzənfər Musabəyov parkı",
+   "lat": 40.3807839,
+   "lng": 49.8078472
+  },
+  {
+   "osmId": 11948471470,
+   "name": "Nazim Hikmət küçəsi 45",
+   "lat": 40.3795019,
+   "lng": 49.8035053
+  },
+  {
+   "osmId": 11948498269,
+   "name": "N. Hikmət və Ü. Ələkbərov küç. kəs.",
+   "lat": 40.3789487,
+   "lng": 49.7978492
+  },
+  {
+   "osmId": 14206372543,
+   "name": "161 saylı məktəb",
+   "lat": 40.3760089,
+   "lng": 49.7960222
+  },
+  {
+   "osmId": 11948498270,
+   "name": "Müstəqillik küçəsi 4",
+   "lat": 40.3738691,
+   "lng": 49.795828
+  },
+  {
+   "osmId": 14206372544,
+   "name": "Teymur Həsənov küçəsi, giriş 5",
+   "lat": 40.3713404,
+   "lng": 49.7972594
+  },
+  {
+   "osmId": 11431593524,
+   "name": "DİN Respublika Hospitalı",
+   "lat": 40.4133537,
+   "lng": 49.8482918
+  },
+  {
+   "osmId": 11431607798,
+   "name": "Ziya Bünyadov pr. 38",
+   "lat": 40.4145672,
+   "lng": 49.8541487
+  },
+  {
+   "osmId": 11431593525,
+   "name": "Ziya Bünyadov pr. 170",
+   "lat": 40.415513,
+   "lng": 49.8580458
+  },
+  {
+   "osmId": 12085733569,
+   "name": "Ziya Bünyadov pr. 214",
+   "lat": 40.4181635,
+   "lng": 49.8640689
+  },
+  {
+   "osmId": 6602747627,
+   "name": "Ziya Bünyadov pr. 314",
+   "lat": 40.424096,
+   "lng": 49.8769549
+  },
+  {
+   "osmId": 12085734369,
+   "name": "Ziya Bünyadov pr. 2084",
+   "lat": 40.4273136,
+   "lng": 49.8838083
+  },
+  {
+   "osmId": 12085733570,
+   "name": "Ziya Bünyadov pr. 414",
+   "lat": 40.4276854,
+   "lng": 49.8935305
+  },
+  {
+   "osmId": 6602747626,
+   "name": "Ziya Bünyadov pr. 20/61",
+   "lat": 40.4275406,
+   "lng": 49.8993218
+  },
+  {
+   "osmId": 6602508052,
+   "name": "73 nömrəli tam orta məktəb",
+   "lat": 40.4252661,
+   "lng": 49.905295
+  },
+  {
+   "osmId": 6602730826,
+   "name": "Z. Bünyadov pr. Bakı Olimpiya Stadionu",
+   "lat": 40.4253522,
+   "lng": 49.9155675
+  },
+  {
+   "osmId": 14097679500,
+   "name": "Sabunçu dəmiryol stansiyası",
+   "lat": 40.4461714,
+   "lng": 49.9452732
+  },
+  {
+   "osmId": 14299285268,
+   "name": "Asif Əsədullayev küçəsi 135",
+   "lat": 40.4402827,
+   "lng": 49.9410516
+  },
+  {
+   "osmId": 3960031834,
+   "name": "Sabunçu yol qovşağı",
+   "lat": 40.4394265,
+   "lng": 49.9358906
+  },
+  {
+   "osmId": 14211438155,
+   "name": "Koroğlu NMM",
+   "lat": 40.4233795,
+   "lng": 49.9153007
+  },
+  {
+   "osmId": 6602730825,
+   "name": "Z. Bünyadov pr. Bakı Olimpiya Stadionu",
+   "lat": 40.4256636,
+   "lng": 49.9162237
+  },
+  {
+   "osmId": 6602504910,
+   "name": "Aşqarlar Kimyası İnstitutu",
+   "lat": 40.4257716,
+   "lng": 49.906012
+  },
+  {
+   "osmId": 6602747625,
+   "name": "Ziya Bünyadov prospekti",
+   "lat": 40.4285002,
+   "lng": 49.8983174
+  },
+  {
+   "osmId": 12085741170,
+   "name": "Ziya Bünyadov pr. 2062",
+   "lat": 40.4280166,
+   "lng": 49.8919483
+  },
+  {
+   "osmId": 12085751970,
+   "name": "Ziya Bünyadov pr. 63",
+   "lat": 40.4278638,
+   "lng": 49.8834937
+  },
+  {
+   "osmId": 6602747628,
+   "name": "Ziya Bünyadov pr. 435",
+   "lat": 40.4246339,
+   "lng": 49.8768781
+  },
+  {
+   "osmId": 12085751971,
+   "name": "Ziya Bünyadov pr. 359",
+   "lat": 40.4177544,
+   "lng": 49.862039
+  },
+  {
+   "osmId": 14092979313,
+   "name": "Ziya Bünyadov pr. 343B",
+   "lat": 40.4159126,
+   "lng": 49.8578566
+  },
+  {
+   "osmId": 11891106669,
+   "name": "Ziya Bünyadov pr. 19",
+   "lat": 40.413491,
+   "lng": 49.8469967
+  },
+  {
+   "osmId": 11941557370,
+   "name": "Dərnəgül m/st (2)",
+   "lat": 40.4250449,
+   "lng": 49.8600495
+  },
+  {
+   "osmId": 12001130870,
+   "name": "S. Axundov küçəsi 323",
+   "lat": 40.4263465,
+   "lng": 49.8518678
+  },
+  {
+   "osmId": 13455792999,
+   "name": "Cəfər Xəndan küçəsi 220",
+   "lat": 40.4215555,
+   "lng": 49.8529785
+  },
+  {
+   "osmId": 11431594587,
+   "name": "Əhməd Rəcəbli küçəsi 269",
+   "lat": 40.420545,
+   "lng": 49.8547333
+  },
+  {
+   "osmId": 11431617404,
+   "name": "Ağdam rayon 32 nömrəli tam orta məktəb",
+   "lat": 40.4189198,
+   "lng": 49.8550378
+  },
+  {
+   "osmId": 11431621369,
+   "name": "4 saylı Bakı DOST Mərkəzi",
+   "lat": 40.4158001,
+   "lng": 49.8552743
+  },
+  {
+   "osmId": 4803478922,
+   "name": "Əhməd Rəcəbli küçəsi 191",
+   "lat": 40.4116267,
+   "lng": 49.8617566
+  },
+  {
+   "osmId": 11944141169,
+   "name": "Əhməd Rəcəbli küçəsi 69",
+   "lat": 40.4060737,
+   "lng": 49.8661364
+  },
+  {
+   "osmId": 8328390617,
+   "name": "N. Nərimanov m/st (Ə. Rəcəbli küç.)",
+   "lat": 40.4029381,
+   "lng": 49.8686798
+  },
+  {
+   "osmId": 1461550207,
+   "name": "N. Nərimanov m/st (A. Nemətulla küç.)",
+   "lat": 40.4027969,
+   "lng": 49.872199
+  },
+  {
+   "osmId": 4803485721,
+   "name": "Bakı Şəhər Baş Polis İdarəsi",
+   "lat": 40.3883354,
+   "lng": 49.863326
+  },
+  {
+   "osmId": 4803485821,
+   "name": "2 saylı Şəhər Klinik Xəstəxanası",
+   "lat": 40.3825846,
+   "lng": 49.8638851
+  },
+  {
+   "osmId": 4953592924,
+   "name": "28 May C",
+   "lat": 40.3796945,
+   "lng": 49.8508209
+  },
+  {
+   "osmId": 11876796969,
+   "name": "Heydər Əliyev Sarayı",
+   "lat": 40.3783061,
+   "lng": 49.8413995
+  },
+  {
+   "osmId": 11876796970,
+   "name": "Qış parkı",
+   "lat": 40.376188,
+   "lng": 49.833789
+  },
+  {
+   "osmId": 12042337269,
+   "name": "Avtovağzal NMM (2, 14)",
+   "lat": 40.4169353,
+   "lng": 49.7970461
+  },
+  {
+   "osmId": 11876790469,
+   "name": "Füzuli meydanı",
+   "lat": 40.3751637,
+   "lng": 49.833673
+  },
+  {
+   "osmId": 11876790969,
+   "name": "Heydər Əliyev Sarayı",
+   "lat": 40.3772777,
+   "lng": 49.8415577
+  },
+  {
+   "osmId": 11876790470,
+   "name": "Azərbaycan Milli Konservatoriyası",
+   "lat": 40.3780349,
+   "lng": 49.8456277
+  },
+  {
+   "osmId": 4163810189,
+   "name": "28 May D",
+   "lat": 40.3795476,
+   "lng": 49.8509615
+  },
+  {
+   "osmId": 4333252493,
+   "name": "Əmlək Məsələləri Dövlət Komitəsi",
+   "lat": 40.3827391,
+   "lng": 49.864268
   },
   {
    "osmId": 4851461696,
@@ -476,28 +2156,52 @@
    "lng": 49.8634381
   },
   {
-   "osmId": 8531689100,
-   "name": "Gülarə Qədirbəyova küçəsi 4",
-   "lat": 40.3935696,
-   "lng": 49.8633665
+   "osmId": 5702962466,
+   "name": "Ekologiya və Təbii Sərvətlər Nazirliyi",
+   "lat": 40.3951706,
+   "lng": 49.8707319
   },
   {
-   "osmId": 4749747764,
-   "name": "Bakı İdarəetmə və Texnologiya Kolleci",
-   "lat": 40.3967979,
-   "lng": 49.8626894
+   "osmId": 12047922969,
+   "name": "8 nömrəli tam orta məktəb",
+   "lat": 40.3939384,
+   "lng": 49.8731411
   },
   {
-   "osmId": 3112820130,
-   "name": "Təbriz küçəsi 170",
-   "lat": 40.4011341,
-   "lng": 49.8683326
+   "osmId": 12047926569,
+   "name": "8 nömrəli Şəhər Poliklinikası",
+   "lat": 40.3935687,
+   "lng": 49.8749771
   },
   {
-   "osmId": 4803004425,
-   "name": "Fətəli xan Xoyski küçəsi 184",
-   "lat": 40.4052223,
-   "lng": 49.8683724
+   "osmId": 12047927269,
+   "name": "291 nömrəli Ekologiya Liseyi",
+   "lat": 40.3946986,
+   "lng": 49.8759361
+  },
+  {
+   "osmId": 12047927369,
+   "name": "Çernyayevski küçəsi",
+   "lat": 40.3963547,
+   "lng": 49.8781975
+  },
+  {
+   "osmId": 12047929269,
+   "name": "Ağa Nemətulla küçəsi 52",
+   "lat": 40.3980976,
+   "lng": 49.8772392
+  },
+  {
+   "osmId": 12047926570,
+   "name": "193 nömrəli tam orta məktəb",
+   "lat": 40.4015585,
+   "lng": 49.8736565
+  },
+  {
+   "osmId": 8328390517,
+   "name": "N. Nərimanov m/st (Ə. Rəcəbli küç.)",
+   "lat": 40.4031277,
+   "lng": 49.8688474
   },
   {
    "osmId": 4803485621,
@@ -524,131 +2228,33 @@
    "lng": 49.8550667
   },
   {
-   "osmId": 3610932317,
-   "name": "Dərnəgül m/st",
-   "lat": 40.4248354,
-   "lng": 49.8615511
+   "osmId": 14206190354,
+   "name": "Cəfər Xəndan küçəsi 147A",
+   "lat": 40.4215608,
+   "lng": 49.8526562
   },
   {
-   "osmId": 13455792999,
-   "name": "Cəfər Xəndan küçəsi 220",
-   "lat": 40.4215555,
-   "lng": 49.8529785
+   "osmId": 12001130869,
+   "name": "Binəqədi Rayon Gənclər və İdman İdarəsi",
+   "lat": 40.426244,
+   "lng": 49.8522119
   },
   {
-   "osmId": 11941531070,
-   "name": "18 nömrəli Bakı Peşə Liseyi",
-   "lat": 40.418629,
-   "lng": 49.8438836
-  },
-  {
-   "osmId": 852866220,
-   "name": "Corce Enesku parkı",
-   "lat": 40.4174825,
-   "lng": 49.8383836
-  },
-  {
-   "osmId": 11875853969,
-   "name": "Mehdi Hüseynzadə parkı",
-   "lat": 40.3865889,
-   "lng": 49.8276776
-  },
-  {
-   "osmId": 11875854272,
-   "name": "3 nömrəli Şəhər Poliklinikası",
-   "lat": 40.3836778,
-   "lng": 49.829007
-  },
-  {
-   "osmId": 11876796969,
-   "name": "Heydər Əliyev Sarayı",
-   "lat": 40.3783061,
-   "lng": 49.8413995
-  },
-  {
-   "osmId": 11876796970,
-   "name": "Qış parkı",
-   "lat": 40.376188,
-   "lng": 49.833789
-  },
-  {
-   "osmId": 4424828102,
-   "name": "Nizami m/st",
-   "lat": 40.3803808,
-   "lng": 49.8312621
-  },
-  {
-   "osmId": 11876427070,
-   "name": "Zivərbəy Əhmədbəyov küçəsi 72",
-   "lat": 40.3849783,
-   "lng": 49.8295933
-  },
-  {
-   "osmId": 4568840293,
-   "name": "Ceyhun Səlimov küçəsi 50",
-   "lat": 40.4052848,
-   "lng": 49.8149373
-  },
-  {
-   "osmId": 11891266970,
-   "name": "Ceyhun Səlimov küçəsi 24",
-   "lat": 40.4036309,
-   "lng": 49.8179409
-  },
-  {
-   "osmId": 12001139069,
-   "name": "Ceyhun Səlimov küçəsi 7",
-   "lat": 40.3998001,
-   "lng": 49.8244002
-  },
-  {
-   "osmId": 12001140069,
-   "name": "C. Məmmədquluzadə küç. 139B",
-   "lat": 40.398004,
-   "lng": 49.8266575
-  },
-  {
-   "osmId": 12068640772,
-   "name": "C. Məmmədquluzadə küç. 100",
-   "lat": 40.3945167,
-   "lng": 49.8279646
-  },
-  {
-   "osmId": 12068640470,
-   "name": "C. Məmmədquluzadə küç. 178",
-   "lat": 40.3907166,
-   "lng": 49.8295583
-  },
-  {
-   "osmId": 8591438760,
-   "name": "Bakı Tikiş Evi",
-   "lat": 40.3878842,
-   "lng": 49.831709
-  },
-  {
-   "osmId": 2336972256,
-   "name": "22 saylı poçt şöbəsi",
-   "lat": 40.3886581,
-   "lng": 49.8354921
-  },
-  {
-   "osmId": 2336972258,
-   "name": "Zabitlər parkı",
-   "lat": 40.3855594,
-   "lng": 49.8374155
-  },
-  {
-   "osmId": 11992633370,
-   "name": "Nizami kino mərkəzi",
-   "lat": 40.37555,
-   "lng": 49.8429982
+   "osmId": 11431611512,
+   "name": "Binəqədi Rayon Məhkəməsi",
+   "lat": 40.4258165,
+   "lng": 49.8560425
   }
  ],
  "routes": [
   {
    "code": "65",
-   "name": "Icherisheher - Koroglu",
+   "name": "Azneft meydanı - 9-cu mikrorayon",
    "buses": 2,
+   "osmRelations": [
+    21213015,
+    2438141
+   ],
    "stops": [
     0,
     1,
@@ -685,20 +2291,1478 @@
     32,
     33,
     34,
-    35
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42
    ],
    "path": [
     [
-     40.367391,
-     49.83888
+     40.362775,
+     49.834305
     ],
     [
-     40.367118,
+     40.363103,
+     49.833169
+    ],
+    [
+     40.36391,
+     49.831116
+    ],
+    [
+     40.364008,
+     49.831062
+    ],
+    [
+     40.364511,
+     49.831055
+    ],
+    [
+     40.366038,
+     49.830924
+    ],
+    [
+     40.366229,
+     49.830972
+    ],
+    [
+     40.367788,
+     49.831601
+    ],
+    [
+     40.36791,
+     49.831711
+    ],
+    [
+     40.368037,
+     49.831902
+    ],
+    [
+     40.368563,
+     49.833044
+    ],
+    [
+     40.369139,
+     49.834665
+    ],
+    [
+     40.369194,
+     49.834738
+    ],
+    [
+     40.37251,
+     49.83323
+    ],
+    [
+     40.374714,
+     49.832264
+    ],
+    [
+     40.374831,
+     49.832253
+    ],
+    [
+     40.374916,
+     49.832322
+    ],
+    [
+     40.374981,
+     49.832499
+    ],
+    [
+     40.37511,
+     49.833047
+    ],
+    [
+     40.37514,
+     49.833354
+    ],
+    [
+     40.375208,
+     49.833656
+    ],
+    [
+     40.376786,
+     49.839507
+    ],
+    [
+     40.377118,
+     49.84054
+    ],
+    [
+     40.377166,
+     49.84062
+    ],
+    [
+     40.37724,
+     49.840648
+    ],
+    [
+     40.377823,
+     49.840441
+    ],
+    [
+     40.377872,
+     49.840298
+    ],
+    [
+     40.377774,
+     49.83972
+    ],
+    [
+     40.375922,
+     49.833128
+    ],
+    [
+     40.375802,
+     49.832574
+    ],
+    [
+     40.37583,
+     49.83244
+    ],
+    [
+     40.378309,
+     49.831541
+    ],
+    [
+     40.37851,
+     49.831522
+    ],
+    [
+     40.378998,
+     49.831588
+    ],
+    [
+     40.379633,
+     49.831399
+    ],
+    [
+     40.386702,
+     49.828824
+    ],
+    [
+     40.387453,
+     49.828497
+    ],
+    [
+     40.387607,
+     49.828332
+    ],
+    [
+     40.387658,
+     49.828204
+    ],
+    [
+     40.387702,
+     49.82766
+    ],
+    [
+     40.387747,
+     49.827473
+    ],
+    [
+     40.387824,
+     49.827313
+    ],
+    [
+     40.38928,
+     49.825826
+    ],
+    [
+     40.390901,
+     49.824076
+    ],
+    [
+     40.391755,
+     49.822737
+    ],
+    [
+     40.392075,
+     49.822399
+    ],
+    [
+     40.393764,
+     49.820398
+    ],
+    [
+     40.39498,
+     49.818881
+    ],
+    [
+     40.395799,
+     49.817305
+    ],
+    [
+     40.39599,
+     49.816829
+    ],
+    [
+     40.396118,
+     49.816161
+    ],
+    [
+     40.396238,
+     49.815854
+    ],
+    [
+     40.396947,
+     49.814547
+    ],
+    [
+     40.397374,
+     49.813984
+    ],
+    [
+     40.399743,
+     49.811378
+    ],
+    [
+     40.400598,
+     49.810669
+    ],
+    [
+     40.40165,
+     49.809674
+    ],
+    [
+     40.402379,
+     49.809093
+    ],
+    [
+     40.403443,
+     49.808393
+    ],
+    [
+     40.40516,
+     49.807337
+    ],
+    [
+     40.409735,
+     49.804713
+    ],
+    [
+     40.410648,
+     49.804094
+    ],
+    [
+     40.410833,
+     49.80404
+    ],
+    [
+     40.410909,
+     49.804057
+    ],
+    [
+     40.410951,
+     49.804111
+    ],
+    [
+     40.411194,
+     49.80483
+    ],
+    [
+     40.411299,
+     49.804967
+    ],
+    [
+     40.411452,
+     49.804799
+    ],
+    [
+     40.413256,
+     49.803761
+    ],
+    [
+     40.416572,
+     49.8083
+    ],
+    [
+     40.423361,
+     49.817728
+    ],
+    [
+     40.423484,
+     49.817996
+    ],
+    [
+     40.423498,
+     49.81821
+    ],
+    [
+     40.423534,
+     49.818319
+    ],
+    [
+     40.423603,
+     49.818369
+    ],
+    [
+     40.423672,
+     49.818348
+    ],
+    [
+     40.423709,
+     49.818312
+    ],
+    [
+     40.423728,
+     49.818208
+    ],
+    [
+     40.423656,
+     49.818005
+    ],
+    [
+     40.42344,
+     49.817625
+    ],
+    [
+     40.423725,
+     49.818263
+    ],
+    [
+     40.423698,
+     49.818094
+    ],
+    [
+     40.423481,
+     49.817682
+    ],
+    [
+     40.414827,
+     49.805726
+    ],
+    [
+     40.413481,
+     49.803846
+    ],
+    [
+     40.413335,
+     49.803601
+    ],
+    [
+     40.41324,
+     49.803605
+    ],
+    [
+     40.413115,
+     49.803672
+    ],
+    [
+     40.411486,
+     49.804609
+    ],
+    [
+     40.411156,
+     49.80369
+    ],
+    [
+     40.411995,
+     49.803135
+    ],
+    [
+     40.412054,
+     49.802994
+    ],
+    [
+     40.412037,
+     49.802861
+    ],
+    [
+     40.411977,
+     49.802767
+    ],
+    [
+     40.411882,
+     49.80274
+    ],
+    [
+     40.411776,
+     49.80277
+    ],
+    [
+     40.407309,
+     49.805456
+    ],
+    [
+     40.403923,
+     49.807605
+    ],
+    [
+     40.403302,
+     49.808052
+    ],
+    [
+     40.401943,
+     49.80894
+    ],
+    [
+     40.401178,
+     49.809569
+    ],
+    [
+     40.400562,
+     49.81016
+    ],
+    [
+     40.399949,
+     49.810858
+    ],
+    [
+     40.399791,
+     49.811145
+    ],
+    [
+     40.397337,
+     49.813845
+    ],
+    [
+     40.396922,
+     49.814364
+    ],
+    [
+     40.396637,
+     49.814845
+    ],
+    [
+     40.395648,
+     49.816747
+    ],
+    [
+     40.39421,
+     49.819672
+    ],
+    [
+     40.392592,
+     49.821599
+    ],
+    [
+     40.392118,
+     49.822115
+    ],
+    [
+     40.391666,
+     49.822523
+    ],
+    [
+     40.391396,
+     49.823098
+    ],
+    [
+     40.390852,
+     49.823944
+    ],
+    [
+     40.388628,
+     49.826335
+    ],
+    [
+     40.388118,
+     49.826844
+    ],
+    [
+     40.387758,
+     49.827114
+    ],
+    [
+     40.386347,
+     49.827958
+    ],
+    [
+     40.385761,
+     49.828261
+    ],
+    [
+     40.382363,
+     49.829571
+    ],
+    [
+     40.378937,
+     49.830794
+    ],
+    [
+     40.378754,
+     49.830924
+    ],
+    [
+     40.378501,
+     49.831237
+    ],
+    [
+     40.378337,
+     49.831366
+    ],
+    [
+     40.375916,
+     49.832233
+    ],
+    [
+     40.375801,
+     49.832167
+    ],
+    [
+     40.375718,
+     49.832001
+    ],
+    [
+     40.375371,
+     49.829774
+    ],
+    [
+     40.374835,
+     49.828014
+    ],
+    [
+     40.374566,
+     49.826129
+    ],
+    [
+     40.374484,
+     49.825747
+    ],
+    [
+     40.374439,
+     49.825645
+    ],
+    [
+     40.374346,
+     49.825576
+    ],
+    [
+     40.374027,
+     49.825613
+    ],
+    [
+     40.373931,
+     49.825683
+    ],
+    [
+     40.373875,
+     49.825831
+    ],
+    [
+     40.37389,
+     49.826325
+    ],
+    [
+     40.37418,
+     49.828272
+    ],
+    [
+     40.374556,
+     49.829831
+    ],
+    [
+     40.374571,
+     49.830081
+    ],
+    [
+     40.373407,
+     49.830434
+    ],
+    [
+     40.368958,
+     49.831454
+    ],
+    [
+     40.368702,
+     49.830972
+    ],
+    [
+     40.368332,
+     49.830116
+    ],
+    [
+     40.368236,
+     49.830127
+    ],
+    [
+     40.366476,
+     49.829406
+    ],
+    [
+     40.366124,
+     49.830937
+    ],
+    [
+     40.365876,
+     49.830925
+    ],
+    [
+     40.364511,
+     49.831055
+    ],
+    [
+     40.364008,
+     49.831062
+    ],
+    [
+     40.36391,
+     49.831116
+    ],
+    [
+     40.362581,
+     49.834506
+    ],
+    [
+     40.362404,
+     49.835152
+    ],
+    [
+     40.362351,
+     49.835482
+    ],
+    [
+     40.362395,
+     49.835641
+    ],
+    [
+     40.362507,
+     49.835726
+    ],
+    [
+     40.362631,
+     49.835699
+    ],
+    [
+     40.362725,
+     49.835533
+    ],
+    [
+     40.362641,
+     49.834754
+    ],
+    [
+     40.362775,
+     49.834305
+    ]
+   ]
+  },
+  {
+   "code": "88",
+   "name": "20-ci Sahə - Dərnəgül m/st",
+   "buses": 3,
+   "osmRelations": [
+    2393325,
+    12537802
+   ],
+   "stops": [
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116
+   ],
+   "path": [
+    [
+     40.329649,
+     49.818984
+    ],
+    [
+     40.330116,
+     49.819014
+    ],
+    [
+     40.330401,
+     49.818855
+    ],
+    [
+     40.33066,
+     49.81885
+    ],
+    [
+     40.332525,
+     49.819577
+    ],
+    [
+     40.335241,
+     49.821355
+    ],
+    [
+     40.335505,
+     49.821581
+    ],
+    [
+     40.335794,
+     49.821971
+    ],
+    [
+     40.335897,
+     49.822292
+    ],
+    [
+     40.336719,
+     49.825928
+    ],
+    [
+     40.336728,
+     49.826192
+    ],
+    [
+     40.336644,
+     49.826442
+    ],
+    [
+     40.336556,
+     49.826562
+    ],
+    [
+     40.334578,
+     49.828618
+    ],
+    [
+     40.334378,
+     49.828873
+    ],
+    [
+     40.334214,
+     49.829216
+    ],
+    [
+     40.334145,
+     49.829432
+    ],
+    [
+     40.33398,
+     49.830154
+    ],
+    [
+     40.334006,
+     49.830335
+    ],
+    [
+     40.334093,
+     49.830455
+    ],
+    [
+     40.334585,
+     49.83078
+    ],
+    [
+     40.33558,
+     49.83125
+    ],
+    [
+     40.335951,
+     49.831521
+    ],
+    [
+     40.336424,
+     49.832004
+    ],
+    [
+     40.337433,
+     49.833257
+    ],
+    [
+     40.337839,
+     49.833812
+    ],
+    [
+     40.338244,
+     49.83445
+    ],
+    [
+     40.339164,
+     49.836109
+    ],
+    [
+     40.340073,
+     49.837629
+    ],
+    [
+     40.340573,
+     49.838588
+    ],
+    [
+     40.340935,
+     49.839353
+    ],
+    [
+     40.342045,
+     49.841894
+    ],
+    [
+     40.342204,
+     49.842141
+    ],
+    [
+     40.342465,
+     49.842434
+    ],
+    [
+     40.342731,
+     49.84265
+    ],
+    [
+     40.342957,
+     49.842764
+    ],
+    [
+     40.343178,
+     49.842828
+    ],
+    [
+     40.343451,
+     49.842844
+    ],
+    [
+     40.343727,
+     49.842778
+    ],
+    [
+     40.343956,
+     49.842673
+    ],
+    [
+     40.344786,
+     49.842197
+    ],
+    [
+     40.345705,
+     49.841408
+    ],
+    [
+     40.346174,
+     49.840915
+    ],
+    [
+     40.346524,
+     49.840475
+    ],
+    [
+     40.348131,
+     49.838
+    ],
+    [
+     40.34866,
+     49.837343
+    ],
+    [
+     40.349386,
+     49.836655
+    ],
+    [
+     40.351521,
+     49.834997
+    ],
+    [
+     40.351987,
+     49.834692
+    ],
+    [
+     40.352419,
+     49.834524
+    ],
+    [
+     40.352874,
+     49.834447
+    ],
+    [
+     40.3547,
+     49.834552
+    ],
+    [
+     40.356339,
+     49.834298
+    ],
+    [
+     40.357092,
+     49.834266
+    ],
+    [
+     40.357896,
+     49.834326
+    ],
+    [
+     40.359123,
+     49.834568
+    ],
+    [
+     40.359259,
+     49.83452
+    ],
+    [
+     40.359939,
+     49.834079
+    ],
+    [
+     40.360148,
+     49.834029
+    ],
+    [
+     40.360393,
+     49.834057
+    ],
+    [
+     40.360805,
+     49.834246
+    ],
+    [
+     40.361497,
+     49.834827
+    ],
+    [
+     40.362397,
+     49.83569
+    ],
+    [
+     40.362592,
+     49.83572
+    ],
+    [
+     40.362949,
+     49.835465
+    ],
+    [
+     40.363106,
+     49.835397
+    ],
+    [
+     40.363345,
+     49.835422
+    ],
+    [
+     40.364191,
+     49.836038
+    ],
+    [
+     40.365599,
+     49.838041
+    ],
+    [
+     40.365736,
+     49.838115
+    ],
+    [
+     40.366793,
+     49.838362
+    ],
+    [
+     40.366948,
      49.838427
     ],
     [
-     40.366954,
-     49.838279
+     40.367042,
+     49.838513
+    ],
+    [
+     40.368696,
+     49.841311
+    ],
+    [
+     40.368911,
+     49.841731
+    ],
+    [
+     40.36933,
+     49.842914
+    ],
+    [
+     40.371185,
+     49.848603
+    ],
+    [
+     40.375948,
+     49.845752
+    ],
+    [
+     40.379019,
+     49.844416
+    ],
+    [
+     40.383005,
+     49.84275
+    ],
+    [
+     40.383292,
+     49.842586
+    ],
+    [
+     40.385264,
+     49.841171
+    ],
+    [
+     40.385825,
+     49.840839
+    ],
+    [
+     40.38962,
+     49.839336
+    ],
+    [
+     40.389692,
+     49.839568
+    ],
+    [
+     40.389731,
+     49.839616
+    ],
+    [
+     40.389811,
+     49.839635
+    ],
+    [
+     40.390604,
+     49.839298
+    ],
+    [
+     40.39204,
+     49.845506
+    ],
+    [
+     40.39268,
+     49.845228
+    ],
+    [
+     40.394381,
+     49.844579
+    ],
+    [
+     40.398812,
+     49.842682
+    ],
+    [
+     40.400788,
+     49.84192
+    ],
+    [
+     40.399983,
+     49.838428
+    ],
+    [
+     40.409366,
+     49.834878
+    ],
+    [
+     40.409729,
+     49.834809
+    ],
+    [
+     40.410106,
+     49.834849
+    ],
+    [
+     40.413986,
+     49.835639
+    ],
+    [
+     40.414241,
+     49.835637
+    ],
+    [
+     40.415732,
+     49.835963
+    ],
+    [
+     40.416075,
+     49.836313
+    ],
+    [
+     40.41622,
+     49.836385
+    ],
+    [
+     40.416464,
+     49.836435
+    ],
+    [
+     40.41678,
+     49.836625
+    ],
+    [
+     40.416973,
+     49.836864
+    ],
+    [
+     40.417111,
+     49.83719
+    ],
+    [
+     40.418282,
+     49.842698
+    ],
+    [
+     40.424155,
+     49.842935
+    ],
+    [
+     40.425352,
+     49.842949
+    ],
+    [
+     40.42533,
+     49.846384
+    ],
+    [
+     40.425417,
+     49.846413
+    ],
+    [
+     40.426383,
+     49.847162
+    ],
+    [
+     40.432118,
+     49.851948
+    ],
+    [
+     40.43258,
+     49.852283
+    ],
+    [
+     40.432474,
+     49.854981
+    ],
+    [
+     40.432451,
+     49.856429
+    ],
+    [
+     40.426547,
+     49.856141
+    ],
+    [
+     40.425377,
+     49.856152
+    ],
+    [
+     40.42526,
+     49.856217
+    ],
+    [
+     40.425222,
+     49.856345
+    ],
+    [
+     40.425217,
+     49.856598
+    ],
+    [
+     40.425091,
+     49.863265
+    ],
+    [
+     40.425101,
+     49.863769
+    ],
+    [
+     40.425182,
+     49.863783
+    ],
+    [
+     40.425234,
+     49.863703
+    ],
+    [
+     40.425289,
+     49.860765
+    ],
+    [
+     40.425475,
+     49.860515
+    ],
+    [
+     40.425489,
+     49.859538
+    ],
+    [
+     40.425458,
+     49.859436
+    ],
+    [
+     40.425313,
+     49.859203
+    ],
+    [
+     40.425351,
+     49.857639
+    ],
+    [
+     40.425392,
+     49.857514
+    ],
+    [
+     40.42578,
+     49.857068
+    ],
+    [
+     40.426142,
+     49.857085
+    ],
+    [
+     40.426178,
+     49.85614
+    ],
+    [
+     40.432451,
+     49.856429
+    ],
+    [
+     40.432474,
+     49.854981
+    ],
+    [
+     40.43258,
+     49.852283
+    ],
+    [
+     40.432118,
+     49.851948
+    ],
+    [
+     40.426383,
+     49.847162
+    ],
+    [
+     40.426447,
+     49.84383
+    ],
+    [
+     40.42659,
+     49.839239
+    ],
+    [
+     40.426556,
+     49.839025
+    ],
+    [
+     40.426489,
+     49.838955
+    ],
+    [
+     40.426382,
+     49.838926
+    ],
+    [
+     40.425676,
+     49.838843
+    ],
+    [
+     40.42555,
+     49.838943
+    ],
+    [
+     40.425467,
+     49.839141
+    ],
+    [
+     40.425427,
+     49.839291
+    ],
+    [
+     40.425352,
+     49.842949
+    ],
+    [
+     40.424155,
+     49.842935
+    ],
+    [
+     40.418282,
+     49.842698
+    ],
+    [
+     40.417509,
+     49.83911
+    ],
+    [
+     40.416923,
+     49.836227
+    ],
+    [
+     40.414241,
+     49.835637
+    ],
+    [
+     40.414012,
+     49.835545
+    ],
+    [
+     40.413533,
+     49.835439
+    ],
+    [
+     40.410112,
+     49.834738
+    ],
+    [
+     40.409728,
+     49.834693
+    ],
+    [
+     40.409347,
+     49.834765
+    ],
+    [
+     40.407088,
+     49.835579
+    ],
+    [
+     40.406357,
+     49.835899
+    ],
+    [
+     40.400009,
+     49.838254
+    ],
+    [
+     40.396279,
+     49.839726
+    ],
+    [
+     40.390837,
+     49.842113
+    ],
+    [
+     40.384474,
+     49.845018
+    ],
+    [
+     40.382971,
+     49.845751
+    ],
+    [
+     40.378499,
+     49.847814
+    ],
+    [
+     40.377085,
+     49.848532
+    ],
+    [
+     40.37582,
+     49.849251
+    ],
+    [
+     40.373832,
+     49.850471
+    ],
+    [
+     40.373253,
+     49.850762
+    ],
+    [
+     40.373186,
+     49.85075
+    ],
+    [
+     40.373097,
+     49.850635
+    ],
+    [
+     40.371787,
+     49.846925
+    ],
+    [
+     40.371127,
+     49.845148
+    ],
+    [
+     40.370489,
+     49.843251
+    ],
+    [
+     40.369893,
+     49.841977
+    ],
+    [
+     40.369766,
+     49.841794
+    ],
+    [
+     40.369613,
+     49.841709
+    ],
+    [
+     40.369249,
+     49.841843
+    ],
+    [
+     40.369104,
+     49.841794
+    ],
+    [
+     40.367084,
+     49.838383
+    ],
+    [
+     40.366866,
+     49.83824
     ],
     [
      40.365763,
@@ -709,28 +3773,3703 @@
      49.837929
     ],
     [
+     40.364241,
+     49.835944
+    ],
+    [
      40.364116,
      49.835812
+    ],
+    [
+     40.363293,
+     49.835273
     ],
     [
      40.363148,
      49.83522
     ],
     [
-     40.362519,
-     49.835237
+     40.36248,
+     49.835248
     ],
     [
-     40.362366,
-     49.835388
+     40.362119,
+     49.83522
     ],
     [
-     40.362354,
-     49.835525
+     40.360843,
+     49.83414
     ],
     [
-     40.362395,
-     49.835641
+     40.36065,
+     49.834014
+    ],
+    [
+     40.360435,
+     49.833931
+    ],
+    [
+     40.360177,
+     49.833876
+    ],
+    [
+     40.359979,
+     49.833899
+    ],
+    [
+     40.359209,
+     49.834412
+    ],
+    [
+     40.359121,
+     49.83444
+    ],
+    [
+     40.357909,
+     49.834206
+    ],
+    [
+     40.357098,
+     49.834116
+    ],
+    [
+     40.356076,
+     49.834135
+    ],
+    [
+     40.354534,
+     49.834235
+    ],
+    [
+     40.353135,
+     49.833583
+    ],
+    [
+     40.352748,
+     49.833466
+    ],
+    [
+     40.352353,
+     49.833436
+    ],
+    [
+     40.351432,
+     49.833825
+    ],
+    [
+     40.35077,
+     49.83417
+    ],
+    [
+     40.346705,
+     49.837333
+    ],
+    [
+     40.345739,
+     49.83801
+    ],
+    [
+     40.345355,
+     49.838233
+    ],
+    [
+     40.343727,
+     49.839038
+    ],
+    [
+     40.341974,
+     49.839791
+    ],
+    [
+     40.341825,
+     49.839805
+    ],
+    [
+     40.341671,
+     49.839714
+    ],
+    [
+     40.341556,
+     49.839326
+    ],
+    [
+     40.341292,
+     49.838094
+    ],
+    [
+     40.341096,
+     49.837603
+    ],
+    [
+     40.340942,
+     49.837368
+    ],
+    [
+     40.339256,
+     49.835318
+    ],
+    [
+     40.338949,
+     49.834874
+    ],
+    [
+     40.338796,
+     49.834532
+    ],
+    [
+     40.33872,
+     49.834227
+    ],
+    [
+     40.338657,
+     49.833728
+    ],
+    [
+     40.338581,
+     49.832448
+    ],
+    [
+     40.338514,
+     49.832061
+    ],
+    [
+     40.337635,
+     49.829372
+    ],
+    [
+     40.337204,
+     49.827867
+    ],
+    [
+     40.336719,
+     49.825928
+    ],
+    [
+     40.335897,
+     49.822292
+    ],
+    [
+     40.335794,
+     49.821971
+    ],
+    [
+     40.335505,
+     49.821581
+    ],
+    [
+     40.335241,
+     49.821355
+    ],
+    [
+     40.332525,
+     49.819577
+    ],
+    [
+     40.33066,
+     49.81885
+    ],
+    [
+     40.330181,
+     49.818631
+    ],
+    [
+     40.329697,
+     49.818588
+    ],
+    [
+     40.329649,
+     49.818984
+    ]
+   ]
+  },
+  {
+   "code": "13",
+   "name": "Avtovağzal - Koroğlu m/st",
+   "buses": 3,
+   "osmRelations": [
+    2835830,
+    12540975
+   ],
+   "stops": [
+    117,
+    118,
+    28,
+    29,
+    30,
+    31,
+    32,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    10,
+    11,
+    12,
+    13,
+    14,
+    155,
+    156,
+    118
+   ],
+   "path": [
+    [
+     40.417165,
+     49.797312
+    ],
+    [
+     40.416904,
+     49.79646
+    ],
+    [
+     40.417871,
+     49.795889
+    ],
+    [
+     40.417916,
+     49.795813
+    ],
+    [
+     40.417925,
+     49.795571
+    ],
+    [
+     40.417986,
+     49.795481
+    ],
+    [
+     40.418132,
+     49.795374
+    ],
+    [
+     40.41895,
+     49.795239
+    ],
+    [
+     40.419007,
+     49.795263
+    ],
+    [
+     40.419093,
+     49.795379
+    ],
+    [
+     40.41944,
+     49.796416
+    ],
+    [
+     40.419574,
+     49.796973
+    ],
+    [
+     40.420287,
+     49.799044
+    ],
+    [
+     40.420654,
+     49.799978
+    ],
+    [
+     40.420739,
+     49.800068
+    ],
+    [
+     40.420847,
+     49.800081
+    ],
+    [
+     40.421083,
+     49.800046
+    ],
+    [
+     40.421143,
+     49.799973
+    ],
+    [
+     40.421152,
+     49.799845
+    ],
+    [
+     40.421106,
+     49.799732
+    ],
+    [
+     40.420721,
+     49.799279
+    ],
+    [
+     40.420453,
+     49.79904
+    ],
+    [
+     40.420273,
+     49.798668
+    ],
+    [
+     40.419993,
+     49.797906
+    ],
+    [
+     40.419964,
+     49.797528
+    ],
+    [
+     40.419997,
+     49.797367
+    ],
+    [
+     40.420082,
+     49.797251
+    ],
+    [
+     40.420291,
+     49.797103
+    ],
+    [
+     40.420391,
+     49.797085
+    ],
+    [
+     40.420513,
+     49.797173
+    ],
+    [
+     40.420584,
+     49.797329
+    ],
+    [
+     40.420587,
+     49.797463
+    ],
+    [
+     40.420519,
+     49.797685
+    ],
+    [
+     40.420199,
+     49.79799
+    ],
+    [
+     40.416556,
+     49.800095
+    ],
+    [
+     40.415884,
+     49.800516
+    ],
+    [
+     40.415145,
+     49.800795
+    ],
+    [
+     40.411776,
+     49.80277
+    ],
+    [
+     40.406439,
+     49.805996
+    ],
+    [
+     40.403923,
+     49.807605
+    ],
+    [
+     40.403302,
+     49.808052
+    ],
+    [
+     40.401943,
+     49.80894
+    ],
+    [
+     40.401178,
+     49.809569
+    ],
+    [
+     40.400562,
+     49.81016
+    ],
+    [
+     40.399949,
+     49.810858
+    ],
+    [
+     40.399791,
+     49.811145
+    ],
+    [
+     40.397337,
+     49.813845
+    ],
+    [
+     40.396998,
+     49.81426
+    ],
+    [
+     40.396637,
+     49.814845
+    ],
+    [
+     40.395648,
+     49.816747
+    ],
+    [
+     40.394751,
+     49.81858
+    ],
+    [
+     40.394737,
+     49.8188
+    ],
+    [
+     40.3948,
+     49.818897
+    ],
+    [
+     40.394872,
+     49.818925
+    ],
+    [
+     40.394942,
+     49.818909
+    ],
+    [
+     40.395237,
+     49.818676
+    ],
+    [
+     40.395359,
+     49.818672
+    ],
+    [
+     40.395421,
+     49.818756
+    ],
+    [
+     40.395519,
+     49.819159
+    ],
+    [
+     40.400863,
+     49.842728
+    ],
+    [
+     40.401145,
+     49.844092
+    ],
+    [
+     40.402425,
+     49.849641
+    ],
+    [
+     40.403806,
+     49.855832
+    ],
+    [
+     40.40386,
+     49.856227
+    ],
+    [
+     40.403799,
+     49.856344
+    ],
+    [
+     40.402013,
+     49.857043
+    ],
+    [
+     40.401953,
+     49.857118
+    ],
+    [
+     40.401938,
+     49.857217
+    ],
+    [
+     40.402003,
+     49.857642
+    ],
+    [
+     40.401964,
+     49.857741
+    ],
+    [
+     40.401882,
+     49.857806
+    ],
+    [
+     40.395813,
+     49.860161
+    ],
+    [
+     40.39565,
+     49.860253
+    ],
+    [
+     40.395269,
+     49.860633
+    ],
+    [
+     40.39379,
+     49.862823
+    ],
+    [
+     40.393052,
+     49.863858
+    ],
+    [
+     40.39295,
+     49.863854
+    ],
+    [
+     40.392773,
+     49.863713
+    ],
+    [
+     40.392173,
+     49.862966
+    ],
+    [
+     40.391974,
+     49.862884
+    ],
+    [
+     40.391847,
+     49.862922
+    ],
+    [
+     40.391764,
+     49.863022
+    ],
+    [
+     40.39171,
+     49.863251
+    ],
+    [
+     40.391725,
+     49.864044
+    ],
+    [
+     40.391681,
+     49.865539
+    ],
+    [
+     40.391695,
+     49.866043
+    ],
+    [
+     40.391778,
+     49.866496
+    ],
+    [
+     40.391874,
+     49.866751
+    ],
+    [
+     40.392057,
+     49.867073
+    ],
+    [
+     40.392308,
+     49.867351
+    ],
+    [
+     40.392657,
+     49.867562
+    ],
+    [
+     40.394409,
+     49.868264
+    ],
+    [
+     40.394639,
+     49.868419
+    ],
+    [
+     40.394972,
+     49.868859
+    ],
+    [
+     40.396126,
+     49.870776
+    ],
+    [
+     40.396488,
+     49.871642
+    ],
+    [
+     40.399755,
+     49.877033
+    ],
+    [
+     40.400814,
+     49.878841
+    ],
+    [
+     40.401831,
+     49.880769
+    ],
+    [
+     40.40306,
+     49.883002
+    ],
+    [
+     40.403907,
+     49.884275
+    ],
+    [
+     40.404829,
+     49.885747
+    ],
+    [
+     40.410292,
+     49.894731
+    ],
+    [
+     40.411362,
+     49.896547
+    ],
+    [
+     40.416581,
+     49.907763
+    ],
+    [
+     40.419965,
+     49.914917
+    ],
+    [
+     40.421393,
+     49.918021
+    ],
+    [
+     40.421635,
+     49.918479
+    ],
+    [
+     40.421863,
+     49.918834
+    ],
+    [
+     40.422175,
+     49.919177
+    ],
+    [
+     40.423931,
+     49.920813
+    ],
+    [
+     40.424587,
+     49.921654
+    ],
+    [
+     40.424831,
+     49.921809
+    ],
+    [
+     40.425024,
+     49.921827
+    ],
+    [
+     40.425274,
+     49.921747
+    ],
+    [
+     40.425392,
+     49.921582
+    ],
+    [
+     40.425484,
+     49.921333
+    ],
+    [
+     40.425507,
+     49.921024
+    ],
+    [
+     40.425483,
+     49.920851
+    ],
+    [
+     40.425331,
+     49.920523
+    ],
+    [
+     40.425208,
+     49.920428
+    ],
+    [
+     40.425054,
+     49.92037
+    ],
+    [
+     40.424484,
+     49.92033
+    ],
+    [
+     40.424146,
+     49.92016
+    ],
+    [
+     40.423122,
+     49.919303
+    ],
+    [
+     40.422472,
+     49.918508
+    ],
+    [
+     40.422,
+     49.918161
+    ],
+    [
+     40.42187,
+     49.918012
+    ],
+    [
+     40.42185,
+     49.917449
+    ],
+    [
+     40.421388,
+     49.916423
+    ],
+    [
+     40.421421,
+     49.91628
+    ],
+    [
+     40.422037,
+     49.915757
+    ],
+    [
+     40.422134,
+     49.9155
+    ],
+    [
+     40.42256,
+     49.915152
+    ],
+    [
+     40.422593,
+     49.915225
+    ],
+    [
+     40.422817,
+     49.91507
+    ],
+    [
+     40.422875,
+     49.91511
+    ],
+    [
+     40.423342,
+     49.916097
+    ],
+    [
+     40.423343,
+     49.916199
+    ],
+    [
+     40.42342,
+     49.916224
+    ],
+    [
+     40.423451,
+     49.916185
+    ],
+    [
+     40.423449,
+     49.916104
+    ],
+    [
+     40.423396,
+     49.916063
+    ],
+    [
+     40.422931,
+     49.915048
+    ],
+    [
+     40.422932,
+     49.914953
+    ],
+    [
+     40.422766,
+     49.915085
+    ],
+    [
+     40.422817,
+     49.91507
+    ],
+    [
+     40.422875,
+     49.91511
+    ],
+    [
+     40.423342,
+     49.916097
+    ],
+    [
+     40.423343,
+     49.916199
+    ],
+    [
+     40.42342,
+     49.916224
+    ],
+    [
+     40.423451,
+     49.916185
+    ],
+    [
+     40.423449,
+     49.916104
+    ],
+    [
+     40.423396,
+     49.916063
+    ],
+    [
+     40.422923,
+     49.914984
+    ],
+    [
+     40.423331,
+     49.914631
+    ],
+    [
+     40.423484,
+     49.914581
+    ],
+    [
+     40.423576,
+     49.914639
+    ],
+    [
+     40.424322,
+     49.916093
+    ],
+    [
+     40.424402,
+     49.916406
+    ],
+    [
+     40.424386,
+     49.916644
+    ],
+    [
+     40.424334,
+     49.916771
+    ],
+    [
+     40.423706,
+     49.917409
+    ],
+    [
+     40.422988,
+     49.917991
+    ],
+    [
+     40.422734,
+     49.918154
+    ],
+    [
+     40.422538,
+     49.918212
+    ],
+    [
+     40.422297,
+     49.918204
+    ],
+    [
+     40.422095,
+     49.918151
+    ],
+    [
+     40.421898,
+     49.918047
+    ],
+    [
+     40.421751,
+     49.917817
+    ],
+    [
+     40.420137,
+     49.914418
+    ],
+    [
+     40.418779,
+     49.911481
+    ],
+    [
+     40.418224,
+     49.910356
+    ],
+    [
+     40.412943,
+     49.899139
+    ],
+    [
+     40.411734,
+     49.89647
+    ],
+    [
+     40.411558,
+     49.896152
+    ],
+    [
+     40.404116,
+     49.883874
+    ],
+    [
+     40.403148,
+     49.88204
+    ],
+    [
+     40.401611,
+     49.879529
+    ],
+    [
+     40.40116,
+     49.87865
+    ],
+    [
+     40.400049,
+     49.876754
+    ],
+    [
+     40.395809,
+     49.869812
+    ],
+    [
+     40.39502,
+     49.868439
+    ],
+    [
+     40.394818,
+     49.868178
+    ],
+    [
+     40.39458,
+     49.867993
+    ],
+    [
+     40.393024,
+     49.867323
+    ],
+    [
+     40.392691,
+     49.867079
+    ],
+    [
+     40.392526,
+     49.866877
+    ],
+    [
+     40.39236,
+     49.866583
+    ],
+    [
+     40.392188,
+     49.866098
+    ],
+    [
+     40.392121,
+     49.865783
+    ],
+    [
+     40.392153,
+     49.865467
+    ],
+    [
+     40.392368,
+     49.8649
+    ],
+    [
+     40.393199,
+     49.863796
+    ],
+    [
+     40.395047,
+     49.861102
+    ],
+    [
+     40.395321,
+     49.860731
+    ],
+    [
+     40.395686,
+     49.86035
+    ],
+    [
+     40.395845,
+     49.860258
+    ],
+    [
+     40.40138,
+     49.858118
+    ],
+    [
+     40.402319,
+     49.857697
+    ],
+    [
+     40.403653,
+     49.857169
+    ],
+    [
+     40.404162,
+     49.857033
+    ],
+    [
+     40.401108,
+     49.843322
+    ],
+    [
+     40.396865,
+     49.824834
+    ],
+    [
+     40.395368,
+     49.818175
+    ],
+    [
+     40.395756,
+     49.817403
+    ],
+    [
+     40.39599,
+     49.816829
+    ],
+    [
+     40.396118,
+     49.816161
+    ],
+    [
+     40.396238,
+     49.815854
+    ],
+    [
+     40.396908,
+     49.814612
+    ],
+    [
+     40.397235,
+     49.814152
+    ],
+    [
+     40.399743,
+     49.811378
+    ],
+    [
+     40.400598,
+     49.810669
+    ],
+    [
+     40.401425,
+     49.809875
+    ],
+    [
+     40.402075,
+     49.809325
+    ],
+    [
+     40.403443,
+     49.808393
+    ],
+    [
+     40.405395,
+     49.807198
+    ],
+    [
+     40.409735,
+     49.804713
+    ],
+    [
+     40.410178,
+     49.804436
+    ],
+    [
+     40.411084,
+     49.803734
+    ],
+    [
+     40.411795,
+     49.803284
+    ],
+    [
+     40.412429,
+     49.802952
+    ],
+    [
+     40.415098,
+     49.801394
+    ],
+    [
+     40.415356,
+     49.8013
+    ],
+    [
+     40.415579,
+     49.80127
+    ],
+    [
+     40.415845,
+     49.801379
+    ],
+    [
+     40.417909,
+     49.802961
+    ],
+    [
+     40.418274,
+     49.803038
+    ],
+    [
+     40.41867,
+     49.803018
+    ],
+    [
+     40.418977,
+     49.802966
+    ],
+    [
+     40.419182,
+     49.802845
+    ],
+    [
+     40.41933,
+     49.802689
+    ],
+    [
+     40.419651,
+     49.802232
+    ],
+    [
+     40.420829,
+     49.800478
+    ],
+    [
+     40.421129,
+     49.800005
+    ],
+    [
+     40.421154,
+     49.799916
+    ],
+    [
+     40.421143,
+     49.799806
+    ],
+    [
+     40.420721,
+     49.799279
+    ],
+    [
+     40.420453,
+     49.79904
+    ],
+    [
+     40.420313,
+     49.798762
+    ],
+    [
+     40.419662,
+     49.796949
+    ],
+    [
+     40.419528,
+     49.796367
+    ],
+    [
+     40.419178,
+     49.795304
+    ],
+    [
+     40.419114,
+     49.795162
+    ],
+    [
+     40.419022,
+     49.795073
+    ],
+    [
+     40.418888,
+     49.795047
+    ],
+    [
+     40.418724,
+     49.79507
+    ],
+    [
+     40.417275,
+     49.795344
+    ],
+    [
+     40.415844,
+     49.795697
+    ],
+    [
+     40.41574,
+     49.795794
+    ],
+    [
+     40.41569,
+     49.795959
+    ],
+    [
+     40.41565,
+     49.796726
+    ],
+    [
+     40.415668,
+     49.796939
+    ],
+    [
+     40.415736,
+     49.79715
+    ],
+    [
+     40.416838,
+     49.796499
+    ],
+    [
+     40.417108,
+     49.797332
+    ],
+    [
+     40.417103,
+     49.797392
+    ],
+    [
+     40.417167,
+     49.797424
+    ],
+    [
+     40.417187,
+     49.79734
+    ],
+    [
+     40.416904,
+     49.79646
+    ],
+    [
+     40.417165,
+     49.797312
+    ]
+   ]
+  },
+  {
+   "code": "3",
+   "name": "Dərnəgül m/st - Badamdar qəsəbəsi",
+   "buses": 3,
+   "osmRelations": [
+    21212095,
+    21212102
+   ],
+   "stops": [
+    157,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    158,
+    86,
+    159,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    183,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189,
+    190,
+    191,
+    192,
+    193,
+    194,
+    195,
+    196,
+    197,
+    198,
+    199,
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    60,
+    218,
+    167,
+    168,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224,
+    225,
+    226,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76
+   ],
+   "path": [
+    [
+     40.425484,
+     49.860092
+    ],
+    [
+     40.425489,
+     49.859538
+    ],
+    [
+     40.425458,
+     49.859436
+    ],
+    [
+     40.425313,
+     49.859203
+    ],
+    [
+     40.425351,
+     49.857639
+    ],
+    [
+     40.425392,
+     49.857514
+    ],
+    [
+     40.42578,
+     49.857068
+    ],
+    [
+     40.426142,
+     49.857085
+    ],
+    [
+     40.426178,
+     49.85614
+    ],
+    [
+     40.432451,
+     49.856429
+    ],
+    [
+     40.432474,
+     49.854981
+    ],
+    [
+     40.43258,
+     49.852283
+    ],
+    [
+     40.432118,
+     49.851948
+    ],
+    [
+     40.426383,
+     49.847162
+    ],
+    [
+     40.426447,
+     49.84383
+    ],
+    [
+     40.42659,
+     49.839239
+    ],
+    [
+     40.426556,
+     49.839025
+    ],
+    [
+     40.426489,
+     49.838955
+    ],
+    [
+     40.425676,
+     49.838843
+    ],
+    [
+     40.425591,
+     49.83889
+    ],
+    [
+     40.425507,
+     49.839019
+    ],
+    [
+     40.425427,
+     49.839291
+    ],
+    [
+     40.425355,
+     49.842398
+    ],
+    [
+     40.42533,
+     49.846384
+    ],
+    [
+     40.419454,
+     49.846167
+    ],
+    [
+     40.417398,
+     49.846009
+    ],
+    [
+     40.417129,
+     49.84482
+    ],
+    [
+     40.415142,
+     49.845187
+    ],
+    [
+     40.413441,
+     49.845816
+    ],
+    [
+     40.408865,
+     49.847629
+    ],
+    [
+     40.405283,
+     49.848993
+    ],
+    [
+     40.404704,
+     49.849182
+    ],
+    [
+     40.403701,
+     49.849412
+    ],
+    [
+     40.401826,
+     49.850097
+    ],
+    [
+     40.40123,
+     49.850263
+    ],
+    [
+     40.401054,
+     49.850252
+    ],
+    [
+     40.400849,
+     49.850127
+    ],
+    [
+     40.40056,
+     49.849801
+    ],
+    [
+     40.400062,
+     49.849146
+    ],
+    [
+     40.3999,
+     49.848969
+    ],
+    [
+     40.399711,
+     49.848835
+    ],
+    [
+     40.399332,
+     49.84878
+    ],
+    [
+     40.398646,
+     49.848835
+    ],
+    [
+     40.397865,
+     49.848741
+    ],
+    [
+     40.397633,
+     49.848802
+    ],
+    [
+     40.397532,
+     49.848913
+    ],
+    [
+     40.397496,
+     49.849077
+    ],
+    [
+     40.397498,
+     49.849258
+    ],
+    [
+     40.397524,
+     49.849372
+    ],
+    [
+     40.397656,
+     49.849599
+    ],
+    [
+     40.397837,
+     49.849716
+    ],
+    [
+     40.397971,
+     49.849717
+    ],
+    [
+     40.399291,
+     49.849367
+    ],
+    [
+     40.399475,
+     49.849389
+    ],
+    [
+     40.39968,
+     49.849511
+    ],
+    [
+     40.400191,
+     49.851016
+    ],
+    [
+     40.400199,
+     49.851192
+    ],
+    [
+     40.400123,
+     49.851266
+    ],
+    [
+     40.39926,
+     49.851609
+    ],
+    [
+     40.399219,
+     49.851663
+    ],
+    [
+     40.399261,
+     49.851867
+    ],
+    [
+     40.399287,
+     49.851924
+    ],
+    [
+     40.399328,
+     49.851934
+    ],
+    [
+     40.399838,
+     49.851726
+    ],
+    [
+     40.399918,
+     49.851658
+    ],
+    [
+     40.400241,
+     49.851549
+    ],
+    [
+     40.400325,
+     49.851596
+    ],
+    [
+     40.400427,
+     49.851805
+    ],
+    [
+     40.400577,
+     49.852251
+    ],
+    [
+     40.400994,
+     49.854216
+    ],
+    [
+     40.401189,
+     49.855163
+    ],
+    [
+     40.40127,
+     49.856027
+    ],
+    [
+     40.40162,
+     49.857687
+    ],
+    [
+     40.401673,
+     49.857752
+    ],
+    [
+     40.401892,
+     49.857672
+    ],
+    [
+     40.401911,
+     49.857604
+    ],
+    [
+     40.401556,
+     49.855968
+    ],
+    [
+     40.401264,
+     49.855123
+    ],
+    [
+     40.400547,
+     49.851754
+    ],
+    [
+     40.400514,
+     49.85158
+    ],
+    [
+     40.400517,
+     49.851217
+    ],
+    [
+     40.400434,
+     49.850731
+    ],
+    [
+     40.400275,
+     49.850297
+    ],
+    [
+     40.399741,
+     49.847532
+    ],
+    [
+     40.399393,
+     49.845989
+    ],
+    [
+     40.399243,
+     49.844512
+    ],
+    [
+     40.397758,
+     49.838093
+    ],
+    [
+     40.396713,
+     49.833424
+    ],
+    [
+     40.396619,
+     49.833363
+    ],
+    [
+     40.391528,
+     49.835262
+    ],
+    [
+     40.391164,
+     49.833637
+    ],
+    [
+     40.389018,
+     49.834466
+    ],
+    [
+     40.388736,
+     49.834513
+    ],
+    [
+     40.388655,
+     49.834458
+    ],
+    [
+     40.388535,
+     49.834155
+    ],
+    [
+     40.38636,
+     49.824688
+    ],
+    [
+     40.386271,
+     49.824424
+    ],
+    [
+     40.386106,
+     49.824285
+    ],
+    [
+     40.379429,
+     49.82106
+    ],
+    [
+     40.38026,
+     49.818311
+    ],
+    [
+     40.38047,
+     49.817695
+    ],
+    [
+     40.380518,
+     49.817446
+    ],
+    [
+     40.380522,
+     49.817196
+    ],
+    [
+     40.380345,
+     49.815119
+    ],
+    [
+     40.365775,
+     49.817098
+    ],
+    [
+     40.365621,
+     49.817089
+    ],
+    [
+     40.3652,
+     49.816874
+    ],
+    [
+     40.365089,
+     49.816885
+    ],
+    [
+     40.364887,
+     49.817038
+    ],
+    [
+     40.364481,
+     49.817558
+    ],
+    [
+     40.364232,
+     49.818314
+    ],
+    [
+     40.364126,
+     49.818548
+    ],
+    [
+     40.36155,
+     49.822468
+    ],
+    [
+     40.359958,
+     49.825014
+    ],
+    [
+     40.35879,
+     49.826312
+    ],
+    [
+     40.358371,
+     49.826652
+    ],
+    [
+     40.35815,
+     49.8267
+    ],
+    [
+     40.358025,
+     49.826627
+    ],
+    [
+     40.357313,
+     49.82559
+    ],
+    [
+     40.357099,
+     49.825203
+    ],
+    [
+     40.357944,
+     49.823881
+    ],
+    [
+     40.356518,
+     49.822381
+    ],
+    [
+     40.355879,
+     49.821753
+    ],
+    [
+     40.355815,
+     49.821607
+    ],
+    [
+     40.355373,
+     49.819474
+    ],
+    [
+     40.355131,
+     49.81876
+    ],
+    [
+     40.354753,
+     49.817919
+    ],
+    [
+     40.354308,
+     49.81712
+    ],
+    [
+     40.353412,
+     49.816487
+    ],
+    [
+     40.353189,
+     49.816266
+    ],
+    [
+     40.353036,
+     49.815954
+    ],
+    [
+     40.352765,
+     49.815244
+    ],
+    [
+     40.352537,
+     49.814598
+    ],
+    [
+     40.352444,
+     49.814223
+    ],
+    [
+     40.352175,
+     49.812158
+    ],
+    [
+     40.352148,
+     49.811678
+    ],
+    [
+     40.35226,
+     49.810851
+    ],
+    [
+     40.346733,
+     49.810468
+    ],
+    [
+     40.343584,
+     49.810396
+    ],
+    [
+     40.34091,
+     49.810288
+    ],
+    [
+     40.340691,
+     49.810148
+    ],
+    [
+     40.339524,
+     49.808865
+    ],
+    [
+     40.339793,
+     49.808431
+    ],
+    [
+     40.338783,
+     49.807356
+    ],
+    [
+     40.338516,
+     49.807814
+    ],
+    [
+     40.338497,
+     49.807893
+    ],
+    [
+     40.338873,
+     49.808203
+    ],
+    [
+     40.34064,
+     49.810229
+    ],
+    [
+     40.340904,
+     49.810394
+    ],
+    [
+     40.346727,
+     49.810567
+    ],
+    [
+     40.352257,
+     49.810954
+    ],
+    [
+     40.352177,
+     49.811385
+    ],
+    [
+     40.352146,
+     49.811828
+    ],
+    [
+     40.352444,
+     49.814223
+    ],
+    [
+     40.352537,
+     49.814598
+    ],
+    [
+     40.353082,
+     49.816063
+    ],
+    [
+     40.353189,
+     49.816266
+    ],
+    [
+     40.353327,
+     49.816418
+    ],
+    [
+     40.354308,
+     49.81712
+    ],
+    [
+     40.354753,
+     49.817919
+    ],
+    [
+     40.355131,
+     49.81876
+    ],
+    [
+     40.355373,
+     49.819474
+    ],
+    [
+     40.355815,
+     49.821607
+    ],
+    [
+     40.355879,
+     49.821753
+    ],
+    [
+     40.356518,
+     49.822381
+    ],
+    [
+     40.357944,
+     49.823881
+    ],
+    [
+     40.359318,
+     49.821807
+    ],
+    [
+     40.359632,
+     49.818367
+    ],
+    [
+     40.359696,
+     49.818105
+    ],
+    [
+     40.361903,
+     49.815553
+    ],
+    [
+     40.362014,
+     49.815383
+    ],
+    [
+     40.362483,
+     49.815526
+    ],
+    [
+     40.362659,
+     49.815665
+    ],
+    [
+     40.36409,
+     49.817784
+    ],
+    [
+     40.364263,
+     49.817984
+    ],
+    [
+     40.364479,
+     49.81815
+    ],
+    [
+     40.364612,
+     49.818121
+    ],
+    [
+     40.364761,
+     49.818025
+    ],
+    [
+     40.365204,
+     49.817547
+    ],
+    [
+     40.365497,
+     49.817283
+    ],
+    [
+     40.365626,
+     49.817221
+    ],
+    [
+     40.372555,
+     49.816279
+    ],
+    [
+     40.372631,
+     49.816347
+    ],
+    [
+     40.372692,
+     49.816645
+    ],
+    [
+     40.372843,
+     49.818444
+    ],
+    [
+     40.372885,
+     49.818559
+    ],
+    [
+     40.372996,
+     49.818662
+    ],
+    [
+     40.373196,
+     49.818728
+    ],
+    [
+     40.373848,
+     49.818676
+    ],
+    [
+     40.37406,
+     49.81859
+    ],
+    [
+     40.374169,
+     49.818507
+    ],
+    [
+     40.374248,
+     49.818388
+    ],
+    [
+     40.374293,
+     49.818209
+    ],
+    [
+     40.374311,
+     49.817952
+    ],
+    [
+     40.374174,
+     49.816462
+    ],
+    [
+     40.374182,
+     49.816145
+    ],
+    [
+     40.374236,
+     49.816057
+    ],
+    [
+     40.378302,
+     49.815463
+    ],
+    [
+     40.380354,
+     49.815226
+    ],
+    [
+     40.380522,
+     49.817196
+    ],
+    [
+     40.380496,
+     49.817583
+    ],
+    [
+     40.379397,
+     49.821177
+    ],
+    [
+     40.382126,
+     49.822503
+    ],
+    [
+     40.382204,
+     49.822574
+    ],
+    [
+     40.382259,
+     49.822689
+    ],
+    [
+     40.382251,
+     49.822958
+    ],
+    [
+     40.382112,
+     49.823138
+    ],
+    [
+     40.381834,
+     49.823237
+    ],
+    [
+     40.380722,
+     49.823434
+    ],
+    [
+     40.378628,
+     49.823721
+    ],
+    [
+     40.37833,
+     49.823846
+    ],
+    [
+     40.378272,
+     49.823902
+    ],
+    [
+     40.378193,
+     49.824064
+    ],
+    [
+     40.378183,
+     49.824158
+    ],
+    [
+     40.37822,
+     49.824345
+    ],
+    [
+     40.3783,
+     49.824455
+    ],
+    [
+     40.378452,
+     49.824526
+    ],
+    [
+     40.379573,
+     49.824656
+    ],
+    [
+     40.380219,
+     49.824809
+    ],
+    [
+     40.380547,
+     49.824791
+    ],
+    [
+     40.380825,
+     49.824709
+    ],
+    [
+     40.381082,
+     49.824585
+    ],
+    [
+     40.382395,
+     49.823734
+    ],
+    [
+     40.382668,
+     49.823591
+    ],
+    [
+     40.383058,
+     49.823447
+    ],
+    [
+     40.3837,
+     49.823322
+    ],
+    [
+     40.383917,
+     49.823376
+    ],
+    [
+     40.386077,
+     49.824422
+    ],
+    [
+     40.386239,
+     49.824538
+    ],
+    [
+     40.388582,
+     49.83467
+    ],
+    [
+     40.389652,
+     49.839475
+    ],
+    [
+     40.389712,
+     49.839598
+    ],
+    [
+     40.389811,
+     49.839635
+    ],
+    [
+     40.390604,
+     49.839298
+    ],
+    [
+     40.39204,
+     49.845506
+    ],
+    [
+     40.392404,
+     49.845347
+    ],
+    [
+     40.392598,
+     49.845344
+    ],
+    [
+     40.392728,
+     49.845389
+    ],
+    [
+     40.395005,
+     49.848016
+    ],
+    [
+     40.395227,
+     49.848191
+    ],
+    [
+     40.395889,
+     49.848541
+    ],
+    [
+     40.396166,
+     49.848668
+    ],
+    [
+     40.396823,
+     49.848872
+    ],
+    [
+     40.397207,
+     49.849163
+    ],
+    [
+     40.397773,
+     49.849813
+    ],
+    [
+     40.397881,
+     49.849849
+    ],
+    [
+     40.398039,
+     49.849839
+    ],
+    [
+     40.399324,
+     49.849476
+    ],
+    [
+     40.399538,
+     49.849523
+    ],
+    [
+     40.399689,
+     49.849649
+    ],
+    [
+     40.399818,
+     49.8499
+    ],
+    [
+     40.400191,
+     49.851016
+    ],
+    [
+     40.400199,
+     49.851192
+    ],
+    [
+     40.400123,
+     49.851266
+    ],
+    [
+     40.39926,
+     49.851609
+    ],
+    [
+     40.399219,
+     49.851663
+    ],
+    [
+     40.399261,
+     49.851867
+    ],
+    [
+     40.399287,
+     49.851924
+    ],
+    [
+     40.399328,
+     49.851934
+    ],
+    [
+     40.399838,
+     49.851726
+    ],
+    [
+     40.399918,
+     49.851658
+    ],
+    [
+     40.400241,
+     49.851549
+    ],
+    [
+     40.400325,
+     49.851596
+    ],
+    [
+     40.400427,
+     49.851805
+    ],
+    [
+     40.400577,
+     49.852251
+    ],
+    [
+     40.401189,
+     49.855163
+    ],
+    [
+     40.40127,
+     49.856027
+    ],
+    [
+     40.401641,
+     49.857731
+    ],
+    [
+     40.401702,
+     49.85775
+    ],
+    [
+     40.401858,
+     49.857693
+    ],
+    [
+     40.401911,
+     49.857604
+    ],
+    [
+     40.401556,
+     49.855968
+    ],
+    [
+     40.401264,
+     49.855123
+    ],
+    [
+     40.400726,
+     49.852617
+    ],
+    [
+     40.400765,
+     49.852396
+    ],
+    [
+     40.400838,
+     49.852197
+    ],
+    [
+     40.400959,
+     49.852044
+    ],
+    [
+     40.401264,
+     49.851813
+    ],
+    [
+     40.401435,
+     49.85149
+    ],
+    [
+     40.402923,
+     49.850902
+    ],
+    [
+     40.403271,
+     49.850714
+    ],
+    [
+     40.40427,
+     49.850321
+    ],
+    [
+     40.405665,
+     49.849553
+    ],
+    [
+     40.407702,
+     49.848816
+    ],
+    [
+     40.415293,
+     49.845859
+    ],
+    [
+     40.419454,
+     49.846167
+    ],
+    [
+     40.42533,
+     49.846384
+    ],
+    [
+     40.425417,
+     49.846413
+    ],
+    [
+     40.426383,
+     49.847162
+    ],
+    [
+     40.432118,
+     49.851948
+    ],
+    [
+     40.43258,
+     49.852283
+    ],
+    [
+     40.432474,
+     49.854981
+    ],
+    [
+     40.432451,
+     49.856429
+    ],
+    [
+     40.426547,
+     49.856141
+    ],
+    [
+     40.425377,
+     49.856152
+    ],
+    [
+     40.42526,
+     49.856217
+    ],
+    [
+     40.425222,
+     49.856345
+    ],
+    [
+     40.425091,
+     49.863265
+    ],
+    [
+     40.425086,
+     49.863701
+    ],
+    [
+     40.425123,
+     49.863783
+    ],
+    [
+     40.42521,
+     49.863768
+    ],
+    [
+     40.425234,
+     49.863703
+    ],
+    [
+     40.425289,
+     49.860765
+    ],
+    [
+     40.425475,
+     49.860515
+    ],
+    [
+     40.425489,
+     49.859538
+    ],
+    [
+     40.425458,
+     49.859436
+    ],
+    [
+     40.425313,
+     49.859203
+    ],
+    [
+     40.425484,
+     49.860092
+    ]
+   ]
+  },
+  {
+   "code": "85",
+   "name": "28 Mall - 9-cu mikrorayon",
+   "buses": 3,
+   "osmRelations": [
+    21204983,
+    2598151
+   ],
+   "stops": [
+    227,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    228,
+    229,
+    230,
+    231,
+    232,
+    233,
+    234,
+    235,
+    236,
+    237,
+    238,
+    239,
+    240,
+    241,
+    15,
+    16,
+    17,
+    18,
+    242,
+    243,
+    244,
+    245,
+    246,
+    24,
+    25,
+    26,
+    27,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    229,
+    164,
+    165,
+    258,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99
+   ],
+   "path": [
+    [
+     40.379285,
+     49.845422
+    ],
+    [
+     40.379019,
+     49.844416
+    ],
+    [
+     40.383096,
+     49.842703
+    ],
+    [
+     40.385264,
+     49.841171
+    ],
+    [
+     40.385629,
+     49.840943
+    ],
+    [
+     40.386167,
+     49.840682
+    ],
+    [
+     40.38962,
+     49.839336
+    ],
+    [
+     40.389692,
+     49.839568
+    ],
+    [
+     40.389731,
+     49.839616
+    ],
+    [
+     40.389811,
+     49.839635
+    ],
+    [
+     40.390604,
+     49.839298
+    ],
+    [
+     40.39204,
+     49.845506
+    ],
+    [
+     40.39268,
+     49.845228
+    ],
+    [
+     40.394381,
+     49.844579
+    ],
+    [
+     40.398812,
+     49.842682
+    ],
+    [
+     40.400788,
+     49.84192
+    ],
+    [
+     40.399983,
+     49.838428
+    ],
+    [
+     40.403484,
+     49.837087
+    ],
+    [
+     40.406797,
+     49.835862
+    ],
+    [
+     40.40698,
+     49.835835
+    ],
+    [
+     40.411064,
+     49.839825
+    ],
+    [
+     40.411694,
+     49.840489
+    ],
+    [
+     40.412719,
+     49.845269
+    ],
+    [
+     40.412832,
+     49.845466
+    ],
+    [
+     40.412879,
+     49.845484
+    ],
+    [
+     40.412987,
+     49.845441
+    ],
+    [
+     40.413035,
+     49.845316
+    ],
+    [
+     40.413026,
+     49.845186
+    ],
+    [
+     40.411462,
+     49.837947
+    ],
+    [
+     40.410828,
+     49.834862
+    ],
+    [
+     40.410793,
+     49.834276
+    ],
+    [
+     40.410821,
+     49.834138
+    ],
+    [
+     40.411087,
+     49.833558
+    ],
+    [
+     40.41376,
+     49.826662
+    ],
+    [
+     40.413826,
+     49.826395
+    ],
+    [
+     40.413815,
+     49.826146
+    ],
+    [
+     40.41242,
+     49.823717
+    ],
+    [
+     40.412237,
+     49.823269
+    ],
+    [
+     40.4121,
+     49.822391
+    ],
+    [
+     40.410678,
+     49.81581
+    ],
+    [
+     40.410725,
+     49.815048
+    ],
+    [
+     40.410708,
+     49.81498
+    ],
+    [
+     40.410662,
+     49.814939
+    ],
+    [
+     40.410443,
+     49.814951
+    ],
+    [
+     40.410224,
+     49.814892
+    ],
+    [
+     40.406398,
+     49.813683
+    ],
+    [
+     40.406279,
+     49.813604
+    ],
+    [
+     40.406204,
+     49.813498
+    ],
+    [
+     40.406251,
+     49.813229
+    ],
+    [
+     40.406299,
+     49.813133
+    ],
+    [
+     40.40706,
+     49.812365
+    ],
+    [
+     40.407458,
+     49.811785
+    ],
+    [
+     40.411344,
+     49.804897
+    ],
+    [
+     40.411452,
+     49.804799
+    ],
+    [
+     40.413256,
+     49.803761
+    ],
+    [
+     40.418452,
+     49.810922
+    ],
+    [
+     40.419744,
+     49.80879
+    ],
+    [
+     40.420874,
+     49.80875
+    ],
+    [
+     40.421455,
+     49.808949
+    ],
+    [
+     40.421953,
+     49.809313
+    ],
+    [
+     40.422337,
+     49.809667
+    ],
+    [
+     40.423318,
+     49.810831
+    ],
+    [
+     40.424724,
+     49.812949
+    ],
+    [
+     40.425747,
+     49.814561
+    ],
+    [
+     40.424724,
+     49.812949
+    ],
+    [
+     40.423318,
+     49.810831
+    ],
+    [
+     40.422337,
+     49.809667
+    ],
+    [
+     40.421953,
+     49.809313
+    ],
+    [
+     40.421455,
+     49.808949
+    ],
+    [
+     40.420874,
+     49.80875
+    ],
+    [
+     40.419744,
+     49.80879
+    ],
+    [
+     40.41852,
+     49.810813
+    ],
+    [
+     40.414827,
+     49.805726
+    ],
+    [
+     40.413481,
+     49.803846
+    ],
+    [
+     40.413335,
+     49.803601
+    ],
+    [
+     40.41324,
+     49.803605
+    ],
+    [
+     40.41257,
+     49.803979
+    ],
+    [
+     40.411486,
+     49.804609
+    ],
+    [
+     40.411334,
+     49.804735
+    ],
+    [
+     40.407402,
+     49.811733
+    ],
+    [
+     40.407194,
+     49.812
+    ],
+    [
+     40.405969,
+     49.813192
+    ],
+    [
+     40.405754,
+     49.813309
+    ],
+    [
+     40.40565,
+     49.81347
+    ],
+    [
+     40.405622,
+     49.813636
+    ],
+    [
+     40.40565,
+     49.813802
+    ],
+    [
+     40.405728,
+     49.813937
+    ],
+    [
+     40.405842,
+     49.814016
+    ],
+    [
+     40.406026,
+     49.814006
+    ],
+    [
+     40.406171,
+     49.813857
+    ],
+    [
+     40.406288,
+     49.813804
+    ],
+    [
+     40.40642,
+     49.813806
+    ],
+    [
+     40.410413,
+     49.815021
+    ],
+    [
+     40.41056,
+     49.8151
+    ],
+    [
+     40.410701,
+     49.815934
+    ],
+    [
+     40.411002,
+     49.817361
+    ],
+    [
+     40.4121,
+     49.822391
+    ],
+    [
+     40.412177,
+     49.822995
+    ],
+    [
+     40.412268,
+     49.823379
+    ],
+    [
+     40.41242,
+     49.823717
+    ],
+    [
+     40.413815,
+     49.826146
+    ],
+    [
+     40.413826,
+     49.826395
+    ],
+    [
+     40.41376,
+     49.826662
+    ],
+    [
+     40.411087,
+     49.833558
+    ],
+    [
+     40.410921,
+     49.833655
+    ],
+    [
+     40.410747,
+     49.833585
+    ],
+    [
+     40.410605,
+     49.833358
+    ],
+    [
+     40.410407,
+     49.832848
+    ],
+    [
+     40.41011,
+     49.831427
+    ],
+    [
+     40.409912,
+     49.830117
+    ],
+    [
+     40.409332,
+     49.827524
+    ],
+    [
+     40.409108,
+     49.826399
+    ],
+    [
+     40.409018,
+     49.826049
+    ],
+    [
+     40.408812,
+     49.825752
+    ],
+    [
+     40.408757,
+     49.825625
+    ],
+    [
+     40.40853,
+     49.82464
+    ],
+    [
+     40.408463,
+     49.823738
+    ],
+    [
+     40.40827,
+     49.823481
+    ],
+    [
+     40.408188,
+     49.823288
+    ],
+    [
+     40.407766,
+     49.821497
+    ],
+    [
+     40.407669,
+     49.821411
+    ],
+    [
+     40.407598,
+     49.821432
+    ],
+    [
+     40.407549,
+     49.821497
+    ],
+    [
+     40.407548,
+     49.821712
+    ],
+    [
+     40.407904,
+     49.823287
+    ],
+    [
+     40.407925,
+     49.823517
+    ],
+    [
+     40.407904,
+     49.824037
+    ],
+    [
+     40.40785,
+     49.824078
+    ],
+    [
+     40.407625,
+     49.824087
+    ],
+    [
+     40.407549,
+     49.824186
+    ],
+    [
+     40.407548,
+     49.8243
+    ],
+    [
+     40.407657,
+     49.82447
+    ],
+    [
+     40.408219,
+     49.824937
+    ],
+    [
+     40.408288,
+     49.825079
+    ],
+    [
+     40.40837,
+     49.825375
+    ],
+    [
+     40.409064,
+     49.828366
+    ],
+    [
+     40.409913,
+     49.83234
+    ],
+    [
+     40.410693,
+     49.835789
+    ],
+    [
+     40.411551,
+     49.839895
+    ],
+    [
+     40.41283,
+     49.845766
+    ],
+    [
+     40.41285,
+     49.84587
+    ],
+    [
+     40.412763,
+     49.846052
+    ],
+    [
+     40.412595,
+     49.846161
+    ],
+    [
+     40.407538,
+     49.848135
+    ],
+    [
+     40.405914,
+     49.84149
+    ],
+    [
+     40.404822,
+     49.836468
+    ],
+    [
+     40.400009,
+     49.838254
+    ],
+    [
+     40.396279,
+     49.839726
+    ],
+    [
+     40.390837,
+     49.842113
+    ],
+    [
+     40.384474,
+     49.845018
+    ],
+    [
+     40.382971,
+     49.845751
+    ],
+    [
+     40.379759,
+     49.847227
+    ],
+    [
+     40.379285,
+     49.845422
+    ]
+   ]
+  },
+  {
+   "code": "10",
+   "name": "MİDA Yasamal - Ağ Şəhər",
+   "buses": 3,
+   "osmRelations": [
+    2439658,
+    21227566
+   ],
+   "stops": [
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    178,
+    179,
+    180,
+    181,
+    182,
+    268,
+    269,
+    270,
+    271,
+    272,
+    42,
+    53,
+    54,
+    273,
+    55,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    102,
+    103,
+    104,
+    0,
+    1,
+    301,
+    302,
+    303,
+    304,
+    305,
+    205,
+    206,
+    207,
+    208,
+    209,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313
+   ],
+   "path": [
+    [
+     40.372592,
+     49.797983
+    ],
+    [
+     40.372502,
+     49.797623
+    ],
+    [
+     40.371602,
+     49.798022
+    ],
+    [
+     40.371324,
+     49.79704
+    ],
+    [
+     40.371314,
+     49.796917
+    ],
+    [
+     40.371375,
+     49.796851
+    ],
+    [
+     40.372564,
+     49.796315
+    ],
+    [
+     40.37337,
+     49.796018
+    ],
+    [
+     40.373757,
+     49.795936
+    ],
+    [
+     40.374791,
+     49.795914
+    ],
+    [
+     40.37643,
+     49.796178
+    ],
+    [
+     40.376566,
+     49.794773
+    ],
+    [
+     40.376857,
+     49.794315
+    ],
+    [
+     40.377036,
+     49.794154
+    ],
+    [
+     40.377112,
+     49.79414
+    ],
+    [
+     40.377186,
+     49.794175
+    ],
+    [
+     40.377584,
+     49.794607
+    ],
+    [
+     40.378523,
+     49.795921
+    ],
+    [
+     40.378643,
+     49.796317
+    ],
+    [
+     40.379095,
+     49.800433
+    ],
+    [
+     40.379389,
+     49.803689
+    ],
+    [
+     40.379632,
+     49.807021
+    ],
+    [
+     40.379624,
+     49.807183
+    ],
+    [
+     40.379573,
+     49.80728
+    ],
+    [
+     40.378892,
+     49.807828
+    ],
+    [
+     40.378838,
+     49.807937
+    ],
+    [
+     40.378808,
+     49.808187
+    ],
+    [
+     40.378864,
+     49.808394
+    ],
+    [
+     40.378934,
+     49.808483
+    ],
+    [
+     40.379694,
+     49.808894
+    ],
+    [
+     40.379799,
+     49.809001
+    ],
+    [
+     40.379864,
+     49.809152
+    ],
+    [
+     40.380345,
+     49.815119
+    ],
+    [
+     40.365775,
+     49.817098
+    ],
+    [
+     40.365621,
+     49.817089
+    ],
+    [
+     40.365169,
+     49.816865
+    ],
+    [
+     40.36504,
+     49.816914
+    ],
+    [
+     40.364887,
+     49.817038
+    ],
+    [
+     40.364456,
+     49.817601
+    ],
+    [
+     40.364295,
+     49.818126
+    ],
+    [
+     40.364595,
+     49.818613
+    ],
+    [
+     40.366089,
+     49.820819
+    ],
+    [
+     40.367117,
+     49.822424
+    ],
+    [
+     40.367354,
+     49.822696
+    ],
+    [
+     40.36796,
+     49.823253
+    ],
+    [
+     40.368078,
+     49.823501
+    ],
+    [
+     40.36812,
+     49.823674
+    ],
+    [
+     40.368122,
+     49.82405
+    ],
+    [
+     40.367957,
+     49.82465
+    ],
+    [
+     40.367845,
+     49.824834
+    ],
+    [
+     40.367719,
+     49.82492
+    ],
+    [
+     40.365555,
+     49.825578
+    ],
+    [
+     40.365432,
+     49.825644
+    ],
+    [
+     40.365023,
+     49.826011
+    ],
+    [
+     40.364777,
+     49.826138
+    ],
+    [
+     40.364031,
+     49.826197
+    ],
+    [
+     40.363922,
+     49.826284
+    ],
+    [
+     40.363919,
+     49.826423
+    ],
+    [
+     40.364131,
+     49.826703
+    ],
+    [
+     40.364765,
+     49.827214
+    ],
+    [
+     40.366793,
+     49.827983
+    ],
+    [
+     40.366124,
+     49.830937
+    ],
+    [
+     40.365876,
+     49.830925
+    ],
+    [
+     40.364511,
+     49.831055
+    ],
+    [
+     40.364008,
+     49.831062
+    ],
+    [
+     40.363922,
+     49.831099
+    ],
+    [
+     40.362581,
+     49.834506
+    ],
+    [
+     40.362404,
+     49.835152
+    ],
+    [
+     40.362351,
+     49.835482
+    ],
+    [
+     40.362418,
+     49.835672
     ],
     [
      40.36255,
@@ -765,48 +7504,20 @@
      49.838378
     ],
     [
+     40.366978,
+     49.838447
+    ],
+    [
      40.367082,
      49.838571
     ],
     [
+     40.368696,
+     49.841311
+    ],
+    [
      40.368911,
      49.841731
-    ],
-    [
-     40.371185,
-     49.848603
-    ],
-    [
-     40.372172,
-     49.847998
-    ],
-    [
-     40.371039,
-     49.8449
-    ],
-    [
-     40.370489,
-     49.843251
-    ],
-    [
-     40.369893,
-     49.841977
-    ],
-    [
-     40.369717,
-     49.841746
-    ],
-    [
-     40.369542,
-     49.841726
-    ],
-    [
-     40.3692,
-     49.842113
-    ],
-    [
-     40.369176,
-     49.842196
     ],
     [
      40.36933,
@@ -821,160 +7532,2482 @@
      49.845796
     ],
     [
-     40.376924,
-     49.845335
+     40.377946,
+     49.84489
     ],
     [
-     40.378171,
-     49.849426
+     40.378678,
+     49.847729
     ],
     [
-     40.378387,
-     49.849962
+     40.37907,
+     49.847553
     ],
     [
-     40.378769,
-     49.849561
+     40.379391,
+     49.848826
     ],
     [
-     40.37884,
-     49.849591
+     40.37929,
+     49.849688
     ],
     [
-     40.378995,
-     49.849857
+     40.37923,
+     49.849716
     ],
     [
-     40.37884,
-     49.849591
+     40.379214,
+     49.849798
     ],
     [
-     40.378769,
-     49.849561
+     40.379237,
+     49.849846
     ],
     [
-     40.378387,
-     49.849962
+     40.379301,
+     49.849861
     ],
     [
-     40.37831,
-     49.849824
+     40.379646,
+     49.850888
     ],
     [
-     40.376924,
-     49.845335
+     40.379691,
+     49.851144
     ],
     [
-     40.383005,
-     49.84275
+     40.379666,
+     49.851268
     ],
     [
-     40.385264,
-     49.841171
+     40.378962,
+     49.852004
     ],
     [
-     40.385825,
-     49.840839
+     40.377962,
+     49.85253
     ],
     [
-     40.38962,
-     49.839336
+     40.375546,
+     49.853927
     ],
     [
-     40.3911,
-     49.84592
+     40.373794,
+     49.855002
     ],
     [
-     40.392404,
-     49.845347
+     40.373645,
+     49.855126
     ],
     [
-     40.392684,
-     49.845366
+     40.373552,
+     49.855291
     ],
     [
-     40.394847,
-     49.847861
+     40.373513,
+     49.855529
     ],
     [
-     40.395227,
-     49.848191
+     40.37352,
+     49.855776
     ],
     [
-     40.396166,
-     49.848668
+     40.373966,
+     49.857193
     ],
     [
-     40.397623,
-     49.849088
+     40.374474,
+     49.859441
     ],
     [
-     40.398081,
-     49.84919
+     40.374697,
+     49.861082
     ],
     [
-     40.399246,
-     49.849186
+     40.374848,
+     49.861779
     ],
     [
-     40.399451,
-     49.849234
+     40.376374,
+     49.864978
     ],
     [
-     40.399649,
-     49.849341
+     40.376666,
+     49.865419
     ],
     [
-     40.399888,
-     49.84959
+     40.376826,
+     49.865548
     ],
     [
-     40.400064,
-     49.849937
+     40.376998,
+     49.865553
     ],
     [
-     40.400243,
+     40.377748,
+     49.865359
+    ],
+    [
+     40.37785,
+     49.865267
+    ],
+    [
+     40.381163,
+     49.86455
+    ],
+    [
+     40.381598,
+     49.864547
+    ],
+    [
+     40.381682,
+     49.864627
+    ],
+    [
+     40.382175,
+     49.868749
+    ],
+    [
+     40.382875,
+     49.87408
+    ],
+    [
+     40.383004,
+     49.875211
+    ],
+    [
+     40.383,
+     49.875541
+    ],
+    [
+     40.379887,
+     49.876098
+    ],
+    [
+     40.379295,
+     49.876189
+    ],
+    [
+     40.379177,
+     49.876176
+    ],
+    [
+     40.379096,
+     49.876048
+    ],
+    [
+     40.379041,
+     49.875797
+    ],
+    [
+     40.378611,
+     49.872317
+    ],
+    [
+     40.378002,
+     49.872434
+    ],
+    [
+     40.377475,
+     49.87242
+    ],
+    [
+     40.377677,
+     49.87427
+    ],
+    [
+     40.377789,
+     49.874869
+    ],
+    [
+     40.377941,
+     49.875293
+    ],
+    [
+     40.378526,
+     49.876433
+    ],
+    [
+     40.378614,
+     49.876681
+    ],
+    [
+     40.378993,
+     49.880517
+    ],
+    [
+     40.378978,
+     49.880821
+    ],
+    [
+     40.378914,
+     49.881113
+    ],
+    [
+     40.378811,
+     49.881288
+    ],
+    [
+     40.378462,
+     49.881483
+    ],
+    [
+     40.376406,
+     49.88184
+    ],
+    [
+     40.376275,
+     49.881827
+    ],
+    [
+     40.37623,
+     49.881774
+    ],
+    [
+     40.376115,
+     49.881735
+    ],
+    [
+     40.376056,
+     49.881752
+    ],
+    [
+     40.375965,
+     49.881851
+    ],
+    [
+     40.375941,
+     49.882042
+    ],
+    [
+     40.376008,
+     49.882182
+    ],
+    [
+     40.376137,
+     49.882235
+    ],
+    [
+     40.376414,
+     49.88205
+    ],
+    [
+     40.378925,
+     49.881563
+    ],
+    [
+     40.383572,
+     49.880298
+    ],
+    [
+     40.38443,
+     49.880116
+    ],
+    [
+     40.384619,
+     49.880186
+    ],
+    [
+     40.384688,
+     49.880417
+    ],
+    [
+     40.384776,
+     49.881375
+    ],
+    [
+     40.384788,
+     49.882382
+    ],
+    [
+     40.38469,
+     49.883625
+    ],
+    [
+     40.384536,
+     49.884935
+    ],
+    [
+     40.38433,
+     49.886207
+    ],
+    [
+     40.384081,
+     49.887492
+    ],
+    [
+     40.3837,
+     49.888696
+    ],
+    [
+     40.383188,
+     49.88983
+    ],
+    [
+     40.382659,
+     49.890692
+    ],
+    [
+     40.382352,
+     49.89112
+    ],
+    [
+     40.381848,
+     49.891692
+    ],
+    [
+     40.381164,
+     49.892337
+    ],
+    [
+     40.380221,
+     49.892965
+    ],
+    [
+     40.37954,
+     49.893282
+    ],
+    [
+     40.379201,
+     49.893368
+    ],
+    [
+     40.378634,
+     49.893408
+    ],
+    [
+     40.37848,
+     49.893459
+    ],
+    [
+     40.378488,
+     49.893549
+    ],
+    [
+     40.378634,
+     49.893578
+    ],
+    [
+     40.3794,
+     49.893413
+    ],
+    [
+     40.379617,
+     49.893324
+    ],
+    [
+     40.378634,
+     49.893578
+    ],
+    [
+     40.3794,
+     49.893413
+    ],
+    [
+     40.379826,
+     49.893243
+    ],
+    [
+     40.380634,
+     49.892813
+    ],
+    [
+     40.381167,
+     49.892439
+    ],
+    [
+     40.381986,
+     49.891696
+    ],
+    [
+     40.382547,
+     49.891006
+    ],
+    [
+     40.383318,
+     49.889729
+    ],
+    [
+     40.383727,
+     49.888813
+    ],
+    [
+     40.383939,
+     49.88822
+    ],
+    [
+     40.384134,
+     49.887545
+    ],
+    [
+     40.384379,
+     49.886315
+    ],
+    [
+     40.384661,
+     49.884518
+    ],
+    [
+     40.38485,
+     49.882523
+    ],
+    [
+     40.38486,
+     49.881692
+    ],
+    [
+     40.384787,
+     49.880488
+    ],
+    [
+     40.384859,
+     49.880303
+    ],
+    [
+     40.384984,
+     49.880267
+    ],
+    [
+     40.38509,
+     49.880172
+    ],
+    [
+     40.385155,
+     49.880052
+    ],
+    [
+     40.385187,
+     49.879911
+    ],
+    [
+     40.385166,
+     49.879693
+    ],
+    [
+     40.385069,
+     49.879514
+    ],
+    [
+     40.384936,
+     49.879423
+    ],
+    [
+     40.38477,
+     49.879421
+    ],
+    [
+     40.384616,
+     49.879529
+    ],
+    [
+     40.384416,
+     49.879839
+    ],
+    [
+     40.384258,
+     49.879947
+    ],
+    [
+     40.379865,
+     49.881144
+    ],
+    [
+     40.379646,
+     49.881162
+    ],
+    [
+     40.379443,
+     49.881089
+    ],
+    [
+     40.379279,
+     49.880858
+    ],
+    [
+     40.37919,
+     49.880546
+    ],
+    [
+     40.378943,
+     49.878276
+    ],
+    [
+     40.378965,
+     49.878014
+    ],
+    [
+     40.378987,
+     49.877864
+    ],
+    [
+     40.379039,
+     49.877751
+    ],
+    [
+     40.379398,
+     49.877464
+    ],
+    [
+     40.37955,
+     49.877243
+    ],
+    [
+     40.379586,
+     49.877038
+    ],
+    [
+     40.379564,
+     49.876344
+    ],
+    [
+     40.379599,
+     49.876231
+    ],
+    [
+     40.379737,
+     49.876121
+    ],
+    [
+     40.383,
+     49.875541
+    ],
+    [
+     40.383229,
+     49.875387
+    ],
+    [
+     40.383284,
+     49.875308
+    ],
+    [
+     40.38333,
+     49.875147
+    ],
+    [
+     40.383318,
+     49.874928
+    ],
+    [
+     40.383186,
+     49.874257
+    ],
+    [
+     40.382333,
+     49.867724
+    ],
+    [
+     40.381914,
+     49.864114
+    ],
+    [
+     40.380644,
+     49.864404
+    ],
+    [
+     40.380148,
+     49.860818
+    ],
+    [
+     40.379767,
+     49.858998
+    ],
+    [
+     40.37811,
+     49.852792
+    ],
+    [
+     40.376921,
+     49.848633
+    ],
+    [
+     40.37582,
+     49.849251
+    ],
+    [
+     40.373832,
+     49.850471
+    ],
+    [
+     40.373283,
+     49.850751
+    ],
+    [
+     40.37316,
+     49.850728
+    ],
+    [
+     40.373097,
+     49.850635
+    ],
+    [
+     40.371787,
+     49.846925
+    ],
+    [
+     40.371127,
+     49.845148
+    ],
+    [
+     40.370489,
+     49.843251
+    ],
+    [
+     40.369825,
+     49.841873
+    ],
+    [
+     40.369717,
+     49.841746
+    ],
+    [
+     40.369643,
+     49.841712
+    ],
+    [
+     40.369249,
+     49.841843
+    ],
+    [
+     40.369104,
+     49.841794
+    ],
+    [
+     40.368056,
+     49.840047
+    ],
+    [
+     40.367203,
+     49.838555
+    ],
+    [
+     40.367049,
+     49.838346
+    ],
+    [
+     40.366816,
+     49.838225
+    ],
+    [
+     40.365763,
+     49.838
+    ],
+    [
+     40.36564,
+     49.837929
+    ],
+    [
+     40.364172,
+     49.835861
+    ],
+    [
+     40.362707,
+     49.83486
+    ],
+    [
+     40.362651,
+     49.834691
+    ],
+    [
+     40.362878,
+     49.833991
+    ],
+    [
+     40.363103,
+     49.833169
+    ],
+    [
+     40.363934,
+     49.831088
+    ],
+    [
+     40.366038,
+     49.830924
+    ],
+    [
+     40.367165,
+     49.831344
+    ],
+    [
+     40.368145,
+     49.826994
+    ],
+    [
+     40.365725,
+     49.826073
+    ],
+    [
+     40.365385,
+     49.826005
+    ],
+    [
+     40.365334,
+     49.825938
+    ],
+    [
+     40.365325,
+     49.825854
+    ],
+    [
+     40.36535,
+     49.825748
+    ],
+    [
+     40.365432,
+     49.825644
+    ],
+    [
+     40.366455,
+     49.825293
+    ],
+    [
+     40.367607,
+     49.824964
+    ],
+    [
+     40.368719,
+     49.82485
+    ],
+    [
+     40.369614,
+     49.824909
+    ],
+    [
+     40.371062,
+     49.825093
+    ],
+    [
+     40.371154,
+     49.825057
+    ],
+    [
+     40.371229,
+     49.824924
+    ],
+    [
+     40.371216,
+     49.824792
+    ],
+    [
+     40.37111,
+     49.824687
+    ],
+    [
+     40.370447,
+     49.824693
+    ],
+    [
+     40.36973,
+     49.824766
+    ],
+    [
+     40.369545,
+     49.82471
+    ],
+    [
+     40.368901,
+     49.824387
+    ],
+    [
+     40.36882,
+     49.824245
+    ],
+    [
+     40.368741,
+     49.823837
+    ],
+    [
+     40.368665,
+     49.82371
+    ],
+    [
+     40.368371,
+     49.823575
+    ],
+    [
+     40.36796,
+     49.823253
+    ],
+    [
+     40.367354,
+     49.822696
+    ],
+    [
+     40.367117,
+     49.822424
+    ],
+    [
+     40.366089,
+     49.820819
+    ],
+    [
+     40.364595,
+     49.818613
+    ],
+    [
+     40.364552,
+     49.818344
+    ],
+    [
+     40.364638,
+     49.818145
+    ],
+    [
+     40.365204,
+     49.817547
+    ],
+    [
+     40.365497,
+     49.817283
+    ],
+    [
+     40.365626,
+     49.817221
+    ],
+    [
+     40.372555,
+     49.816279
+    ],
+    [
+     40.372631,
+     49.816347
+    ],
+    [
+     40.372692,
+     49.816645
+    ],
+    [
+     40.37283,
+     49.818356
+    ],
+    [
+     40.372885,
+     49.818559
+    ],
+    [
+     40.373118,
+     49.81872
+    ],
+    [
+     40.373848,
+     49.818676
+    ],
+    [
+     40.374014,
+     49.818615
+    ],
+    [
+     40.374169,
+     49.818507
+    ],
+    [
+     40.374248,
+     49.818388
+    ],
+    [
+     40.374293,
+     49.818209
+    ],
+    [
+     40.374311,
+     49.817952
+    ],
+    [
+     40.374174,
+     49.816462
+    ],
+    [
+     40.374182,
+     49.816145
+    ],
+    [
+     40.374236,
+     49.816057
+    ],
+    [
+     40.378302,
+     49.815463
+    ],
+    [
+     40.380354,
+     49.815226
+    ],
+    [
+     40.379864,
+     49.809152
+    ],
+    [
+     40.379906,
+     49.80899
+    ],
+    [
+     40.379965,
+     49.808904
+    ],
+    [
+     40.38065,
+     49.808202
+    ],
+    [
+     40.380729,
+     49.807999
+    ],
+    [
+     40.380731,
+     49.80785
+    ],
+    [
+     40.380674,
+     49.807653
+    ],
+    [
+     40.38056,
+     49.807515
+    ],
+    [
+     40.379854,
+     49.807255
+    ],
+    [
+     40.379764,
+     49.807161
+    ],
+    [
+     40.379695,
+     49.807001
+    ],
+    [
+     40.379322,
+     49.802067
+    ],
+    [
+     40.378722,
+     49.796304
+    ],
+    [
+     40.378715,
+     49.795926
+    ],
+    [
+     40.378521,
+     49.79573
+    ],
+    [
+     40.377993,
+     49.794987
+    ],
+    [
+     40.377356,
+     49.794178
+    ],
+    [
+     40.377221,
+     49.794048
+    ],
+    [
+     40.377105,
+     49.794009
+    ],
+    [
+     40.376935,
+     49.79417
+    ],
+    [
+     40.376566,
+     49.794773
+    ],
+    [
+     40.37643,
+     49.796178
+    ],
+    [
+     40.374791,
+     49.795914
+    ],
+    [
+     40.373757,
+     49.795936
+    ],
+    [
+     40.37337,
+     49.796018
+    ],
+    [
+     40.372564,
+     49.796315
+    ],
+    [
+     40.37134,
+     49.796876
+    ],
+    [
+     40.371314,
+     49.796917
+    ],
+    [
+     40.371324,
+     49.79704
+    ],
+    [
+     40.372149,
+     49.799871
+    ],
+    [
+     40.372225,
+     49.800008
+    ],
+    [
+     40.372308,
+     49.79999
+    ],
+    [
+     40.372962,
+     49.799469
+    ],
+    [
+     40.372592,
+     49.797983
+    ]
+   ]
+  },
+  {
+   "code": "93",
+   "name": "Dərnəgül m/st - Sabunçu stansiyası",
+   "buses": 2,
+   "osmRelations": [
+    21233102,
+    21233065
+   ],
+   "stops": [
+    157,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    158,
+    86,
+    159,
+    160,
+    161,
+    162,
+    163,
+    164,
+    221,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    321,
+    322,
+    323,
+    324,
+    325,
+    326,
+    327,
+    328,
+    329,
+    330,
+    331,
+    332,
+    333,
+    334,
+    335,
+    336,
+    222,
+    223,
+    224,
+    225,
+    226,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76
+   ],
+   "path": [
+    [
+     40.425484,
+     49.860092
+    ],
+    [
+     40.425489,
+     49.859538
+    ],
+    [
+     40.425458,
+     49.859436
+    ],
+    [
+     40.425313,
+     49.859203
+    ],
+    [
+     40.425351,
+     49.857639
+    ],
+    [
+     40.425392,
+     49.857514
+    ],
+    [
+     40.42578,
+     49.857068
+    ],
+    [
+     40.426142,
+     49.857085
+    ],
+    [
+     40.426178,
+     49.85614
+    ],
+    [
+     40.432451,
+     49.856429
+    ],
+    [
+     40.432474,
+     49.854981
+    ],
+    [
+     40.43258,
+     49.852283
+    ],
+    [
+     40.432118,
+     49.851948
+    ],
+    [
+     40.426383,
+     49.847162
+    ],
+    [
+     40.426447,
+     49.84383
+    ],
+    [
+     40.42659,
+     49.839239
+    ],
+    [
+     40.426556,
+     49.839025
+    ],
+    [
+     40.426489,
+     49.838955
+    ],
+    [
+     40.425676,
+     49.838843
+    ],
+    [
+     40.425591,
+     49.83889
+    ],
+    [
+     40.425507,
+     49.839019
+    ],
+    [
+     40.425427,
+     49.839291
+    ],
+    [
+     40.425355,
+     49.842398
+    ],
+    [
+     40.42533,
+     49.846384
+    ],
+    [
+     40.419454,
+     49.846167
+    ],
+    [
+     40.417398,
+     49.846009
+    ],
+    [
+     40.417129,
+     49.84482
+    ],
+    [
+     40.415016,
+     49.845231
+    ],
+    [
+     40.413441,
+     49.845816
+    ],
+    [
+     40.409589,
+     49.847344
+    ],
+    [
+     40.409446,
+     49.847534
+    ],
+    [
+     40.409426,
+     49.847722
+    ],
+    [
+     40.409504,
+     49.84795
+    ],
+    [
+     40.409625,
+     49.84801
+    ],
+    [
+     40.409746,
+     49.84801
+    ],
+    [
+     40.413027,
+     49.84673
+    ],
+    [
+     40.413946,
+     49.850893
+    ],
+    [
+     40.415188,
+     49.856767
+    ],
+    [
+     40.415459,
+     49.857788
+    ],
+    [
+     40.415717,
+     49.858556
+    ],
+    [
+     40.418103,
+     49.863862
+    ],
+    [
+     40.41843,
+     49.864326
+    ],
+    [
+     40.421856,
+     49.871479
+    ],
+    [
+     40.422327,
+     49.872826
+    ],
+    [
+     40.423569,
+     49.875599
+    ],
+    [
+     40.427294,
+     49.88365
+    ],
+    [
+     40.427513,
+     49.884475
+    ],
+    [
+     40.427549,
+     49.884886
+    ],
+    [
+     40.427608,
+     49.890825
+    ],
+    [
+     40.427654,
+     49.892553
+    ],
+    [
+     40.427721,
+     49.893459
+    ],
+    [
+     40.427867,
+     49.894568
+    ],
+    [
+     40.42824,
+     49.896888
+    ],
+    [
+     40.428255,
+     49.897467
+    ],
+    [
+     40.428168,
+     49.898008
+    ],
+    [
+     40.42804,
+     49.898406
+    ],
+    [
+     40.425698,
+     49.904111
+    ],
+    [
+     40.425583,
+     49.904473
+    ],
+    [
+     40.425443,
+     49.905169
+    ],
+    [
+     40.425418,
+     49.905664
+    ],
+    [
+     40.425462,
+     49.906921
+    ],
+    [
+     40.425772,
+     49.913453
+    ],
+    [
+     40.425744,
+     49.913979
+    ],
+    [
+     40.425643,
+     49.914567
+    ],
+    [
+     40.425559,
+     49.915488
+    ],
+    [
+     40.425507,
+     49.915718
+    ],
+    [
+     40.42534,
+     49.916115
+    ],
+    [
+     40.425089,
+     49.91644
+    ],
+    [
+     40.420348,
+     49.920272
+    ],
+    [
+     40.420176,
+     49.920382
+    ],
+    [
+     40.420051,
+     49.920446
+    ],
+    [
+     40.4198,
+     49.920502
+    ],
+    [
+     40.419574,
+     49.920477
+    ],
+    [
+     40.419338,
+     49.920382
+    ],
+    [
+     40.41919,
+     49.920268
+    ],
+    [
+     40.419021,
+     49.920054
+    ],
+    [
+     40.418854,
+     49.919658
+    ],
+    [
+     40.418814,
+     49.919292
+    ],
+    [
+     40.418879,
+     49.91884
+    ],
+    [
+     40.419009,
+     49.918561
+    ],
+    [
+     40.419183,
+     49.918332
+    ],
+    [
+     40.420193,
+     49.91748
+    ],
+    [
+     40.420501,
+     49.917377
+    ],
+    [
+     40.420695,
+     49.917386
+    ],
+    [
+     40.420868,
+     49.917474
+    ],
+    [
+     40.421066,
+     49.917693
+    ],
+    [
+     40.421447,
+     49.918686
+    ],
+    [
+     40.421542,
+     49.91901
+    ],
+    [
+     40.421547,
+     49.919154
+    ],
+    [
+     40.421484,
+     49.919267
+    ],
+    [
+     40.421014,
+     49.91965
+    ],
+    [
+     40.421156,
+     49.91985
+    ],
+    [
+     40.421259,
+     49.919934
+    ],
+    [
+     40.421684,
+     49.920089
+    ],
+    [
+     40.422413,
+     49.920294
+    ],
+    [
+     40.42373,
+     49.921292
+    ],
+    [
+     40.424523,
+     49.922216
+    ],
+    [
+     40.424635,
+     49.922289
+    ],
+    [
+     40.424825,
+     49.922323
+    ],
+    [
+     40.425137,
+     49.922261
+    ],
+    [
+     40.425517,
+     49.922352
+    ],
+    [
+     40.426009,
+     49.922531
+    ],
+    [
+     40.426607,
+     49.922862
+    ],
+    [
+     40.429994,
+     49.925849
+    ],
+    [
+     40.430737,
+     49.926634
+    ],
+    [
+     40.431558,
+     49.92765
+    ],
+    [
+     40.435334,
+     49.930977
+    ],
+    [
+     40.43563,
+     49.93129
+    ],
+    [
+     40.435751,
+     49.931478
+    ],
+    [
+     40.435876,
+     49.931807
+    ],
+    [
+     40.435975,
+     49.932551
+    ],
+    [
+     40.436133,
+     49.933139
+    ],
+    [
+     40.436393,
+     49.933604
+    ],
+    [
+     40.436691,
+     49.933899
+    ],
+    [
+     40.437073,
+     49.934068
+    ],
+    [
+     40.437439,
+     49.934098
+    ],
+    [
+     40.439002,
+     49.933853
+    ],
+    [
+     40.44025,
+     49.933744
+    ],
+    [
+     40.442246,
+     49.933755
+    ],
+    [
+     40.442804,
+     49.938371
+    ],
+    [
+     40.442913,
+     49.939828
+    ],
+    [
+     40.443106,
+     49.940609
+    ],
+    [
+     40.44321,
+     49.941553
+    ],
+    [
+     40.443231,
+     49.942572
+    ],
+    [
+     40.44342,
+     49.942682
+    ],
+    [
+     40.444223,
+     49.943471
+    ],
+    [
+     40.445553,
+     49.94427
+    ],
+    [
+     40.445814,
+     49.944491
+    ],
+    [
+     40.445975,
+     49.94474
+    ],
+    [
+     40.446113,
+     49.945306
+    ],
+    [
+     40.446168,
+     49.945685
+    ],
+    [
+     40.446167,
+     49.945782
+    ],
+    [
+     40.446095,
+     49.94585
+    ],
+    [
+     40.446128,
+     49.945966
+    ],
+    [
+     40.446168,
+     49.945685
+    ],
+    [
+     40.446113,
+     49.945306
+    ],
+    [
+     40.445975,
+     49.94474
+    ],
+    [
+     40.445814,
+     49.944491
+    ],
+    [
+     40.445553,
+     49.94427
+    ],
+    [
+     40.444223,
+     49.943471
+    ],
+    [
+     40.443313,
+     49.942603
+    ],
+    [
+     40.441335,
+     49.942371
+    ],
+    [
+     40.440978,
+     49.94234
+    ],
+    [
+     40.440757,
+     49.942404
+    ],
+    [
+     40.440698,
+     49.942346
+    ],
+    [
+     40.440624,
+     49.942349
+    ],
+    [
+     40.440395,
+     49.941726
+    ],
+    [
+     40.44027,
+     49.94124
+    ],
+    [
+     40.439737,
+     49.93797
+    ],
+    [
+     40.439241,
+     49.936006
+    ],
+    [
+     40.438806,
+     49.934676
+    ],
+    [
+     40.438538,
+     49.934056
+    ],
+    [
+     40.438137,
+     49.933266
+    ],
+    [
+     40.437455,
+     49.932236
+    ],
+    [
+     40.43716,
+     49.931857
+    ],
+    [
+     40.436704,
+     49.931358
+    ],
+    [
+     40.432099,
+     49.927221
+    ],
+    [
+     40.430179,
+     49.925599
+    ],
+    [
+     40.429509,
+     49.924991
+    ],
+    [
+     40.428069,
+     49.923172
+    ],
+    [
+     40.427665,
+     49.922546
+    ],
+    [
+     40.427245,
+     49.921746
+    ],
+    [
+     40.424231,
+     49.915255
+    ],
+    [
+     40.421951,
+     49.911044
+    ],
+    [
+     40.421874,
+     49.910782
+    ],
+    [
+     40.421874,
+     49.910661
+    ],
+    [
+     40.421956,
+     49.910253
+    ],
+    [
+     40.421926,
+     49.909982
+    ],
+    [
+     40.421881,
+     49.909882
+    ],
+    [
+     40.421724,
+     49.909711
+    ],
+    [
+     40.42155,
+     49.909679
+    ],
+    [
+     40.421432,
+     49.909739
+    ],
+    [
+     40.421333,
+     49.909866
+    ],
+    [
+     40.421309,
+     49.910027
+    ],
+    [
+     40.421373,
+     49.91031
+    ],
+    [
+     40.422246,
+     49.911998
+    ],
+    [
+     40.423309,
+     49.914207
+    ],
+    [
+     40.423319,
+     49.914342
+    ],
+    [
+     40.423258,
+     49.914505
+    ],
+    [
+     40.422533,
+     49.915099
+    ],
+    [
+     40.422593,
+     49.915225
+    ],
+    [
+     40.422978,
+     49.914917
+    ],
+    [
+     40.423049,
+     49.914931
+    ],
+    [
+     40.423543,
+     49.91594
+    ],
+    [
+     40.423548,
+     49.916013
+    ],
+    [
+     40.423619,
+     49.916046
+    ],
+    [
+     40.423659,
+     49.915987
+    ],
+    [
+     40.423654,
+     49.915934
+    ],
+    [
+     40.423604,
+     49.91589
+    ],
+    [
+     40.423135,
+     49.914866
+    ],
+    [
+     40.423153,
+     49.914776
+    ],
+    [
+     40.423331,
+     49.914631
+    ],
+    [
+     40.423516,
+     49.914589
+    ],
+    [
+     40.423576,
+     49.914639
+    ],
+    [
+     40.424322,
+     49.916093
+    ],
+    [
+     40.424402,
+     49.916406
+    ],
+    [
+     40.424386,
+     49.916644
+    ],
+    [
+     40.424286,
+     49.916833
+    ],
+    [
+     40.423706,
+     49.917409
+    ],
+    [
+     40.422657,
+     49.918292
+    ],
+    [
+     40.422626,
+     49.918334
+    ],
+    [
+     40.422623,
+     49.918434
+    ],
+    [
+     40.422733,
+     49.918632
+    ],
+    [
+     40.422883,
+     49.918634
+    ],
+    [
+     40.423214,
+     49.918288
+    ],
+    [
+     40.425245,
+     49.916595
+    ],
+    [
+     40.425497,
+     49.916279
+    ],
+    [
+     40.425704,
+     49.91578
+    ],
+    [
+     40.426026,
+     49.914161
+    ],
+    [
+     40.426073,
+     49.913547
+    ],
+    [
+     40.425728,
+     49.906306
+    ],
+    [
+     40.425709,
+     49.905495
+    ],
+    [
+     40.425749,
+     49.905095
+    ],
+    [
+     40.425868,
+     49.904529
+    ],
+    [
+     40.425975,
+     49.90423
+    ],
+    [
+     40.42829,
+     49.898634
+    ],
+    [
+     40.428448,
+     49.898091
+    ],
+    [
+     40.428518,
+     49.897735
+    ],
+    [
+     40.428559,
+     49.89726
+    ],
+    [
+     40.428548,
+     49.896812
+    ],
+    [
+     40.428149,
+     49.894349
+    ],
+    [
+     40.42803,
+     49.893472
+    ],
+    [
+     40.42797,
+     49.892752
+    ],
+    [
+     40.427851,
+     49.883832
+    ],
+    [
+     40.427773,
+     49.883451
+    ],
+    [
+     40.427659,
+     49.883137
+    ],
+    [
+     40.427433,
+     49.882768
+    ],
+    [
+     40.427088,
+     49.882407
+    ],
+    [
+     40.426032,
+     49.88009
+    ],
+    [
+     40.424333,
+     49.876532
+    ],
+    [
+     40.423142,
+     49.873796
+    ],
+    [
+     40.422535,
+     49.87267
+    ],
+    [
+     40.421953,
+     49.871395
+    ],
+    [
+     40.418536,
+     49.864242
+    ],
+    [
+     40.41827,
+     49.863382
+    ],
+    [
+     40.416481,
+     49.859446
+    ],
+    [
+     40.416066,
+     49.858443
+    ],
+    [
+     40.415635,
+     49.857133
+    ],
+    [
+     40.41524,
+     49.855431
+    ],
+    [
+     40.413401,
+     49.846842
+    ],
+    [
+     40.413395,
+     49.846728
+    ],
+    [
+     40.413442,
+     49.846611
+    ],
+    [
+     40.413567,
+     49.846516
+    ],
+    [
+     40.415293,
+     49.845859
+    ],
+    [
+     40.419454,
+     49.846167
+    ],
+    [
+     40.425388,
+     49.846396
+    ],
+    [
+     40.426383,
+     49.847162
+    ],
+    [
+     40.432118,
+     49.851948
+    ],
+    [
+     40.43258,
+     49.852283
+    ],
+    [
+     40.432474,
+     49.854981
+    ],
+    [
+     40.432451,
+     49.856429
+    ],
+    [
+     40.426547,
+     49.856141
+    ],
+    [
+     40.425377,
+     49.856152
+    ],
+    [
+     40.42526,
+     49.856217
+    ],
+    [
+     40.425222,
+     49.856345
+    ],
+    [
+     40.425091,
+     49.863265
+    ],
+    [
+     40.425086,
+     49.863701
+    ],
+    [
+     40.425123,
+     49.863783
+    ],
+    [
+     40.42521,
+     49.863768
+    ],
+    [
+     40.425234,
+     49.863703
+    ],
+    [
+     40.425289,
+     49.860765
+    ],
+    [
+     40.425475,
+     49.860515
+    ],
+    [
+     40.425489,
+     49.859538
+    ],
+    [
+     40.425458,
+     49.859436
+    ],
+    [
+     40.425313,
+     49.859203
+    ],
+    [
+     40.425484,
+     49.860092
+    ]
+   ]
+  },
+  {
+   "code": "2",
+   "name": "Dərnəgül m/st - Avtovağzal",
+   "buses": 3,
+   "osmRelations": [
+    21214695,
+    21214490
+   ],
+   "stops": [
+    337,
+    78,
+    338,
+    158,
+    86,
+    159,
+    160,
+    161,
+    339,
+    340,
+    341,
+    342,
+    314,
+    315,
+    316,
+    343,
+    344,
+    345,
+    346,
+    144,
+    145,
+    347,
+    348,
+    297,
+    298,
+    299,
+    349,
+    227,
+    350,
+    351,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    155,
+    156,
+    118,
+    352,
+    118,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    353,
+    354,
+    355,
+    356,
+    275,
+    276,
+    277,
+    278,
+    357,
+    358,
+    359,
+    360,
+    361,
+    362,
+    363,
+    364,
+    365,
+    366,
+    367,
+    368,
+    369,
+    370,
+    371,
+    224,
+    225,
+    226,
+    372,
+    373
+   ],
+   "path": [
+    [
+     40.42518,
+     49.859063
+    ],
+    [
+     40.42509,
+     49.859183
+    ],
+    [
+     40.425068,
+     49.860159
+    ],
+    [
+     40.425158,
+     49.860283
+    ],
+    [
+     40.425086,
+     49.863701
+    ],
+    [
+     40.425101,
+     49.863769
+    ],
+    [
+     40.425152,
+     49.863786
+    ],
+    [
+     40.42521,
+     49.863768
+    ],
+    [
+     40.425234,
+     49.863703
+    ],
+    [
+     40.425351,
+     49.857639
+    ],
+    [
+     40.425392,
+     49.857514
+    ],
+    [
+     40.42578,
+     49.857068
+    ],
+    [
+     40.426142,
+     49.857085
+    ],
+    [
+     40.426288,
+     49.852407
+    ],
+    [
+     40.42639,
+     49.84615
+    ],
+    [
+     40.42659,
+     49.839239
+    ],
+    [
+     40.426556,
+     49.839025
+    ],
+    [
+     40.426489,
+     49.838955
+    ],
+    [
+     40.42574,
+     49.838838
+    ],
+    [
+     40.425638,
+     49.838859
+    ],
+    [
+     40.42555,
+     49.838943
+    ],
+    [
+     40.425427,
+     49.839291
+    ],
+    [
+     40.425355,
+     49.842398
+    ],
+    [
+     40.42533,
+     49.846384
+    ],
+    [
+     40.419032,
+     49.846127
+    ],
+    [
+     40.419403,
+     49.84791
+    ],
+    [
+     40.419524,
+     49.848356
+    ],
+    [
+     40.420518,
      49.850614
     ],
     [
-     40.402415,
-     49.860882
+     40.4219,
+     49.853558
     ],
     [
-     40.402982,
-     49.863356
+     40.421871,
+     49.853761
     ],
     [
-     40.405847,
-     49.869602
+     40.421693,
+     49.853941
     ],
     [
-     40.404556,
-     49.870637
+     40.419751,
+     49.855466
     ],
     [
-     40.404408,
-     49.870306
+     40.419626,
+     49.855481
     ],
     [
-     40.404268,
-     49.870296
+     40.419498,
+     49.855417
     ],
     [
-     40.404059,
-     49.870149
+     40.419416,
+     49.855306
     ],
     [
-     40.403564,
-     49.870301
+     40.419364,
+     49.855153
     ],
     [
-     40.402944,
-     49.870829
+     40.417313,
+     49.855247
     ],
     [
-     40.402494,
-     49.869822
+     40.41524,
+     49.855431
+    ],
+    [
+     40.413529,
+     49.847455
+    ],
+    [
+     40.413408,
+     49.847302
+    ],
+    [
+     40.413267,
+     49.847333
+    ],
+    [
+     40.413222,
+     49.847426
+    ],
+    [
+     40.413233,
+     49.847622
+    ],
+    [
+     40.415188,
+     49.856767
+    ],
+    [
+     40.415459,
+     49.857788
+    ],
+    [
+     40.415761,
+     49.858667
+    ],
+    [
+     40.411541,
+     49.861872
+    ],
+    [
+     40.408912,
+     49.863933
+    ],
+    [
+     40.408604,
+     49.864051
+    ],
+    [
+     40.408377,
+     49.864362
+    ],
+    [
+     40.408193,
+     49.864525
+    ],
+    [
+     40.404943,
+     49.867075
+    ],
+    [
+     40.402331,
+     49.869202
+    ],
+    [
+     40.402279,
+     49.869421
     ],
     [
      40.402288,
@@ -989,6 +10022,10 @@
      49.871781
     ],
     [
+     40.403069,
+     49.87191
+    ],
+    [
      40.402992,
      49.872129
     ],
@@ -999,6 +10036,10 @@
     [
      40.400375,
      49.874703
+    ],
+    [
+     40.39951,
+     49.875606
     ],
     [
      40.399448,
@@ -1017,920 +10058,720 @@
      49.868825
     ],
     [
-     40.394975,
-     49.86849
+     40.394841,
+     49.868355
     ],
     [
-     40.394572,
-     49.86815
+     40.394493,
+     49.868109
     ],
     [
      40.393528,
      49.867731
     ],
     [
-     40.392587,
-     49.867422
+     40.392626,
+     49.867322
     ],
     [
-     40.392505,
-     49.86745
+     40.39247,
+     49.867194
     ],
     [
-     40.392485,
-     49.867584
+     40.39218,
+     49.866837
     ],
     [
-     40.392698,
-     49.867757
+     40.391919,
+     49.866657
     ],
     [
-     40.394549,
-     49.868487
+     40.391602,
+     49.866619
     ],
     [
-     40.395138,
-     49.869124
+     40.391118,
+     49.866757
     ],
     [
-     40.397753,
-     49.87352
+     40.390677,
+     49.866782
     ],
     [
-     40.401001,
-     49.878831
+     40.389223,
+     49.866616
     ],
     [
-     40.401432,
-     49.879685
+     40.389043,
+     49.866548
     ],
     [
-     40.402519,
-     49.881623
+     40.388933,
+     49.866451
     ],
     [
-     40.403836,
-     49.883852
+     40.388785,
+     49.866177
     ],
     [
-     40.411417,
-     49.896438
+     40.388702,
+     49.865843
     ],
     [
-     40.416018,
-     49.906239
+     40.3885,
+     49.864316
     ],
     [
-     40.416581,
-     49.907763
+     40.388363,
+     49.863633
     ],
     [
-     40.420076,
-     49.915157
+     40.38821,
+     49.863189
     ],
     [
-     40.420264,
-     49.91574
+     40.388112,
+     49.862999
     ],
     [
-     40.420349,
-     49.916147
+     40.388004,
+     49.862889
     ],
     [
-     40.420358,
-     49.916536
+     40.387785,
+     49.862812
     ],
     [
-     40.420301,
-     49.916852
+     40.387559,
+     49.862823
     ],
     [
-     40.420118,
-     49.917195
+     40.380644,
+     49.864404
     ],
     [
-     40.420041,
-     49.917149
+     40.380148,
+     49.860818
     ],
     [
-     40.419955,
-     49.91718
+     40.379894,
+     49.859575
     ],
     [
-     40.418971,
-     49.917971
+     40.379555,
+     49.858156
     ],
     [
-     40.418853,
-     49.917997
+     40.378028,
+     49.852496
     ],
     [
-     40.418818,
-     49.918076
+     40.378997,
+     49.851982
     ],
     [
-     40.4182,
-     49.918568
+     40.379679,
+     49.851241
     ],
     [
-     40.418085,
-     49.918746
+     40.379687,
+     49.851097
     ],
     [
-     40.418593,
-     49.918969
+     40.379646,
+     49.850888
     ],
     [
-     40.420552,
-     49.919537
+     40.379301,
+     49.849861
     ],
     [
-     40.420563,
-     49.919348
+     40.379346,
+     49.849799
     ],
     [
-     40.419849,
-     49.919141
+     40.37933,
+     49.849715
     ],
     [
-     40.419943,
-     49.918951
+     40.37929,
+     49.849688
     ],
     [
-     40.420361,
-     49.918615
+     40.379387,
+     49.848769
     ],
     [
-     40.420344,
-     49.918501
+     40.37907,
+     49.847553
     ],
     [
-     40.420256,
-     49.91853
+     40.379759,
+     49.847227
     ],
     [
-     40.41974,
-     49.918996
+     40.377972,
+     49.840448
     ],
     [
-     40.419704,
-     49.9191
+     40.375922,
+     49.833128
     ],
     [
-     40.420563,
-     49.919348
+     40.375802,
+     49.832574
     ],
     [
-     40.420552,
-     49.919537
+     40.375814,
+     49.832461
     ],
     [
-     40.421014,
-     49.91965
+     40.375936,
+     49.832379
     ],
     [
-     40.421259,
-     49.919934
+     40.378309,
+     49.831541
     ],
     [
-     40.422413,
-     49.920294
+     40.37851,
+     49.831522
     ],
     [
-     40.423646,
-     49.921218
+     40.379039,
+     49.831584
     ],
     [
-     40.424074,
-     49.921664
+     40.379795,
+     49.831343
     ],
     [
-     40.425092,
-     49.92297
+     40.386793,
+     49.82879
     ],
     [
-     40.425245,
-     49.923473
+     40.387453,
+     49.828497
     ],
     [
-     40.425463,
-     49.925003
+     40.387607,
+     49.828332
     ],
     [
-     40.425543,
-     49.925127
+     40.387658,
+     49.828204
     ],
     [
-     40.4257,
-     49.925077
+     40.387702,
+     49.82766
     ],
     [
-     40.425727,
-     49.924918
+     40.387747,
+     49.827473
     ],
     [
-     40.425565,
-     49.924485
+     40.387824,
+     49.827313
     ],
     [
-     40.425336,
-     49.922587
+     40.38928,
+     49.825826
     ],
     [
-     40.425375,
-     49.922119
+     40.390901,
+     49.824076
     ],
     [
-     40.425564,
-     49.921276
+     40.391755,
+     49.822737
     ],
     [
-     40.425556,
-     49.920912
+     40.392075,
+     49.822399
     ],
     [
-     40.425488,
-     49.920723
+     40.393764,
+     49.820398
     ],
     [
-     40.425331,
-     49.920523
+     40.39498,
+     49.818881
     ],
     [
-     40.42513,
-     49.920394
+     40.395799,
+     49.817305
     ],
     [
-     40.424484,
-     49.92033
+     40.39599,
+     49.816829
     ],
     [
-     40.424146,
-     49.92016
+     40.396118,
+     49.816161
     ],
     [
-     40.423122,
-     49.919303
+     40.396238,
+     49.815854
     ],
     [
-     40.422545,
-     49.918584
+     40.396908,
+     49.814612
     ],
     [
-     40.422,
-     49.918161
+     40.397074,
+     49.814358
     ],
     [
-     40.421808,
-     49.91792
+     40.397374,
+     49.813984
     ],
     [
-     40.420137,
-     49.914418
+     40.399743,
+     49.811378
     ],
     [
-     40.419623,
-     49.913544
+     40.400598,
+     49.810669
     ],
     [
-     40.411334,
-     49.895996
+     40.40165,
+     49.809674
     ],
     [
-     40.403924,
-     49.883774
+     40.402379,
+     49.809093
     ],
     [
-     40.402608,
-     49.881557
+     40.403443,
+     49.808393
     ],
     [
-     40.401668,
-     49.879887
+     40.40516,
+     49.807337
     ],
     [
-     40.401008,
-     49.878594
+     40.409735,
+     49.804713
     ],
     [
-     40.394929,
-     49.868554
+     40.410178,
+     49.804436
     ],
     [
-     40.394572,
-     49.86815
+     40.411084,
+     49.803734
     ],
     [
-     40.392723,
-     49.867375
+     40.411795,
+     49.803284
     ],
     [
-     40.391877,
-     49.86634
+     40.412429,
+     49.802952
     ],
     [
-     40.391783,
-     49.866038
+     40.415098,
+     49.801394
     ],
     [
-     40.391771,
-     49.865717
+     40.415509,
+     49.801273
     ],
     [
-     40.391847,
-     49.862922
+     40.41576,
+     49.801325
     ],
     [
-     40.391739,
-     49.862442
+     40.417909,
+     49.802961
     ],
     [
-     40.386411,
-     49.855862
+     40.418274,
+     49.803038
     ],
     [
-     40.384179,
-     49.853151
+     40.41867,
+     49.803018
     ],
     [
-     40.383077,
-     49.851898
+     40.418977,
+     49.802966
     ],
     [
-     40.383753,
-     49.851339
+     40.419182,
+     49.802845
     ],
     [
-     40.384189,
-     49.851158
+     40.41933,
+     49.802689
     ],
     [
-     40.384687,
-     49.850427
+     40.419651,
+     49.802232
     ],
     [
-     40.383233,
-     49.849498
+     40.420829,
+     49.800478
     ],
     [
-     40.382326,
-     49.846041
+     40.421129,
+     49.800005
     ],
     [
-     40.377722,
-     49.848201
+     40.421155,
+     49.79988
     ],
     [
-     40.37582,
-     49.849251
+     40.421075,
+     49.799695
     ],
     [
-     40.373832,
-     49.850471
+     40.420721,
+     49.799279
     ],
     [
-     40.373283,
-     49.850751
+     40.420453,
+     49.79904
     ],
     [
-     40.373186,
-     49.85075
+     40.420313,
+     49.798762
     ],
     [
-     40.373097,
-     49.850635
+     40.419662,
+     49.796949
     ],
     [
-     40.371039,
-     49.8449
+     40.419528,
+     49.796367
     ],
     [
-     40.370489,
-     49.843251
+     40.419178,
+     49.795304
     ],
     [
-     40.370009,
-     49.842211
+     40.419114,
+     49.795162
     ],
     [
-     40.369825,
-     49.841873
+     40.419022,
+     49.795073
     ],
     [
-     40.369681,
-     49.841723
+     40.418888,
+     49.795047
     ],
     [
-     40.36957,
-     49.841716
+     40.418724,
+     49.79507
     ],
     [
-     40.369249,
-     49.841843
+     40.417544,
+     49.795291
     ],
     [
-     40.369104,
-     49.841794
+     40.415844,
+     49.795697
     ],
     [
-     40.367391,
-     49.83888
-    ]
-   ]
-  },
-  {
-   "code": "13",
-   "name": "Elmlar - Azadliq",
-   "buses": 3,
-   "stops": [
-    36,
-    37,
-    38,
-    39,
-    40,
-    41,
-    42,
-    43,
-    44,
-    45,
-    46,
-    47,
-    48,
-    49,
-    50,
-    51,
-    52,
-    53,
-    54,
-    55,
-    56,
-    57,
-    58,
-    59,
-    60,
-    61,
-    62,
-    63,
-    64,
-    65,
-    66,
-    67,
-    68,
-    69,
-    70
-   ],
-   "path": [
-    [
-     40.37541,
-     49.814696
-    ],
-    [
-     40.375003,
-     49.809573
-    ],
-    [
-     40.379965,
-     49.808904
-    ],
-    [
-     40.380612,
-     49.80825
-    ],
-    [
-     40.380708,
-     49.808084
-    ],
-    [
-     40.380721,
-     49.807781
-    ],
-    [
-     40.380603,
-     49.807553
-    ],
-    [
-     40.379854,
-     49.807255
-    ],
-    [
-     40.37972,
-     49.807092
-    ],
-    [
-     40.379511,
-     49.804437
-    ],
-    [
-     40.385318,
-     49.803593
-    ],
-    [
-     40.392986,
-     49.802387
-    ],
-    [
-     40.392973,
-     49.802239
-    ],
-    [
-     40.38522,
-     49.803431
-    ],
-    [
-     40.385233,
-     49.803604
-    ],
-    [
-     40.394494,
-     49.802163
-    ],
-    [
-     40.394912,
-     49.806428
-    ],
-    [
-     40.399687,
-     49.805684
-    ],
-    [
-     40.400444,
-     49.805725
-    ],
-    [
-     40.401289,
-     49.805886
-    ],
-    [
-     40.401551,
-     49.805996
-    ],
-    [
-     40.40347,
-     49.807348
-    ],
-    [
-     40.403855,
-     49.807929
-    ],
-    [
-     40.404187,
-     49.808639
-    ],
-    [
-     40.404508,
-     49.809601
+     40.41574,
+     49.795794
     ],
     [
-     40.404598,
-     49.810093
+     40.41569,
+     49.795959
     ],
     [
-     40.405608,
-     49.813222
+     40.41565,
+     49.796726
     ],
     [
-     40.40565,
-     49.813802
+     40.415668,
+     49.796939
     ],
     [
-     40.405782,
-     49.813985
+     40.415736,
+     49.79715
     ],
     [
-     40.405966,
-     49.814027
+     40.416656,
+     49.796607
     ],
     [
-     40.406241,
-     49.813822
+     40.416879,
+     49.797334
     ],
     [
-     40.40642,
-     49.813806
+     40.416924,
+     49.797355
     ],
     [
-     40.410524,
-     49.815076
+     40.416947,
+     49.797287
     ],
     [
-     40.41056,
-     49.8151
+     40.416712,
+     49.796574
     ],
     [
-     40.410701,
-     49.815934
+     40.416919,
+     49.797257
     ],
     [
-     40.410982,
-     49.815852
+     40.416712,
+     49.796574
     ],
     [
-     40.41129,
-     49.817253
+     40.417871,
+     49.795889
     ],
     [
-     40.411002,
-     49.817361
+     40.417916,
+     49.795813
     ],
     [
-     40.410678,
-     49.81581
+     40.417925,
+     49.795571
     ],
     [
-     40.410758,
-     49.814855
+     40.417986,
+     49.795481
     ],
     [
-     40.410859,
-     49.814527
+     40.418132,
+     49.795374
     ],
     [
-     40.410971,
-     49.814425
+     40.41895,
+     49.795239
     ],
     [
-     40.415696,
-     49.815834
+     40.419007,
+     49.795263
     ],
     [
-     40.419539,
-     49.818353
+     40.419093,
+     49.795379
     ],
     [
-     40.422329,
-     49.82075
+     40.41944,
+     49.796416
     ],
     [
-     40.424021,
-     49.822557
+     40.419574,
+     49.796973
     ],
     [
-     40.424638,
-     49.822415
+     40.420287,
+     49.799044
     ],
     [
-     40.425125,
-     49.822545
+     40.420654,
+     49.799978
     ],
     [
-     40.425037,
-     49.822897
+     40.420704,
+     49.800046
     ],
     [
-     40.424981,
-     49.822947
+     40.420787,
+     49.800078
     ],
     [
-     40.424794,
-     49.822848
+     40.421102,
+     49.800033
     ],
     [
-     40.42457,
-     49.822845
+     40.421154,
+     49.799916
     ],
     [
-     40.424244,
-     49.823027
+     40.421128,
+     49.79977
     ],
     [
-     40.424162,
-     49.822904
+     40.420721,
+     49.799279
     ],
     [
-     40.424075,
-     49.822484
+     40.420453,
+     49.79904
     ],
     [
-     40.423899,
-     49.822296
+     40.420273,
+     49.798668
     ],
     [
-     40.423853,
-     49.822364
+     40.419993,
+     49.797906
     ],
     [
-     40.423989,
-     49.822521
+     40.419964,
+     49.797528
     ],
     [
-     40.424055,
-     49.822777
+     40.419997,
+     49.797367
     ],
     [
-     40.424841,
-     49.828789
+     40.420082,
+     49.797251
     ],
     [
-     40.424799,
-     49.828847
+     40.420291,
+     49.797103
     ],
     [
-     40.42283,
-     49.829391
+     40.420391,
+     49.797085
     ],
     [
-     40.423446,
-     49.833627
+     40.420513,
+     49.797173
     ],
     [
-     40.423441,
-     49.83402
+     40.420584,
+     49.797329
     ],
     [
-     40.423232,
-     49.834467
+     40.420587,
+     49.797463
     ],
     [
-     40.421356,
-     49.83729
+     40.420519,
+     49.797685
     ],
     [
-     40.421545,
-     49.837385
+     40.420199,
+     49.79799
     ],
     [
-     40.42553,
-     49.838374
+     40.416556,
+     49.800095
     ],
     [
-     40.425705,
-     49.838488
+     40.415884,
+     49.800516
     ],
     [
-     40.427196,
-     49.83888
+     40.415145,
+     49.800795
     ],
     [
-     40.427334,
-     49.838864
+     40.413217,
+     49.801905
     ],
     [
-     40.427412,
-     49.838746
+     40.407309,
+     49.805456
     ],
     [
-     40.425724,
-     49.838372
+     40.403923,
+     49.807605
     ],
     [
-     40.42553,
-     49.838374
+     40.403302,
+     49.808052
     ],
     [
-     40.425427,
-     49.839291
+     40.401943,
+     49.80894
     ],
     [
-     40.425339,
-     49.844904
+     40.401493,
+     49.809297
     ],
     [
-     40.425808,
-     49.844912
+     40.400682,
+     49.810039
     ],
     [
-     40.425965,
-     49.844735
+     40.400218,
+     49.810534
     ],
     [
-     40.426425,
-     49.844727
+     40.399949,
+     49.810858
     ],
     [
-     40.426609,
-     49.839015
+     40.399791,
+     49.811145
     ],
     [
-     40.426736,
-     49.838869
+     40.397337,
+     49.813845
     ],
     [
-     40.427305,
-     49.83887
+     40.396998,
+     49.81426
     ],
     [
-     40.427412,
-     49.838746
+     40.396637,
+     49.814845
     ],
     [
-     40.425724,
-     49.838372
+     40.395648,
+     49.816747
     ],
     [
-     40.42553,
-     49.838374
+     40.39421,
+     49.819672
     ],
     [
-     40.414012,
-     49.835545
+     40.392592,
+     49.821599
     ],
     [
-     40.409834,
-     49.8347
+     40.392118,
+     49.822115
     ],
     [
-     40.409347,
-     49.834765
+     40.391666,
+     49.822523
     ],
     [
-     40.407088,
-     49.835579
+     40.391396,
+     49.823098
     ],
     [
-     40.406357,
-     49.835899
+     40.390852,
+     49.823944
     ],
     [
-     40.398125,
-     49.838979
+     40.388628,
+     49.826335
     ],
     [
-     40.396279,
-     49.839726
+     40.388118,
+     49.826844
     ],
     [
-     40.392044,
-     49.841588
+     40.38789,
+     49.827024
     ],
     [
-     40.390671,
-     49.835585
+     40.387257,
+     49.827433
     ],
     [
-     40.38899,
-     49.836216
+     40.385761,
+     49.828261
     ],
     [
-     40.38753,
-     49.829724
+     40.382363,
+     49.829571
     ],
     [
-     40.386271,
-     49.824424
+     40.378937,
+     49.830794
     ],
-    [
-     40.386106,
-     49.824285
-    ],
-    [
-     40.375811,
-     49.8193
-    ],
-    [
-     40.375749,
-     49.819064
-    ],
-    [
-     40.37541,
-     49.814696
-    ]
-   ]
-  },
-  {
-   "code": "88",
-   "name": "Nizami - Darnagul",
-   "buses": 3,
-   "stops": [
-    71,
-    72,
-    73,
-    74,
-    75,
-    76,
-    77,
-    78,
-    79,
-    80,
-    81,
-    82,
-    12,
-    83,
-    84,
-    85,
-    86,
-    87,
-    88,
-    89,
-    90,
-    59,
-    60,
-    61,
-    62,
-    63,
-    64,
-    65,
-    66,
-    91,
-    92
-   ],
-   "path": [
     [
-     40.379542,
-     49.830576
+     40.378754,
+     49.830924
     ],
     [
-     40.378867,
-     49.830831
+     40.378501,
+     49.831237
     ],
     [
      40.378337,
@@ -1949,12 +10790,48 @@
      49.832001
     ],
     [
-     40.375466,
-     49.830303
+     40.375371,
+     49.829774
     ],
     [
-     40.374745,
-     49.830596
+     40.374835,
+     49.828014
+    ],
+    [
+     40.374566,
+     49.826129
+    ],
+    [
+     40.374484,
+     49.825747
+    ],
+    [
+     40.374409,
+     49.82561
+    ],
+    [
+     40.374251,
+     49.825569
+    ],
+    [
+     40.373998,
+     49.825625
+    ],
+    [
+     40.373888,
+     49.825774
+    ],
+    [
+     40.373867,
+     49.825947
+    ],
+    [
+     40.37389,
+     49.826325
+    ],
+    [
+     40.374217,
+     49.828469
     ],
     [
      40.374988,
@@ -1965,8 +10842,8 @@
      49.833431
     ],
     [
-     40.377071,
-     49.840558
+     40.377088,
+     49.840627
     ],
     [
      40.377946,
@@ -1977,112 +10854,128 @@
      49.847729
     ],
     [
-     40.377784,
-     49.84817
+     40.37907,
+     49.847553
     ],
     [
-     40.378273,
-     49.849733
+     40.379375,
+     49.848702
     ],
     [
-     40.378387,
-     49.849962
+     40.379384,
+     49.848957
     ],
     [
-     40.378769,
-     49.849561
+     40.37929,
+     49.849688
     ],
     [
-     40.37884,
-     49.849591
+     40.37923,
+     49.849716
     ],
     [
-     40.378995,
-     49.849857
+     40.379214,
+     49.849798
     ],
     [
-     40.37884,
-     49.849591
+     40.379237,
+     49.849846
     ],
     [
-     40.378769,
-     49.849561
+     40.379301,
+     49.849861
     ],
     [
-     40.378387,
-     49.849962
+     40.379646,
+     49.850888
     ],
     [
-     40.378714,
-     49.850426
+     40.379691,
+     49.851144
     ],
     [
-     40.379071,
-     49.851912
+     40.379648,
+     49.851292
     ],
     [
-     40.376875,
-     49.85317
+     40.378997,
+     49.851982
     ],
     [
-     40.378192,
-     49.858287
+     40.377962,
+     49.85253
     ],
     [
-     40.378808,
-     49.861094
+     40.375224,
+     49.854122
     ],
     [
-     40.379206,
-     49.862379
+     40.373794,
+     49.855002
     ],
     [
-     40.379402,
-     49.863171
+     40.373645,
+     49.855126
     ],
     [
-     40.379676,
-     49.864885
+     40.373552,
+     49.855291
     ],
     [
-     40.381163,
-     49.86455
+     40.373513,
+     49.855529
     ],
     [
-     40.381598,
-     49.864547
+     40.37352,
+     49.855776
     ],
     [
-     40.381696,
-     49.864673
+     40.373966,
+     49.857193
     ],
     [
-     40.38258,
-     49.871929
+     40.374474,
+     49.859441
     ],
     [
-     40.382875,
-     49.87408
+     40.374697,
+     49.861082
     ],
     [
-     40.382943,
-     49.874242
+     40.374809,
+     49.861653
     ],
     [
-     40.383105,
-     49.87423
+     40.374885,
+     49.861868
     ],
     [
-     40.383156,
-     49.87403
+     40.376374,
+     49.864978
     ],
     [
-     40.382333,
-     49.867724
+     40.376666,
+     49.865419
     ],
     [
-     40.381946,
-     49.864376
+     40.376826,
+     49.865548
+    ],
+    [
+     40.377042,
+     49.865544
+    ],
+    [
+     40.377748,
+     49.865359
+    ],
+    [
+     40.37785,
+     49.865267
+    ],
+    [
+     40.379489,
+     49.864928
     ],
     [
      40.386946,
@@ -2093,12 +10986,16 @@
      49.863229
     ],
     [
+     40.387582,
+     49.863337
+    ],
+    [
      40.387777,
      49.863473
     ],
     [
-     40.388003,
-     49.863736
+     40.387936,
+     49.863642
     ],
     [
      40.388124,
@@ -2121,116 +11018,80 @@
      49.866662
     ],
     [
+     40.388976,
+     49.86675
+    ],
+    [
      40.389204,
      49.866817
     ],
     [
-     40.390587,
-     49.866914
+     40.390262,
+     49.866879
     ],
     [
-     40.391418,
-     49.867121
+     40.390597,
+     49.866939
     ],
     [
-     40.391684,
-     49.867116
+     40.394549,
+     49.868487
     ],
     [
-     40.391923,
-     49.866996
+     40.395029,
+     49.869187
     ],
     [
-     40.392087,
-     49.86674
+     40.395575,
+     49.8701
     ],
     [
-     40.392117,
-     49.866336
+     40.393185,
+     49.874649
     ],
     [
-     40.391993,
-     49.865669
+     40.395281,
+     49.876434
     ],
     [
-     40.392072,
-     49.865337
+     40.395895,
+     49.877368
     ],
     [
-     40.393839,
-     49.862889
+     40.396699,
+     49.878678
     ],
     [
-     40.395047,
-     49.861102
+     40.39765,
+     49.877641
     ],
     [
-     40.39511,
-     49.861087
-    ],
-    [
-     40.396175,
-     49.862332
-    ],
-    [
-     40.396519,
-     49.862597
-    ],
-    [
-     40.402012,
-     49.869359
-    ],
-    [
-     40.402182,
-     49.869434
-    ],
-    [
-     40.402423,
-     49.869357
-    ],
-    [
-     40.404859,
-     49.867397
-    ],
-    [
-     40.405847,
-     49.869602
-    ],
-    [
-     40.404556,
-     49.870637
-    ],
-    [
-     40.404408,
-     49.870306
-    ],
-    [
-     40.404268,
-     49.870296
-    ],
-    [
-     40.404059,
-     49.870149
-    ],
-    [
-     40.403564,
-     49.870301
-    ],
-    [
-     40.402944,
-     49.870829
+     40.403376,
+     49.871753
     ],
     [
      40.402396,
      49.869597
     ],
     [
-     40.402399,
-     49.869405
+     40.402389,
+     49.869465
+    ],
+    [
+     40.402423,
+     49.869357
     ],
     [
      40.408368,
      49.864586
+    ],
+    [
+     40.408503,
+     49.864558
+    ],
+    [
+     40.40871,
+     49.864612
     ],
     [
      40.408829,
@@ -2245,128 +11106,24 @@
      49.864134
     ],
     [
-     40.409143,
-     49.863981
+     40.409201,
+     49.86393
     ],
     [
      40.412264,
      49.861502
     ],
     [
+     40.414016,
+     49.860169
+    ],
+    [
      40.417146,
      49.857875
     ],
     [
-     40.419912,
-     49.855651
-    ],
-    [
-     40.421822,
-     49.85417
-    ],
-    [
-     40.422051,
-     49.854058
-    ],
-    [
-     40.422181,
-     49.854159
-    ],
-    [
-     40.423003,
-     49.855878
-    ],
-    [
-     40.423126,
-     49.85593
-    ],
-    [
-     40.423602,
-     49.855931
-    ],
-    [
-     40.423731,
-     49.855908
-    ],
-    [
-     40.424033,
-     49.855706
-    ],
-    [
-     40.424263,
-     49.856199
-    ],
-    [
-     40.424654,
-     49.856316
-    ],
-    [
-     40.424781,
-     49.856444
-    ],
-    [
-     40.424783,
-     49.856545
-    ],
-    [
-     40.425217,
-     49.856598
-    ],
-    [
-     40.425151,
-     49.860819
-    ],
-    [
-     40.424947,
-     49.861158
-    ],
-    [
-     40.424929,
-     49.862035
-    ],
-    [
-     40.424986,
-     49.862216
-    ],
-    [
-     40.424691,
-     49.861823
-    ],
-    [
-     40.424781,
-     49.856444
-    ],
-    [
-     40.424654,
-     49.856316
-    ],
-    [
-     40.424263,
-     49.856199
-    ],
-    [
-     40.424033,
-     49.855706
-    ],
-    [
-     40.423731,
-     49.855908
-    ],
-    [
-     40.423602,
-     49.855931
-    ],
-    [
-     40.423126,
-     49.85593
-    ],
-    [
-     40.42297,
-     49.855849
-    ],
-    [
-     40.422105,
-     49.854004
+     40.421885,
+     49.854099
     ],
     [
      40.421978,
@@ -2381,528 +11138,76 @@
      49.850614
     ],
     [
-     40.419574,
-     49.848486
+     40.419524,
+     49.848356
     ],
     [
-     40.419313,
-     49.847501
+     40.419403,
+     49.84791
     ],
     [
-     40.416923,
-     49.836227
+     40.419032,
+     49.846127
     ],
     [
-     40.413533,
-     49.835439
+     40.42533,
+     49.846384
     ],
     [
-     40.410112,
-     49.834738
+     40.425417,
+     49.846413
     ],
     [
-     40.409595,
-     49.834707
+     40.426225,
+     49.847041
     ],
     [
-     40.407088,
-     49.835579
+     40.426285,
+     49.84713
     ],
     [
-     40.406357,
-     49.835899
+     40.426385,
+     49.847464
     ],
     [
-     40.398125,
-     49.838979
+     40.426288,
+     49.852407
     ],
     [
-     40.396279,
-     49.839726
+     40.426178,
+     49.85614
     ],
     [
-     40.392044,
-     49.841588
+     40.425377,
+     49.856152
     ],
     [
-     40.390671,
-     49.835585
+     40.42526,
+     49.856217
     ],
     [
-     40.38899,
-     49.836216
+     40.425234,
+     49.856272
     ],
     [
-     40.387662,
-     49.830346
+     40.42518,
+     49.859063
     ],
     [
-     40.387618,
-     49.829773
+     40.42509,
+     49.859183
     ],
     [
-     40.387373,
-     49.828757
+     40.425068,
+     49.860159
     ],
     [
-     40.387392,
-     49.828571
+     40.425158,
+     49.860283
     ],
     [
-     40.387607,
-     49.828332
-    ],
-    [
-     40.387681,
-     49.828115
-    ],
-    [
-     40.387655,
-     49.827728
-    ],
-    [
-     40.387525,
-     49.82752
-    ],
-    [
-     40.387257,
-     49.827433
-    ],
-    [
-     40.385761,
-     49.828261
-    ],
-    [
-     40.382363,
-     49.829571
-    ],
-    [
-     40.379542,
-     49.830576
-    ]
-   ]
-  },
-  {
-   "code": "5",
-   "name": "Sahil - 20 Yanvar",
-   "buses": 3,
-   "stops": [
-    1,
-    0,
-    2,
-    3,
-    4,
-    93,
-    94,
-    95,
-    96,
-    67,
-    68,
-    69,
-    70,
-    36,
-    37,
-    38,
-    39,
-    40,
-    41,
-    42,
-    43,
-    97,
-    98,
-    99,
-    100,
-    101,
-    102,
-    103,
-    104,
-    105,
-    106
-   ],
-   "path": [
-    [
-     40.370952,
-     49.844652
-    ],
-    [
-     40.370489,
-     49.843251
-    ],
-    [
-     40.370009,
-     49.842211
-    ],
-    [
-     40.369766,
-     49.841794
-    ],
-    [
-     40.369681,
-     49.841723
-    ],
-    [
-     40.369542,
-     49.841726
-    ],
-    [
-     40.3692,
-     49.842113
-    ],
-    [
-     40.369176,
-     49.842196
-    ],
-    [
-     40.36933,
-     49.842914
-    ],
-    [
-     40.371185,
-     49.848603
-    ],
-    [
-     40.375905,
-     49.845774
-    ],
-    [
-     40.379019,
-     49.844416
-    ],
-    [
-     40.377774,
-     49.83972
-    ],
-    [
-     40.375922,
-     49.833128
-    ],
-    [
-     40.375809,
-     49.832622
-    ],
-    [
-     40.375814,
-     49.832461
-    ],
-    [
-     40.375936,
-     49.832379
-    ],
-    [
-     40.378309,
-     49.831541
-    ],
-    [
-     40.379039,
-     49.831584
-    ],
-    [
-     40.380162,
-     49.831209
-    ],
-    [
-     40.37998,
-     49.830419
-    ],
-    [
-     40.379032,
-     49.830759
-    ],
-    [
-     40.37884,
-     49.830849
-    ],
-    [
-     40.378639,
-     49.831322
-    ],
-    [
-     40.378703,
-     49.831469
-    ],
-    [
-     40.378975,
-     49.831589
-    ],
-    [
-     40.379795,
-     49.831343
-    ],
-    [
-     40.386793,
-     49.82879
-    ],
-    [
-     40.387453,
-     49.828497
-    ],
-    [
-     40.387607,
-     49.828332
-    ],
-    [
-     40.387681,
-     49.828115
-    ],
-    [
-     40.387685,
-     49.827843
-    ],
-    [
-     40.387581,
-     49.827586
-    ],
-    [
-     40.387464,
-     49.827472
-    ],
-    [
-     40.387094,
-     49.827412
-    ],
-    [
-     40.387041,
-     49.827339
-    ],
-    [
-     40.386852,
-     49.826526
-    ],
-    [
-     40.386671,
-     49.82608
-    ],
-    [
-     40.386324,
-     49.824543
-    ],
-    [
-     40.386186,
-     49.824336
-    ],
-    [
-     40.375811,
-     49.8193
-    ],
-    [
-     40.375749,
-     49.819064
-    ],
-    [
-     40.375003,
-     49.809573
-    ],
-    [
-     40.379965,
-     49.808904
-    ],
-    [
-     40.380612,
-     49.80825
-    ],
-    [
-     40.380708,
-     49.808084
-    ],
-    [
-     40.380734,
-     49.807935
-    ],
-    [
-     40.380701,
-     49.807712
-    ],
-    [
-     40.380603,
-     49.807553
-    ],
-    [
-     40.379854,
-     49.807255
-    ],
-    [
-     40.379704,
-     49.807042
-    ],
-    [
-     40.379511,
-     49.804437
-    ],
-    [
-     40.385318,
-     49.803593
-    ],
-    [
-     40.392986,
-     49.802387
-    ],
-    [
-     40.392973,
-     49.802239
-    ],
-    [
-     40.38522,
-     49.803431
-    ],
-    [
-     40.385233,
-     49.803604
-    ],
-    [
-     40.394494,
-     49.802163
-    ],
-    [
-     40.394912,
-     49.806428
-    ],
-    [
-     40.399687,
-     49.805684
-    ],
-    [
-     40.400444,
-     49.805725
-    ],
-    [
-     40.40145,
-     49.805938
-    ],
-    [
-     40.403337,
-     49.807245
-    ],
-    [
-     40.403646,
-     49.80756
-    ],
-    [
-     40.404187,
-     49.808639
-    ],
-    [
-     40.404751,
-     49.810282
-    ],
-    [
-     40.405651,
-     49.813041
-    ],
-    [
-     40.405738,
-     49.813476
-    ],
-    [
-     40.405728,
-     49.813685
-    ],
-    [
-     40.405616,
-     49.813995
-    ],
-    [
-     40.399768,
-     49.824535
-    ],
-    [
-     40.3997,
-     49.824847
-    ],
-    [
-     40.399905,
-     49.825733
-    ],
-    [
-     40.399855,
-     49.825989
-    ],
-    [
-     40.399593,
-     49.826161
-    ],
-    [
-     40.399247,
-     49.826292
-    ],
-    [
-     40.394806,
-     49.827894
-    ],
-    [
-     40.394631,
-     49.827855
-    ],
-    [
-     40.39393,
-     49.827453
-    ],
-    [
-     40.393525,
-     49.827453
-    ],
-    [
-     40.392535,
-     49.828047
-    ],
-    [
-     40.3913,
-     49.828594
-    ],
-    [
-     40.390705,
-     49.829368
-    ],
-    [
-     40.388516,
-     49.830165
-    ],
-    [
-     40.388426,
-     49.830247
-    ],
-    [
-     40.387643,
-     49.830592
-    ],
-    [
-     40.388925,
-     49.83624
-    ],
-    [
-     40.382149,
-     49.838771
-    ],
-    [
-     40.378893,
-     49.840046
-    ],
-    [
-     40.379334,
-     49.841886
-    ],
-    [
-     40.377603,
-     49.842497
-    ],
-    [
-     40.377343,
-     49.842498
-    ],
-    [
-     40.375731,
-     49.842983
-    ],
-    [
-     40.372924,
-     49.844189
-    ],
-    [
-     40.371127,
-     49.845148
-    ],
-    [
-     40.370952,
-     49.844652
+     40.42518,
+     49.859063
     ]
    ]
   }

@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"agilli/internal/bl"
-	"agilli/internal/domain"
-	"agilli/internal/pl/middleware"
-	"agilli/internal/pl/ws"
+	"smartcity/internal/bl"
+	"smartcity/internal/domain"
+	"smartcity/internal/pl/middleware"
+	"smartcity/internal/pl/ws"
 )
 
 // Services are the BL dependencies of the controllers.
@@ -181,8 +181,9 @@ type PassengerController struct{ S *Services }
 
 func (c *PassengerController) Config(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{
-		"userSampleIntervalMs": c.S.Settings.UserSampleInterval.Milliseconds(),
-		"anomalyThresholdS":    c.S.Settings.AnomalyThreshold.Seconds(),
+		"userSampleIntervalMs":  c.S.Settings.UserSampleInterval.Milliseconds(),
+		"anomalyThresholdS":     c.S.Settings.AnomalyThreshold.Seconds(),
+		"defaultRerouteMinutes": int(c.S.Settings.OverrideDuration.Minutes()),
 	})
 }
 
@@ -547,7 +548,16 @@ func (c *OperatorController) override(action string) http.HandlerFunc {
 		var o *domain.RouteOverride
 		switch action {
 		case "approve":
-			o, err = c.S.Anomaly.Approve(r.Context(), id, op)
+			var in struct {
+				DurationMinutes int `json:"durationMinutes"` // 0 or absent = until an operator ends it
+			}
+			if r.ContentLength > 0 {
+				if err := decode(r, &in); err != nil {
+					writeError(w, err)
+					return
+				}
+			}
+			o, err = c.S.Anomaly.Approve(r.Context(), id, op, time.Duration(in.DurationMinutes)*time.Minute)
 		case "reject":
 			o, err = c.S.Anomaly.Reject(r.Context(), id, op)
 		default:

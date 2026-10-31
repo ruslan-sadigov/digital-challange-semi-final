@@ -8,11 +8,11 @@ import (
 	"slices"
 	"time"
 
-	"agilli/internal/bl"
-	"agilli/internal/domain"
+	"smartcity/internal/bl"
+	"smartcity/internal/domain"
 )
 
-const CookieName = "agilli_session"
+const CookieName = "sct_session"
 
 type ctxKey struct{}
 

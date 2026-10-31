@@ -55,6 +55,9 @@ function showRoute(r) {
 }
 
 // ---------- alerts ----------
+// Reroute interval is chosen by the operator; the default keeps it until ended manually.
+const DURATIONS = [[0, 'Until I end it'], [15, '15 min'], [30, '30 min'], [60, '1 hour'], [120, '2 hours'], [240, '4 hours']]
+  .map(([v, l]) => `<option value="${v}">${l}</option>`).join('');
 async function loadAlerts() {
   const [anoms, active] = await Promise.all([api('GET', '/api/operator/anomalies'), api('GET', '/api/operator/overrides')]);
   const open = anoms.filter(a => a.status === 'open');
@@ -63,7 +66,7 @@ async function loadAlerts() {
   $('active-overrides').innerHTML = active.map(o => `
     <div class="item static"><div class="row"><span><strong>${esc(o.busName)}</strong> ${esc(o.fromRouteCode)} → ${esc(o.toRouteCode)}</span>
     <button class="btn small secondary" data-end="${o.id}">End reroute</button></div>
-    <div class="muted small-text">until ${o.endsAt ? new Date(o.endsAt).toLocaleTimeString() : '-'}</div></div>`).join('') || emptyState('No active reroutes', 'Approved suggestions appear here until they expire.');
+    <div class="muted small-text">${o.endsAt ? 'Ends at ' + new Date(o.endsAt).toLocaleTimeString() : 'Runs until you end it'}</div></div>`).join('') || emptyState('No active reroutes', 'Approved reroutes stay here until you end them or their interval runs out.');
   $('anomalies').innerHTML = anoms.map(a => `
     <div class="item static">
       <div class="row"><strong>Route ${esc(a.routeCode)}</strong><span class="badge ${a.status === 'open' ? 'd-high' : 'd-low'}">${esc(cap(a.status))}</span></div>
@@ -72,7 +75,8 @@ async function loadAlerts() {
       ${a.overrides.map(o => `<div class="suggestion">
         <div class="row"><span>Move <strong>${esc(o.busName)}</strong> from ${esc(o.fromRouteCode)}</span><span class="muted small-text">${o.distanceKm.toFixed(1)} km</span></div>
         <div class="row gap">${o.status === 'suggested'
-          ? `<button class="btn small" data-approve="${o.id}">Approve</button><button class="btn small secondary" data-reject="${o.id}">Reject</button>`
+          ? `<select class="input compact" data-duration="${o.id}" aria-label="Reroute interval">${DURATIONS}</select>
+             <button class="btn small" data-approve="${o.id}">Approve</button><button class="btn small secondary" data-reject="${o.id}">Reject</button>`
           : `<span class="muted small-text">${esc(o.status)}</span>`}</div></div>`).join('')
         || (a.status === 'open' ? '<p class="muted small-text">No low-density bus available to move.</p>' : '')}
     </div>`).join('') || emptyState('All routes are flowing', 'You will be alerted when a route stays High for the threshold.');
@@ -81,7 +85,9 @@ document.querySelector('[data-pane="alerts"]').addEventListener('click', async e
   const t = e.target;
   const act = t.dataset.approve ? ['approve', t.dataset.approve] : t.dataset.reject ? ['reject', t.dataset.reject] : t.dataset.end ? ['end', t.dataset.end] : null;
   if (!act) return;
-  try { await api('POST', `/api/operator/overrides/${act[1]}/${act[0]}`); toast('Reroute ' + { approve: 'approved', reject: 'rejected', end: 'ended' }[act[0]], 'success'); }
+  const body = act[0] === 'approve'
+    ? { durationMinutes: Number(document.querySelector(`[data-duration="${act[1]}"]`)?.value || 0) } : undefined;
+  try { await api('POST', `/api/operator/overrides/${act[1]}/${act[0]}`, body); toast('Reroute ' + { approve: 'approved', reject: 'rejected', end: 'ended' }[act[0]], 'success'); }
   catch (err) { toast(err.message, 'alert'); }
   loadAlerts(); loadBuses();
 });

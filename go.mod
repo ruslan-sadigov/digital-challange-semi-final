@@ -1,4 +1,4 @@
-module agilli
+module smartcity
 
 go 1.24.7
 

@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 func TestWriteErrorMapping(t *testing.T) {

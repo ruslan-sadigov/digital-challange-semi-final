@@ -15,8 +15,8 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"agilli/internal/dl"
-	"agilli/internal/domain"
+	"smartcity/internal/dl"
+	"smartcity/internal/domain"
 )
 
 // Session is what the signed cookie carries.

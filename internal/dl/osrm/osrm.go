@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 type Planner struct {
@@ -26,16 +26,29 @@ func (p *Planner) RoadPath(ctx context.Context, stops []domain.Station) ([][2]fl
 	if len(stops) < 2 {
 		return nil, fmt.Errorf("need at least 2 stops")
 	}
-	parts := make([]string, 0, len(stops)+1)
+	pts := make([][2]float64, 0, len(stops)+1)
 	for _, s := range append(stops, stops[0]) {
-		parts = append(parts, fmt.Sprintf("%.6f,%.6f", s.Lng, s.Lat))
+		pts = append(pts, [2]float64{s.Lat, s.Lng})
+	}
+	return p.route(ctx, pts)
+}
+
+// RoadBetween returns the driving route from one point to another (used when a bus moves to a new route).
+func (p *Planner) RoadBetween(ctx context.Context, from, to [2]float64) ([][2]float64, error) {
+	return p.route(ctx, [][2]float64{from, to})
+}
+
+func (p *Planner) route(ctx context.Context, pts [][2]float64) ([][2]float64, error) {
+	parts := make([]string, 0, len(pts))
+	for _, c := range pts {
+		parts = append(parts, fmt.Sprintf("%.6f,%.6f", c[1], c[0]))
 	}
 	u := p.BaseURL + "/route/v1/driving/" + strings.Join(parts, ";") + "?overview=full&geometries=geojson"
 	req, err := http.NewRequestWithContext(ctx, "GET", u, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", "agilli-mobillik/1.0")
+	req.Header.Set("User-Agent", "smart-city-transportation/1.0")
 	res, err := p.Client.Do(req)
 	if err != nil {
 		return nil, err

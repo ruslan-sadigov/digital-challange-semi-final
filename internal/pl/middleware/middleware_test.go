@@ -5,8 +5,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"agilli/internal/bl"
-	"agilli/internal/domain"
+	"smartcity/internal/bl"
+	"smartcity/internal/domain"
 )
 
 type fakeParser map[string]bl.Session

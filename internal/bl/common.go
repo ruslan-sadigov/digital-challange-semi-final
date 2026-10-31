@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"agilli/internal/domain"
+	"smartcity/internal/domain"
 )
 
 // ---------- clock ----------
@@ -101,7 +101,7 @@ type Settings struct {
 
 	AnomalyThreshold time.Duration // route High continuously this long => anomaly
 	ResolveChecks    int           // consecutive non-High checks to resolve an anomaly
-	OverrideDuration time.Duration // how long an approved temporary reroute lasts
+	OverrideDuration time.Duration // interval pre-selected in the operator's approve dialog (0 = until ended manually)
 	MaxSuggestions   int
 	MinBusesLeft     int // a donor route must keep at least this many buses
 
@@ -125,7 +125,7 @@ func DefaultSettings() Settings {
 		PositionFreshness:   5 * time.Minute,
 		AnomalyThreshold:    10 * time.Minute,
 		ResolveChecks:       2,
-		OverrideDuration:    60 * time.Minute,
+		OverrideDuration:    0,
 		MaxSuggestions:      3,
 		MinBusesLeft:        1,
 		HeatmapWindow:       5 * time.Minute,

@@ -6,8 +6,8 @@ import (
 	"math"
 	"time"
 
-	"agilli/internal/dl"
-	"agilli/internal/domain"
+	"smartcity/internal/dl"
+	"smartcity/internal/domain"
 )
 
 // ---------- pure scoring functions ----------
@@ -223,6 +223,10 @@ func (s *DensityService) Recompute(ctx context.Context) (map[int64]RouteDensity,
 	if err != nil {
 		return nil, err
 	}
+	routeByID := make(map[int64]*domain.Route, len(routes))
+	for i := range routes {
+		routeByID[routes[i].ID] = &routes[i]
+	}
 	stations, err := s.store.Stations.List(ctx)
 	if err != nil {
 		return nil, err
@@ -265,7 +269,7 @@ func (s *DensityService) Recompute(ctx context.Context) (map[int64]RouteDensity,
 		}
 		b.Density, b.DensityScore, b.PassengerCount, b.DensityUpdatedAt = level, score, count, &now
 		updated = append(updated, b)
-		if rid := b.EffectiveRouteID(); rid != nil {
+		if rid := ServingRouteID(b, routeByID); rid != nil {
 			routeBuses[*rid]++
 			if score != nil {
 				routeScores[*rid] = append(routeScores[*rid], *score)

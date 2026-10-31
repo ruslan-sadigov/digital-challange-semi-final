@@ -14,8 +14,9 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"agilli/internal/bl"
-	"agilli/internal/domain"
+	"smartcity/internal/bl"
+	"smartcity/internal/domain"
+	"smartcity/internal/worker"
 )
 
 // ---------- repositories ----------
@@ -25,7 +26,7 @@ func TestRepositories(t *testing.T) {
 	ctx := e.ctx
 
 	routes, err := e.store.Routes.List(ctx)
-	if err != nil || len(routes) != 4 {
+	if err != nil || len(routes) != 8 {
 		t.Fatalf("routes: %d %v", len(routes), err)
 	}
 	r65 := routeByCode(t, e, "65")
@@ -33,17 +34,22 @@ func TestRepositories(t *testing.T) {
 	if len(r65.Stops) < 20 || len(r65.Path) < 50 {
 		t.Fatalf("route 65 should have real stops and road geometry: %d stops, %d path points", len(r65.Stops), len(r65.Path))
 	}
-	// Stops are in travel order along the road and lie on it.
-	prev := -1.0
+	// Real OSM bus stops sit beside the road the bus drives (platforms are on the pavement).
 	for _, st := range r65.Stops {
-		arc, off := bl.ProjectOnPath(r65.Path, st.Lat, st.Lng)
-		if off > 25 {
+		if _, off := bl.ProjectOnPath(r65.Path, st.Lat, st.Lng); off > 60 {
 			t.Fatalf("stop %q is %.0f m from the road path", st.Name, off)
 		}
-		if arc <= prev {
-			t.Fatalf("stop %q out of travel order", st.Name)
+	}
+	// Placed in travel order, the stops advance around the loop and cover both directions.
+	arcs := bl.StopArcs(r65.Path, r65.Stops)
+	total := bl.PathLengthM(r65.Path)
+	for i := 1; i < len(arcs); i++ {
+		if arcs[i] < arcs[i-1] {
+			t.Fatalf("stop %q placed before the previous stop", r65.Stops[i].Name)
 		}
-		prev = arc
+	}
+	if arcs[len(arcs)-1] < total/2 {
+		t.Fatalf("return-direction stops should be on the second half of the loop: last at %.0f of %.0f m", arcs[len(arcs)-1], total)
 	}
 	got65, _ := e.store.Routes.Get(ctx, r65.ID)
 	if len(got65.Path) != len(r65.Path) {
@@ -54,7 +60,7 @@ func TestRepositories(t *testing.T) {
 	if err != nil || len(found) != 2 {
 		t.Fatalf("search by route code: %d %v", len(found), err)
 	}
-	found, _ = e.store.Buses.Search(ctx, "koroglu")
+	found, _ = e.store.Buses.Search(ctx, "azneft") // route 65 "Azneft meydanı - 9-cu mikrorayon"
 	if len(found) != 2 {
 		t.Fatalf("search by route name (case-insensitive): %d", len(found))
 	}
@@ -115,32 +121,32 @@ func TestAuthAndRoles(t *testing.T) {
 
 	p := e.newClient(t)
 	var reg struct{ Session bl.Session }
-	expect(t, "register", p.do("POST", "/api/auth/register", map[string]string{"email": "rider@agilli.az", "password": "secret1", "confirmPassword": "secret1"}, &reg), 200)
+	expect(t, "register", p.do("POST", "/api/auth/register", map[string]string{"email": "rider@smartcity.az", "password": "secret1", "confirmPassword": "secret1"}, &reg), 200)
 	if reg.Session.Role != domain.RolePassenger {
 		t.Fatalf("role %s", reg.Session.Role)
 	}
-	expect(t, "duplicate register", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "rider@agilli.az", "password": "secret1", "confirmPassword": "secret1"}, nil), 409)
-	expect(t, "confirmation mismatch", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "other@agilli.az", "password": "secret1", "confirmPassword": "secret2"}, nil), 400)
-	expect(t, "missing confirmation", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "other@agilli.az", "password": "secret1"}, nil), 400)
+	expect(t, "duplicate register", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "rider@smartcity.az", "password": "secret1", "confirmPassword": "secret1"}, nil), 409)
+	expect(t, "confirmation mismatch", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "other@smartcity.az", "password": "secret1", "confirmPassword": "secret2"}, nil), 400)
+	expect(t, "missing confirmation", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "other@smartcity.az", "password": "secret1"}, nil), 400)
 
 	// Separate portals: passenger sign-in rejects operators, operator sign-in rejects passengers.
 	var perr map[string]string
-	expect(t, "operator on passenger portal", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "op@agilli.az", "password": "operator123"}, &perr), 403)
+	expect(t, "operator on passenger portal", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "op@smartcity.az", "password": "operator123"}, &perr), 403)
 	if perr["error"] != "operators sign in on the operator tab" {
 		t.Fatalf("message: %v", perr)
 	}
-	expect(t, "passenger on operator portal", e.newClient(t).do("POST", "/api/auth/operator/login", map[string]string{"email": "rider@agilli.az", "password": "secret1"}, nil), 403)
-	expect(t, "passenger portal login", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "rider@agilli.az", "password": "secret1"}, nil), 200)
+	expect(t, "passenger on operator portal", e.newClient(t).do("POST", "/api/auth/operator/login", map[string]string{"email": "rider@smartcity.az", "password": "secret1"}, nil), 403)
+	expect(t, "passenger portal login", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "rider@smartcity.az", "password": "secret1"}, nil), 200)
 	for _, page := range []string{"/login", "/register", "/operator/login"} {
 		expect(t, "page "+page, anon.do("GET", page, nil, nil), 200)
 	}
 	expect(t, "bad register", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "x", "password": "1"}, nil), 400)
 	expect(t, "passenger heatmap", p.do("GET", "/api/operator/heatmap", nil, nil), 403)
 	expect(t, "passenger create bus", p.do("POST", "/api/operator/buses", map[string]any{"name": "X", "passengerCapacity": 10}, nil), 403)
-	expect(t, "wrong password", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "rider@agilli.az", "password": "nope00"}, nil), 401)
+	expect(t, "wrong password", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "rider@smartcity.az", "password": "nope00"}, nil), 401)
 
 	op := e.newClient(t)
-	op.login("op@agilli.az", "operator123")
+	op.login("op@smartcity.az", "operator123")
 	expect(t, "operator heatmap", op.do("GET", "/api/operator/heatmap", nil, nil), 200)
 	var me bl.Session
 	expect(t, "me", op.do("GET", "/api/auth/me", nil, &me), 200)
@@ -175,7 +181,7 @@ func TestAuthAndRoles(t *testing.T) {
 func TestOperatorCRUD(t *testing.T) {
 	e := setup(t)
 	op := e.newClient(t)
-	op.login("op@agilli.az", "operator123")
+	op.login("op@smartcity.az", "operator123")
 
 	var s1, s2 domain.Station
 	expect(t, "create station", op.do("POST", "/api/operator/stations", map[string]any{"name": "Bayil", "lat": 40.345, "lng": 49.835}, &s1), 201)
@@ -234,7 +240,7 @@ func TestPassengerFeatures(t *testing.T) {
 	if eta.DistanceM <= 0 || eta.Seconds <= 0 || eta.SpeedKmh <= 3 {
 		t.Fatalf("eta: %+v", eta)
 	}
-	expect(t, "eta station not on route", c.do("GET", fmt.Sprintf("/api/buses/%d/eta?station_id=%d", bus.ID, routeByCode(t, e, "13").Stops[0].ID), nil, nil), 400)
+	expect(t, "eta station not on route", c.do("GET", fmt.Sprintf("/api/buses/%d/eta?station_id=%d", bus.ID, stationNotOn(t, e, r65).ID), nil, nil), 400)
 
 	var near []domain.Station
 	expect(t, "nearby stations", c.do("GET", fmt.Sprintf("/api/stations/near?lat=%f&lng=%f&radius=300", r65.Stops[0].Lat, r65.Stops[0].Lng), nil, &near), 200)
@@ -305,7 +311,7 @@ func TestWebSocket(t *testing.T) {
 	u, _ := e.auth.Guest(e.ctx)
 	token, _ := e.auth.IssueToken(u)
 	wsURL := "ws" + strings.TrimPrefix(e.server.URL, "http") + "/ws"
-	hdr := http.Header{"Cookie": {"agilli_session=" + token}}
+	hdr := http.Header{"Cookie": {"sct_session=" + token}}
 
 	if _, res, err := websocket.DefaultDialer.Dial(wsURL, nil); err == nil || res.StatusCode != 401 {
 		t.Fatal("websocket without a session must be rejected")
@@ -338,7 +344,7 @@ func TestWebSocket(t *testing.T) {
 		t.Fatalf("subscribe buses: %s", m.Data)
 	}
 
-	bus := e.mustBus(t, "5-A")
+	bus := e.mustBus(t, "88-A")
 	c := e.newClient(t)
 	expect(t, "device", c.do("POST", fmt.Sprintf("/api/device/buses/%d/location", bus.ID), map[string]float64{"lat": 40.38, "lng": 49.83}, nil, "X-Device-Key", deviceKey), 201)
 	m := read()
@@ -410,7 +416,7 @@ func TestAnomalyEndToEnd(t *testing.T) {
 	}
 
 	op := e.newClient(t)
-	op.login("op@agilli.az", "operator123")
+	op.login("op@smartcity.az", "operator123")
 	var anoms []bl.AnomalyView
 	expect(t, "anomalies", op.do("GET", "/api/operator/anomalies", nil, &anoms), 200)
 	if len(anoms) != 1 || anoms[0].Status != "open" || len(anoms[0].Overrides) == 0 {
@@ -436,7 +442,8 @@ func TestAnomalyEndToEnd(t *testing.T) {
 	passenger.guest()
 	expect(t, "passenger cannot approve", passenger.do("POST", fmt.Sprintf("/api/operator/overrides/%d/approve", top.ID), nil, nil), 403)
 	var approved domain.RouteOverride
-	expect(t, "approve", op.do("POST", fmt.Sprintf("/api/operator/overrides/%d/approve", top.ID), nil, &approved), 200)
+	expect(t, "invalid interval", op.do("POST", fmt.Sprintf("/api/operator/overrides/%d/approve", top.ID), map[string]int{"durationMinutes": 5000}, nil), 400)
+	expect(t, "approve for 60 min", op.do("POST", fmt.Sprintf("/api/operator/overrides/%d/approve", top.ID), map[string]int{"durationMinutes": 60}, &approved), 200)
 	if approved.Status != "active" || approved.EndsAt == nil {
 		t.Fatalf("approved: %+v", approved)
 	}
@@ -479,7 +486,7 @@ func TestAnomalyEndToEnd(t *testing.T) {
 		t.Fatal("rerouted bus should stay on route 65 after the anomaly resolves")
 	}
 	// It returns home when the reroute's duration ends.
-	e.clock.Advance(e.cfg.OverrideDuration)
+	e.clock.Advance(60 * time.Minute)
 	tick()
 	back, _ := e.store.Buses.Get(ctx, top.BusID)
 	if back.ActiveRouteID != nil {
@@ -487,12 +494,13 @@ func TestAnomalyEndToEnd(t *testing.T) {
 	}
 }
 
-// An approved reroute ends by itself after OverrideDuration, and can be ended early.
+// The operator sets the reroute interval: a timed reroute ends by itself, an open-ended one only when
+// an operator ends it.
 func TestOverrideExpiryAndEnd(t *testing.T) {
 	e := setup(t)
 	ctx := e.ctx
 	r65 := routeByCode(t, e, "65")
-	b1, b2 := e.mustBus(t, "13-A"), e.mustBus(t, "5-A")
+	b1, b2, b3 := e.mustBus(t, "13-A"), e.mustBus(t, "88-A"), e.mustBus(t, "3-A")
 	mk := func(b *domain.Bus) *domain.RouteOverride {
 		o := &domain.RouteOverride{BusID: b.ID, FromRouteID: *b.RouteID, ToRouteID: r65.ID, Status: domain.OverrideSuggested, CreatedAt: e.clock.Now()}
 		if err := e.store.Overrides.Create(ctx, o); err != nil {
@@ -500,12 +508,16 @@ func TestOverrideExpiryAndEnd(t *testing.T) {
 		}
 		return o
 	}
-	o1, o2 := mk(b1), mk(b2)
-	if _, err := e.anomaly.Approve(ctx, o1.ID, 1); err != nil {
+	o1, o2, o3 := mk(b1), mk(b2), mk(b3)
+	if _, err := e.anomaly.Approve(ctx, o1.ID, 1, 30*time.Minute); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := e.anomaly.Approve(ctx, o2.ID, 1); err != nil {
+	if _, err := e.anomaly.Approve(ctx, o2.ID, 1, 0); err != nil {
 		t.Fatal(err)
+	}
+	open, err := e.anomaly.Approve(ctx, o3.ID, 1, 0)
+	if err != nil || open.EndsAt != nil {
+		t.Fatalf("interval 0 = until ended manually, got %+v %v", open, err)
 	}
 	if _, err := e.anomaly.End(ctx, o2.ID); err != nil {
 		t.Fatal(err)
@@ -513,13 +525,24 @@ func TestOverrideExpiryAndEnd(t *testing.T) {
 	if got, _ := e.store.Buses.Get(ctx, b2.ID); got.ActiveRouteID != nil {
 		t.Fatal("ended override must restore the home route")
 	}
-	e.clock.Advance(e.cfg.OverrideDuration)
+	e.clock.Advance(30 * time.Minute)
 	if err := e.anomaly.Tick(ctx); err != nil {
 		t.Fatal(err)
 	}
 	got, _ := e.store.Overrides.Get(ctx, o1.ID)
 	if got.Status != domain.OverrideEnded {
-		t.Fatalf("override should expire after its duration, got %s", got.Status)
+		t.Fatalf("timed override should end after its interval, got %s", got.Status)
+	}
+	// the open-ended one is still running hours later
+	e.clock.Advance(6 * time.Hour)
+	if err := e.anomaly.Tick(ctx); err != nil {
+		t.Fatal(err)
+	}
+	if still, _ := e.store.Overrides.Get(ctx, o3.ID); still.Status != domain.OverrideActive {
+		t.Fatalf("open-ended reroute must not end automatically, got %s", still.Status)
+	}
+	if bus, _ := e.store.Buses.Get(ctx, b3.ID); bus.ActiveRouteID == nil || *bus.ActiveRouteID != r65.ID {
+		t.Fatal("open-ended reroute bus should still serve route 65")
 	}
 	if bus, _ := e.store.Buses.Get(ctx, b1.ID); bus.ActiveRouteID != nil {
 		t.Fatal("expired override must restore the home route")
@@ -534,6 +557,10 @@ func TestOverrideExpiryAndEnd(t *testing.T) {
 type fakePlanner struct {
 	calls int
 	fail  bool
+}
+
+func (f *fakePlanner) RoadBetween(_ context.Context, from, to [2]float64) ([][2]float64, error) {
+	return [][2]float64{from, to}, nil
 }
 
 func (f *fakePlanner) RoadPath(_ context.Context, stops []domain.Station) ([][2]float64, error) {
@@ -588,9 +615,120 @@ func TestOperatorRoutesUseRoadPlanner(t *testing.T) {
 	}
 }
 
+// ---------- rerouting in real time ----------
+
+// An approved reroute only relieves the crowded route once the extra bus has driven there and joined it.
+func TestReroutedBusCountsOnlyAfterJoining(t *testing.T) {
+	e := setup(t)
+	ctx := e.ctx
+	r65 := routeByCode(t, e, "65")
+	helper := e.mustBus(t, "13-A")
+	home := routeByCode(t, e, "13")
+	// park the helper on its own route, far from route 65
+	var far domain.Station
+	for _, st := range home.Stops {
+		if !bl.HasJoined(&r65, st.Lat, st.Lng) {
+			far = st
+			break
+		}
+	}
+	if err := e.location.RecordBus(ctx, helper.ID, far.Lat, far.Lng); err != nil {
+		t.Fatal(err)
+	}
+	levels, _ := e.density.Recompute(ctx)
+	before65, before13 := levels[r65.ID].BusCount, levels[home.ID].BusCount
+
+	o := &domain.RouteOverride{BusID: helper.ID, FromRouteID: home.ID, ToRouteID: r65.ID, Status: domain.OverrideSuggested, CreatedAt: e.clock.Now()}
+	if err := e.store.Overrides.Create(ctx, o); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := e.anomaly.Approve(ctx, o.ID, 1, 0); err != nil {
+		t.Fatal(err)
+	}
+	// approved, but still far away: it keeps serving route 13
+	levels, _ = e.density.Recompute(ctx)
+	if levels[r65.ID].BusCount != before65 || levels[home.ID].BusCount != before13 {
+		t.Fatalf("bus counted for route 65 before joining: 65=%d (was %d), 13=%d (was %d)",
+			levels[r65.ID].BusCount, before65, levels[home.ID].BusCount, before13)
+	}
+	d, _ := e.fleet.BusDetail(ctx, helper.ID)
+	if !d.Joining || d.JoinDistanceM <= bl.JoinRadiusM || d.Route.ID != r65.ID {
+		t.Fatalf("passengers should see the bus is on its way: %+v", d)
+	}
+	// it arrives on route 65's road
+	join := r65.Stops[len(r65.Stops)/2]
+	if err := e.location.RecordBus(ctx, helper.ID, join.Lat, join.Lng); err != nil {
+		t.Fatal(err)
+	}
+	levels, _ = e.density.Recompute(ctx)
+	if levels[r65.ID].BusCount != before65+1 || levels[home.ID].BusCount != before13-1 {
+		t.Fatalf("after joining: 65=%d want %d, 13=%d want %d", levels[r65.ID].BusCount, before65+1, levels[home.ID].BusCount, before13-1)
+	}
+	if d, _ := e.fleet.BusDetail(ctx, helper.ID); d.Joining {
+		t.Fatal("bus has joined; it should no longer be shown as on its way")
+	}
+}
+
+// ---------- seed versioning ----------
+
+// A database seeded with older network data is re-seeded with the embedded real network on start.
+func TestSeedReplacesOutdatedNetwork(t *testing.T) {
+	e := setup(t)
+	ctx := e.ctx
+	if v, _ := e.store.Meta.Get(ctx, "seed_version"); v != worker.SeedVersion() {
+		t.Fatalf("seed version not recorded: %q", v)
+	}
+	before, _ := e.store.Stations.List(ctx)
+	// same version: no change
+	if err := worker.Seed(ctx, e.store, e.fleet); err != nil {
+		t.Fatal(err)
+	}
+	if again, _ := e.store.Stations.List(ctx); len(again) != len(before) {
+		t.Fatal("seeding twice with the same data must not duplicate the network")
+	}
+	// simulate an old database (e.g. first version with metro-station names)
+	_ = e.store.Meta.Set(ctx, "seed_version", "old")
+	old := &domain.Station{Name: "28 May (old seed)", Lat: 40.3795, Lng: 49.8486}
+	if err := e.fleet.CreateStation(ctx, old); err != nil {
+		t.Fatal(err)
+	}
+	if err := worker.Seed(ctx, e.store, e.fleet); err != nil {
+		t.Fatal(err)
+	}
+	after, _ := e.store.Stations.List(ctx)
+	if len(after) != len(before) {
+		t.Fatalf("network should be replaced: %d stations, want %d", len(after), len(before))
+	}
+	for _, st := range after {
+		if st.Name == old.Name {
+			t.Fatal("outdated station survived the re-seed")
+		}
+	}
+	if v, _ := e.store.Meta.Get(ctx, "seed_version"); v != worker.SeedVersion() {
+		t.Fatalf("seed version not updated: %q", v)
+	}
+}
+
 // ---------- helpers ----------
 
 func ptr[T any](v T) *T { return &v }
+
+// stationNotOn returns a station that is not a stop of the given route.
+func stationNotOn(t *testing.T, e *env, r domain.Route) domain.Station {
+	t.Helper()
+	on := map[int64]bool{}
+	for _, s := range r.Stops {
+		on[s.ID] = true
+	}
+	all, _ := e.store.Stations.List(e.ctx)
+	for _, s := range all {
+		if !on[s.ID] {
+			return s
+		}
+	}
+	t.Fatal("every station is on the route")
+	return domain.Station{}
+}
 
 func routeByCode(t *testing.T, e *env, code string) domain.Route {
 	t.Helper()

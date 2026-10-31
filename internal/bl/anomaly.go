@@ -7,8 +7,8 @@ import (
 	"sort"
 	"time"
 
-	"agilli/internal/dl"
-	"agilli/internal/domain"
+	"smartcity/internal/dl"
+	"smartcity/internal/domain"
 )
 
 // ---------- detector (pure) ----------
@@ -303,8 +303,15 @@ func (s *AnomalyService) expireOverrides(ctx context.Context, now time.Time) err
 	return nil
 }
 
-// Approve activates a suggested reroute (manual operator decision).
-func (s *AnomalyService) Approve(ctx context.Context, overrideID, operatorID int64) (*domain.RouteOverride, error) {
+// MaxOverrideDuration caps the interval an operator can set for a reroute.
+const MaxOverrideDuration = 24 * time.Hour
+
+// Approve activates a suggested reroute. It is a manual operator decision, and so is its interval:
+// duration > 0 ends the reroute automatically after that time; duration == 0 keeps it until an operator ends it.
+func (s *AnomalyService) Approve(ctx context.Context, overrideID, operatorID int64, duration time.Duration) (*domain.RouteOverride, error) {
+	if duration < 0 || duration > MaxOverrideDuration {
+		return nil, domain.ErrInvalidInput("reroute duration must be between 0 (until ended) and 24 hours")
+	}
 	o, err := s.store.Overrides.Get(ctx, overrideID)
 	if err != nil {
 		return nil, err
@@ -338,7 +345,10 @@ func (s *AnomalyService) Approve(ctx context.Context, overrideID, operatorID int
 	now := s.clock.Now()
 	o.Status = domain.OverrideActive
 	o.StartsAt = ptr(now)
-	o.EndsAt = ptr(now.Add(s.cfg.OverrideDuration))
+	o.EndsAt = nil
+	if duration > 0 {
+		o.EndsAt = ptr(now.Add(duration))
+	}
 	o.DecidedBy = &operatorID
 	if err := s.store.Overrides.Update(ctx, o); err != nil {
 		return nil, err
