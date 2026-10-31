@@ -1,0 +1,224 @@
+AĞILLI ŞƏHƏR NƏQLİYYATI (SMART CITY TRANSPORTATION)
+TEXNİKİ SƏNƏD
+=====================================================================
+
+1. MƏŞĞUL OLUNAN PROBLEM
+---------------------------------------------------------------------
+Bakıda ictimai nəqliyyatda iki əsas problem var:
+
+  1) Sərnişin avtobusun harada olduğunu, nə vaxt gələcəyini və nə
+     qədər sıx olduğunu bilmir. Dayanacaqda gözləmə müddəti
+     proqnozlaşdırılmır, sıx avtobusa minmək məcburiyyəti yaranır.
+
+  2) Operator (nəqliyyat dispetçeri) hansı marşrutun real vaxtda
+     sıxlaşdığını gec görür və avtobusları marşrutlar arasında
+     operativ yenidən bölüşdürə bilmir. Bəzi xətlər həddən artıq
+     doludur, eyni vaxtda başqa xətlərdə avtobuslar yarıboş gedir.
+
+Layihənin məqsədi:
+  - Sərnişinə: avtobusların canlı mövqeyini, marşrutunu, real yolla
+    hesablanmış gəliş vaxtını (ETA) və sıxlığını göstərmək; sıxlıq
+    barədə məlumat verməyə imkan yaratmaq.
+  - Operatora: istifadəçilərin canlı istilik xəritəsini göstərmək,
+    marşrutun sıxlığı 10 dəqiqədən çox yüksək qalanda avtomatik
+    xəbərdarlıq etmək və az sıxlıqlı başqa xətlərdən avtobusun
+    müvəqqəti yönləndirilməsini təklif etmək. Qərarı və müddəti
+    operator özü verir.
+
+
+2. ƏSAS FUNKSİYALAR
+---------------------------------------------------------------------
+Sərnişin paneli:
+  - Avtobus və marşrut axtarışı (xətt nömrəsi və ya adı ilə).
+  - Avtobusların canlı mövqeyi; markerdə xətt nömrəsi, sıxlıq rəngi
+    və hərəkət istiqamətini göstərən kiçik üçbucaq.
+  - Real yollarla çəkilmiş marşrut və real dayanacaqlar.
+  - İstənilən dayanacağa gəliş vaxtı (yol məsafəsi / avtobusun son
+    sürəti).
+  - Sıxlıq barədə məlumat (Az / Orta / Yüksək); tezlik limiti və
+    avtobusa yaxınlıq yoxlaması ilə.
+  - Məkanı paylaşmaq (razılıq ilə, hər 2 dəqiqədən bir).
+  - Test məkanı: xəritədə nişan qoyub olduğu yeri simulyasiya etmək;
+    ən yaxın dayanacaq, piyada vaxtı, avtobusun gəliş vaxtı və
+    "çatacaqsınız / çatmayacaqsınız" qərarı.
+  - Ayrıca qeydiyyat, sərnişin girişi və qonaq rejimi.
+
+Operator paneli:
+  - İstifadəçilərin canlı istilik xəritəsi (yalnız toplanmış xanalar,
+    fərdi nöqtələr göstərilmir).
+  - Avtobus, marşrut və dayanacaqların yaradılması, redaktəsi və
+    silinməsi; yeni marşrut real yollarla avtomatik çəkilir.
+  - Hər marşrutun canlı sıxlığı və "neçə dəqiqədir yüksəkdir" sayğacı.
+  - Anomaliya: marşrut ardıcıl 10 dəqiqə yüksək sıxlıqda qalanda
+    xəbərdarlıq (bir epizod üçün bir dəfə), brauzer bildirişi.
+  - Yönləndirmə təklifləri (3-ə qədər): az sıxlıqlı avtobuslar,
+    məsafə, mənbə marşrutun sıxlığı və ortaq dayanacaqlar əsasında
+    sıralanır; mənbə marşrutda ən azı bir avtobus qalır.
+  - Əl ilə təsdiq və müddət seçimi: "Mən bitirənə qədər" (standart)
+    və ya 15 dəq - 4 saat.
+  - Təsdiqlənmiş avtobus yeni xəttə dərhal "atılmır": real yollarla
+    ora gedir və yalnız qoşulduqdan sonra həmin xəttin sıxlığına
+    daxil edilir.
+
+Ümumi:
+  - Azərbaycan və ingilis dilləri (AZ / EN keçidi).
+  - İşıqlı və qaranlıq tema.
+  - Real vaxt yeniləmələri WebSocket ilə.
+
+
+3. SEÇİLMİŞ TEXNOLOGİYALAR
+---------------------------------------------------------------------
+Backend:
+  - Go 1.24: yüksək performans, sadə paralellik (goroutine-lər ilə
+    worker-lər və WebSocket), tək binary ilə asan yayım.
+  - Standart net/http router (Go 1.22+ marşrut şablonları): əlavə
+    framework olmadan.
+  - pgx/v5: PostgreSQL üçün sürətli və etibarlı driver.
+  - gorilla/websocket: real vaxt kanalları.
+  - golang.org/x/crypto/bcrypt: şifrələrin hash-lənməsi.
+  - HMAC ilə imzalanmış, HttpOnly sessiya kukiləri.
+
+Verilənlər bazası:
+  - PostgreSQL 16: tranzaksiyalar, JSONB (marşrut yol xətti),
+    qismən unikal indeks (bir marşrut üçün bir açıq anomaliya),
+    vaxt üzrə indekslər.
+  - Gömülü SQL miqrasiyaları (tətbiq başlayanda avtomatik).
+
+Frontend:
+  - Go html/template ilə serverdə render olunan səhifələr (MVC View).
+  - Vanilla JavaScript (framework yoxdur, yüngül və sürətli).
+  - Leaflet + OpenStreetMap plitələri; Leaflet.heat (istilik xəritəsi).
+  - "Essential" dizayn sistemi: CSS tokenləri, qaranlıq tema üçün
+    ayrıca token dəsti.
+
+Xəritə məlumatları:
+  - OpenStreetMap API: real Bakı avtobus xətləri (route relation-lar),
+    dayanacaqlar (platform üzvləri) və yollar.
+  - OSRM: operator marşrutları və yönləndirilən avtobuslar üçün real
+    yol marşrutu (əlçatan olmadıqda düz xəttə keçid).
+
+İnfrastruktur və keyfiyyət:
+  - Docker + Docker Compose.
+  - Unit testlər (testing paketi, saxta saat ilə zamanla bağlı
+    qaydalar), real PostgreSQL üzərində inteqrasiya testləri.
+  - Makefile əmrləri (run, demo, test, test-integration, cover).
+
+
+4. LAYİHƏNİN STRUKTURU
+---------------------------------------------------------------------
+Arxitektura: MVC, N-qatlı (PL -> BL -> DL). Hər qat yalnız özündən
+aşağıdakı qatdan, interfeyslər vasitəsilə asılıdır.
+
+  cmd/
+    server/            Tətbiqin giriş nöqtəsi: konfiqurasiya, asılılıqların
+                       qoşulması, HTTP server, worker-lər, simulyator
+    seedgen/           OSM API-dən real Bakı xətlərini yükləyən generator
+
+  internal/
+    domain/            Ümumi modellər (MVC Model) və domen xətaları
+    bl/                Biznes qatı (BL):
+                         auth.go     qeydiyyat, giriş, sessiya tokenləri
+                         fleet.go    avtobus/marşrut/dayanacaq, məkan, ETA,
+                                     heatmap
+                         density.go  sıxlıq balı, məkandan sərnişin sayı
+                         anomaly.go  10 dəqiqəlik qayda, yönləndirmə
+                                     təklifləri, təsdiq/rədd/bitirmə
+                         path.go     yol xətti həndəsəsi, istiqamətə görə
+                                     yerləşdirmə
+                         common.go   saat, portlar, tənzimləmələr, geo
+    dl/                Məlumat qatı (DL): repozitoriya interfeysləri
+      postgres/        PostgreSQL tətbiqi (pgx)
+      osrm/            OSRM yol marşrutu klienti
+    pl/                Təqdimat qatı (PL):
+      router.go        Bütün HTTP marşrutları
+      controller/      Controller-lər (MVC Controller)
+      middleware/      Sessiya, rol, cihaz açarı, log, panic bərpası
+      ws/              WebSocket hub (Publisher və Notifier)
+      view/            Şablonlar (MVC View) və statik fayllar (JS, CSS,
+                       i18n, tema)
+    worker/            Planlayıcı, real şəbəkənin yüklənməsi (seed),
+                       simulyator; seeddata/baku.json
+  migrations/          SQL sxemi (001-004) və miqrasiya icraçısı
+  test/integration/    PostgreSQL üzərində uçdan-uca testlər
+  docs/screenshots/    Ekran görüntüləri
+
+Verilənlər bazası cədvəlləri:
+  app_user, station, route, route_stop, bus, bus_location,
+  user_location, bus_status (sıxlıq məlumatları), route_density_state,
+  density_anomaly, route_override (yönləndirmələr), app_meta.
+
+İlkin tələbdəki sxemə edilən əsas düzəlişlər:
+  - "Att" sütunu uzunluq (lng) kimi adlandırılıb.
+  - BusRoute (Prev/Current/Next) avtobusun canlı mövqeyini təsvir
+    edirdi, marşrutu yox; marşrut "route" + sıralı "route_stop"
+    cədvəllərinə bölünüb, yol xətti route.path (JSONB) sahəsindədir.
+  - Anomaliyalar, yönləndirmələr və marşrut sıxlığı vəziyyəti üçün
+    ayrıca cədvəllər əlavə olunub (10 dəqiqəlik sayğac server yenidən
+    başlasa da itmir).
+
+Əsas biznes qaydaları:
+  - Avtobus sıxlığı = son 10 dəqiqənin məlumatlarının yaxınlığa görə
+    çəkili ortası (qonaqların çəkisi 0.7) + məkanını paylaşan
+    istifadəçilərdən təxmini doluluq (50/50). Bal >= 1.5 "yüksək",
+    >= 0.75 "orta".
+  - İstifadəçi avtobusda sayılır: son iki məkan nümunəsi avtobusa
+    30 m-dən yaxındırsa və ikisi də dayanacaqda deyilsə. Sayı x3,
+    tutumla məhdud.
+  - Marşrut sıxlığı = həmin marşruta real xidmət edən avtobusların
+    ortalaması.
+  - Anomaliya: marşrut ardıcıl >= 10 dəq yüksəkdir; 2 ardıcıl
+    yoxlamada aşağı düşəndə həll olunur.
+
+
+5. TESTLƏR
+---------------------------------------------------------------------
+  - 62 test funksiyası.
+  - Unit testlər: sıxlıq balı və hədlər, məkandan sərnişin sayı,
+    anomaliya detektoru (9:59 xəbərdarlıq yoxdur, 10:00 var, bir
+    epizoda bir xəbərdarlıq, qısa enmə, yenidən başlama), yönləndirmə
+    təklifçisi, yol üzrə ETA, istiqamət (bearing), yanaşı yollarda
+    istiqamətə görə yerləşdirmə, heatmap toplanması, sessiya
+    tokenləri, middleware, xəta xəritələnməsi, WebSocket hub, OSRM
+    klienti, simulyatorun yol keçidi.
+  - İnteqrasiya testləri (11, real PostgreSQL): repozitoriyalar, rollar
+    və ayrıca giriş portalları, operator CRUD, sərnişin funksiyaları,
+    məkandan sərnişin sayı, WebSocket, tam anomaliya ssenarisi
+    (anomaliya -> təklif -> təsdiq -> həll -> bitmə), müddət seçimi,
+    real yol planlaması, qoşulmadan əvvəl sayılmama, köhnə şəbəkənin
+    avtomatik yenilənməsi.
+
+
+6. GƏLƏCƏK İNKİŞAF İMKANLARI
+---------------------------------------------------------------------
+Məhsul:
+  - Mobil tətbiq (Android / iOS): arxa planda məkanın göndərilməsi
+    (veb brauzer buna imkan vermir) və əsl push bildirişləri (FCM /
+    APNs).
+  - Sürücü tətbiqi: yönləndirmə əmrinin sürücüyə çatdırılması və
+    təsdiqi.
+  - Səfər planlaşdırıcısı: A nöqtəsindən B nöqtəsinə köçürmələrlə
+    marşrut, alternativ və daha az sıx variantlar.
+  - Bakıkart / validator inteqrasiyası ilə real sərnişin sayı.
+  - Əlçatanlıq: əlilliyi olan şəxslər üçün uyğun avtobus və
+    dayanacaq məlumatı.
+
+Analitika və süni intellekt:
+  - Saat, gün və hava şəraitinə görə sıxlıq proqnozu (tarixi məlumat
+    üzərində model).
+  - Tıxac və seqment üzrə tarixi sürətlərlə daha dəqiq ETA.
+  - Avtobus sayının marşrutlar arasında avtomatik optimal bölgüsü
+    üçün tövsiyələr (operator təsdiqi ilə).
+  - Sıxlıq məlumatlarında saxtakarlığın aşkarlanması.
+
+Texniki:
+  - PostGIS: məkan sorğularının bazada icrası, böyük miqyasda sürət.
+  - Məkan cədvəllərinin günlük bölünməsi (partitioning) və saxlama
+    siyasəti (məs. 30 gün).
+  - Bir neçə server nüsxəsi üçün WebSocket mesajlarının PostgreSQL
+    LISTEN/NOTIFY və ya Redis vasitəsilə paylanması.
+  - Öz OSRM serverimiz (xarici xidmətdən asılılığın aradan qalxması).
+  - CI/CD (GitHub Actions), monitorinq, yük testləri.
+  - OSM məlumatlarının müntəzəm yenilənməsi və GTFS formatında açıq
+    məlumat ixracı.
+  - Şəxsi məlumatların qorunması: Azərbaycan qanunvericiliyinə uyğun
+    razılıq, saxlama müddəti və anonimləşdirmə.
