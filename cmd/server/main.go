@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"agilli/internal/bl"
+	"agilli/internal/dl/osrm"
 	"agilli/internal/dl/postgres"
 	"agilli/internal/pl"
 	"agilli/internal/pl/controller"
@@ -89,7 +90,11 @@ func main() {
 	hub := ws.NewHub()
 
 	auth := bl.NewAuthService(store.Users, env("SESSION_SECRET", "dev-secret-change-me"), clock)
-	fleet := bl.NewFleetService(store)
+	var planner bl.RoutePlanner
+	if u := env("OSRM_URL", "https://router.project-osrm.org"); u != "off" {
+		planner = osrm.New(u)
+	}
+	fleet := bl.NewFleetService(store, planner)
 	location := bl.NewLocationService(store, clock, hub)
 	density := bl.NewDensityService(store, clock, cfg, hub)
 	eta := bl.NewETAService(store, clock, cfg)

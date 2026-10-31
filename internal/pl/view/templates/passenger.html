@@ -13,10 +13,17 @@
   <span class="spacer"></span>
   <span class="muted" id="who">{{if .Session.Email}}{{.Session.Email}}{{else}}Guest{{end}}</span>
   <button id="share-loc" class="btn small">Share my location</button>
-  <a class="btn small ghost" href="/login">Sign in</a>
+  <button id="test-loc" class="btn small ghost" title="Click on the map to simulate where you are">Test location</button>
+  {{if .Session.Email}}<button id="logout" class="btn small ghost">Sign out</button>{{else}}<a class="btn small ghost" href="/login">Sign in</a>
+  <a class="btn small ghost" href="/register">Register</a>{{end}}
 </header>
 <main class="layout">
   <aside class="panel">
+    <section id="testloc" class="testloc hidden">
+      <div class="row"><strong>Test location</strong><button id="testloc-clear" class="btn small ghost">Clear</button></div>
+      <p class="muted small-text" id="testloc-hint">Drag the orange pin to move. Your simulated position is used for location sharing, density reports and ETA.</p>
+      <div id="testloc-info"></div>
+    </section>
     <input id="search" class="input" type="search" placeholder="Search bus or route (e.g. 65)">
     <section id="bus-detail" class="detail hidden">
       <button id="d-close" class="btn small ghost">Back to list</button>

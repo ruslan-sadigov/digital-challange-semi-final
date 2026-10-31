@@ -91,7 +91,7 @@ func setup(t *testing.T) *env {
 	// Real wall-clock "now" so cookies/tokens behave normally; tests move it forward explicitly.
 	e.clock = bl.NewFakeClock(time.Now().UTC().Truncate(time.Second))
 	e.auth = bl.NewAuthService(e.store.Users, "test-secret", e.clock)
-	e.fleet = bl.NewFleetService(e.store)
+	e.fleet = bl.NewFleetService(e.store, nil)
 	e.location = bl.NewLocationService(e.store, e.clock, e.hub)
 	e.density = bl.NewDensityService(e.store, e.clock, e.cfg, e.hub)
 	e.anomaly = bl.NewAnomalyService(e.store, e.clock, e.cfg, e.density, e.notifier, e.hub)
@@ -158,10 +158,11 @@ func (c *client) do(method, path string, body any, out any, headers ...string) i
 	return res.StatusCode
 }
 
+// login signs in on the operator portal (all callers are operators).
 func (c *client) login(email, pw string) {
 	c.t.Helper()
-	if code := c.do("POST", "/api/auth/login", map[string]string{"email": email, "password": pw}, nil); code != 200 {
-		c.t.Fatalf("login %s: %d", email, code)
+	if code := c.do("POST", "/api/auth/operator/login", map[string]string{"email": email, "password": pw}, nil); code != 200 {
+		c.t.Fatalf("operator login %s: %d", email, code)
 	}
 }
 

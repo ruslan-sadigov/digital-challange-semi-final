@@ -40,6 +40,8 @@ func NewRouter(s *controller.Services, deviceKey string) (http.Handler, error) {
 	// Pages (MVC views)
 	mux.HandleFunc("GET /", pages.Passenger)
 	mux.HandleFunc("GET /login", pages.Login)
+	mux.HandleFunc("GET /register", pages.Register)
+	mux.HandleFunc("GET /operator/login", pages.OperatorLogin)
 	mux.HandleFunc("GET /operator", pages.Operator)
 	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(static)))
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { _, _ = w.Write([]byte("ok")) })
@@ -47,6 +49,7 @@ func NewRouter(s *controller.Services, deviceKey string) (http.Handler, error) {
 	// Auth
 	mux.HandleFunc("POST /api/auth/register", auth.Register)
 	mux.HandleFunc("POST /api/auth/login", auth.Login)
+	mux.HandleFunc("POST /api/auth/operator/login", auth.OperatorLogin)
 	mux.HandleFunc("POST /api/auth/guest", auth.Guest)
 	mux.HandleFunc("POST /api/auth/logout", auth.Logout)
 	mux.HandleFunc("GET /api/auth/me", auth.Me)

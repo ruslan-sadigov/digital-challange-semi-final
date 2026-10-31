@@ -1,3 +1,4 @@
 cover.out
 /agilli
 *.test
+.cache/

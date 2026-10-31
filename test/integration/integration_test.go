@@ -3,7 +3,9 @@
 package integration
 
 import (
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -27,8 +29,25 @@ func TestRepositories(t *testing.T) {
 		t.Fatalf("routes: %d %v", len(routes), err)
 	}
 	r65 := routeByCode(t, e, "65")
-	if len(r65.Stops) != 6 || r65.Stops[0].Name != "Icherisheher" || r65.Stops[5].Name != "Koroglu" {
-		t.Fatalf("route stops not in order: %+v", r65.Stops)
+	// Seed = real OSM bus stops along a real road path.
+	if len(r65.Stops) < 20 || len(r65.Path) < 50 {
+		t.Fatalf("route 65 should have real stops and road geometry: %d stops, %d path points", len(r65.Stops), len(r65.Path))
+	}
+	// Stops are in travel order along the road and lie on it.
+	prev := -1.0
+	for _, st := range r65.Stops {
+		arc, off := bl.ProjectOnPath(r65.Path, st.Lat, st.Lng)
+		if off > 25 {
+			t.Fatalf("stop %q is %.0f m from the road path", st.Name, off)
+		}
+		if arc <= prev {
+			t.Fatalf("stop %q out of travel order", st.Name)
+		}
+		prev = arc
+	}
+	got65, _ := e.store.Routes.Get(ctx, r65.ID)
+	if len(got65.Path) != len(r65.Path) {
+		t.Fatal("Get must return the stored road path")
 	}
 
 	found, err := e.store.Buses.Search(ctx, "65")
@@ -96,11 +115,25 @@ func TestAuthAndRoles(t *testing.T) {
 
 	p := e.newClient(t)
 	var reg struct{ Session bl.Session }
-	expect(t, "register", p.do("POST", "/api/auth/register", map[string]string{"email": "rider@agilli.az", "password": "secret1"}, &reg), 200)
+	expect(t, "register", p.do("POST", "/api/auth/register", map[string]string{"email": "rider@agilli.az", "password": "secret1", "confirmPassword": "secret1"}, &reg), 200)
 	if reg.Session.Role != domain.RolePassenger {
 		t.Fatalf("role %s", reg.Session.Role)
 	}
-	expect(t, "duplicate register", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "rider@agilli.az", "password": "secret1"}, nil), 409)
+	expect(t, "duplicate register", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "rider@agilli.az", "password": "secret1", "confirmPassword": "secret1"}, nil), 409)
+	expect(t, "confirmation mismatch", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "other@agilli.az", "password": "secret1", "confirmPassword": "secret2"}, nil), 400)
+	expect(t, "missing confirmation", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "other@agilli.az", "password": "secret1"}, nil), 400)
+
+	// Separate portals: passenger sign-in rejects operators, operator sign-in rejects passengers.
+	var perr map[string]string
+	expect(t, "operator on passenger portal", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "op@agilli.az", "password": "operator123"}, &perr), 403)
+	if perr["error"] != "operators sign in on the operator tab" {
+		t.Fatalf("message: %v", perr)
+	}
+	expect(t, "passenger on operator portal", e.newClient(t).do("POST", "/api/auth/operator/login", map[string]string{"email": "rider@agilli.az", "password": "secret1"}, nil), 403)
+	expect(t, "passenger portal login", e.newClient(t).do("POST", "/api/auth/login", map[string]string{"email": "rider@agilli.az", "password": "secret1"}, nil), 200)
+	for _, page := range []string{"/login", "/register", "/operator/login"} {
+		expect(t, "page "+page, anon.do("GET", page, nil, nil), 200)
+	}
 	expect(t, "bad register", e.newClient(t).do("POST", "/api/auth/register", map[string]string{"email": "x", "password": "1"}, nil), 400)
 	expect(t, "passenger heatmap", p.do("GET", "/api/operator/heatmap", nil, nil), 403)
 	expect(t, "passenger create bus", p.do("POST", "/api/operator/buses", map[string]any{"name": "X", "passengerCapacity": 10}, nil), 403)
@@ -131,6 +164,9 @@ func TestAuthAndRoles(t *testing.T) {
 	res, err := (&http.Client{CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}).Get(e.server.URL + "/operator")
 	if err != nil || res.StatusCode != http.StatusSeeOther {
 		t.Fatalf("operator page should redirect, got %v %v", res.StatusCode, err)
+	}
+	if loc := res.Header.Get("Location"); loc != "/operator/login" {
+		t.Fatalf("operator page should redirect to the operator sign-in, got %q", loc)
 	}
 }
 
@@ -490,6 +526,65 @@ func TestOverrideExpiryAndEnd(t *testing.T) {
 	}
 	if err := e.fleet.DeleteBus(ctx, b1.ID); err != nil {
 		t.Fatalf("bus without active override can be deleted: %v", err)
+	}
+}
+
+// ---------- road routing for operator-created routes ----------
+
+type fakePlanner struct {
+	calls int
+	fail  bool
+}
+
+func (f *fakePlanner) RoadPath(_ context.Context, stops []domain.Station) ([][2]float64, error) {
+	f.calls++
+	if f.fail {
+		return nil, errors.New("osrm down")
+	}
+	// a detour through a point between the stops, closed back to the first stop
+	mid := [2]float64{(stops[0].Lat+stops[1].Lat)/2 + 0.003, (stops[0].Lng + stops[1].Lng) / 2}
+	return [][2]float64{{stops[0].Lat, stops[0].Lng}, mid, {stops[1].Lat, stops[1].Lng}, {stops[0].Lat, stops[0].Lng}}, nil
+}
+
+func TestOperatorRoutesUseRoadPlanner(t *testing.T) {
+	e := setup(t)
+	ctx := e.ctx
+	stations, _ := e.store.Stations.List(ctx)
+	ids := []int64{stations[0].ID, stations[1].ID}
+
+	planner := &fakePlanner{}
+	fleet := bl.NewFleetService(e.store, planner)
+	r := &domain.Route{Code: "R1", Name: "Road test"}
+	if err := fleet.CreateRoute(ctx, r, ids); err != nil {
+		t.Fatal(err)
+	}
+	if planner.calls != 1 || len(r.Path) != 4 {
+		t.Fatalf("route should get the planned road path: calls %d path %v", planner.calls, r.Path)
+	}
+	stored, _ := e.store.Routes.Get(ctx, r.ID)
+	if len(stored.Path) != 4 {
+		t.Fatalf("path not stored: %v", stored.Path)
+	}
+	// editing the stops re-plans the road
+	if err := fleet.UpdateRoute(ctx, &domain.Route{ID: r.ID, Code: "R1", Name: "Road test"}, []int64{ids[1], ids[0]}); err != nil {
+		t.Fatal(err)
+	}
+	if planner.calls != 2 {
+		t.Fatal("update should re-plan the road path")
+	}
+	// a failing router falls back to straight lines (empty path) instead of failing the request
+	planner.fail = true
+	r2 := &domain.Route{Code: "R2", Name: "Fallback"}
+	if err := fleet.CreateRoute(ctx, r2, ids); err != nil {
+		t.Fatal(err)
+	}
+	if len(r2.Path) != 0 || len(bl.EffectivePath(r2)) != 3 {
+		t.Fatalf("fallback should store no path and use straight lines: %v", r2.Path)
+	}
+	// unknown station is a validation error
+	planner.fail = false
+	if err := fleet.CreateRoute(ctx, &domain.Route{Code: "R3", Name: "Bad"}, []int64{ids[0], 999999}); err == nil {
+		t.Fatal("unknown station must be rejected")
 	}
 }
 

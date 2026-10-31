@@ -1,6 +1,7 @@
 // Passenger panel: search buses, live positions, route, density, ETA, density reports, location sharing.
 const map = makeMap();
-const state = { buses: new Map(), markers: new Map(), routes: new Map(), selected: null, routeLayer: null, filter: null };
+const state = { buses: new Map(), markers: new Map(), routes: new Map(), selected: null, selectedRoute: null, routeLayer: null, filter: null,
+  testPoint: null, testMarker: null, testLine: null, picking: false };
 
 const $ = id => document.getElementById(id);
 
@@ -36,7 +37,7 @@ async function select(id) {
   const b = d.bus;
   state.buses.set(b.id, b);
   $('bus-detail').classList.remove('hidden');
-  $('bus-detail').scrollIntoView({ block: 'start' });
+  document.querySelector('.panel').scrollTop = 0; // test-location box, search and detail sit at the top
   $('d-name').textContent = b.name;
   $('d-density').outerHTML = `<span id="d-density" class="badge d-${b.density}">${esc(b.density)}</span>`;
   $('d-route').textContent = d.route ? `Route ${d.route.code}: ${d.route.name}` : 'No route assigned';
@@ -49,17 +50,20 @@ async function select(id) {
   } else temp.classList.add('hidden');
   $('d-msg').textContent = '';
   const stops = d.route ? d.route.stops : [];
+  state.selectedRoute = d.route;
   $('d-stops').innerHTML = stops.map(s => `<li data-station="${s.id}">${esc(s.name)}<span class="eta"></span></li>`).join('');
   if (state.routeLayer) map.removeLayer(state.routeLayer);
   if (stops.length) {
-    const pts = stops.map(s => [s.lat, s.lng]);
+    // Real road geometry when the route has one, otherwise straight lines between stops.
+    const pts = d.route.path && d.route.path.length > 1 ? d.route.path : [...stops.map(s => [s.lat, s.lng]), [stops[0].lat, stops[0].lng]];
     state.routeLayer = L.layerGroup([
-      L.polyline([...pts, pts[0]], { color: d.temporaryRoute ? '#1f6feb' : '#334', weight: 4, opacity: .7, dashArray: d.temporaryRoute ? '8 6' : null }),
+      L.polyline(pts, { color: d.temporaryRoute ? '#1f6feb' : '#334', weight: 4, opacity: .7, dashArray: d.temporaryRoute ? '8 6' : null }),
       ...stops.map(s => L.circleMarker([s.lat, s.lng], { radius: 6, color: '#334', fillColor: '#fff', fillOpacity: 1 })
         .bindTooltip(s.name).on('click', () => showETA(id, s.id))),
     ]).addTo(map);
   }
   if (b.lastLat != null) map.panTo([b.lastLat, b.lastLng]);
+  updateTestInfo();
 }
 
 async function showETA(busId, stationId) {
@@ -79,6 +83,7 @@ $('d-stops').addEventListener('click', e => {
 
 $('d-close').addEventListener('click', () => {
   state.selected = null;
+  state.selectedRoute = null;
   $('bus-detail').classList.add('hidden');
   if (state.routeLayer) { map.removeLayer(state.routeLayer); state.routeLayer = null; }
   renderList();
@@ -112,11 +117,15 @@ $('search').addEventListener('input', e => {
 // Location sharing (foreground, opt-in). Interval comes from the server (2 min by default).
 let locTimer = null;
 async function startSharing() {
-  if (!navigator.geolocation) { toast('Geolocation is not available in this browser', 'alert'); return; }
+  if (!navigator.geolocation && !state.testPoint) { toast('Geolocation is not available in this browser', 'alert'); return; }
   const cfg = await api('GET', '/api/config');
-  const send = () => navigator.geolocation.getCurrentPosition(
-    p => api('POST', '/api/locations', { lat: p.coords.latitude, lng: p.coords.longitude }).catch(() => {}),
-    () => toast('Location permission denied', 'alert'), { enableHighAccuracy: true, timeout: 10000 });
+  // While a test location is set, it is sent instead of the real GPS position.
+  const send = () => {
+    if (state.testPoint) { sendTestPoint(); return; }
+    navigator.geolocation.getCurrentPosition(
+      p => api('POST', '/api/locations', { lat: p.coords.latitude, lng: p.coords.longitude }).catch(() => {}),
+      () => toast('Location permission denied', 'alert'), { enableHighAccuracy: true, timeout: 10000 });
+  };
   send();
   locTimer = setInterval(send, cfg.userSampleIntervalMs);
   $('share-loc').textContent = 'Stop sharing';
@@ -129,6 +138,119 @@ function stopSharing() {
 }
 $('share-loc').addEventListener('click', () => (locTimer ? stopSharing() : startSharing()));
 try { if (localStorage.getItem('shareLoc')) startSharing(); } catch (_) {}
+
+// ---------- test location (simulated position for testing ETA, reports and sharing) ----------
+const WALK_M_PER_MIN = 80; // ~4.8 km/h
+const youIcon = L.divIcon({
+  className: '',
+  html: '<div style="background:#e0a100;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);width:24px;height:24px;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>',
+  iconSize: [24, 24], iconAnchor: [12, 24],
+});
+
+function sendTestPoint() {
+  if (!state.testPoint) return;
+  api('POST', '/api/locations', { lat: state.testPoint.lat, lng: state.testPoint.lng }).catch(err => toast(err.message, 'alert'));
+}
+
+function setPicking(on) {
+  state.picking = on;
+  $('test-loc').classList.toggle('picking', on);
+  $('test-loc').textContent = on ? 'Click on the map...' : 'Test location';
+  map.getContainer().style.cursor = on ? 'crosshair' : '';
+}
+
+function setTestPoint(latlng, save = true) {
+  state.testPoint = L.latLng(latlng.lat, latlng.lng);
+  if (!state.testMarker) {
+    state.testMarker = L.marker(state.testPoint, { icon: youIcon, draggable: true, zIndexOffset: 1000 })
+      .bindTooltip('Test location (drag to move)').addTo(map)
+      .on('dragend', e => setTestPoint(e.target.getLatLng()));
+  } else state.testMarker.setLatLng(state.testPoint);
+  $('testloc').classList.remove('hidden');
+  if (save) { try { localStorage.setItem('testPoint', JSON.stringify(state.testPoint)); } catch (_) {} }
+  sendTestPoint();
+  updateTestInfo();
+}
+
+function clearTestPoint() {
+  state.testPoint = null;
+  if (state.testMarker) { map.removeLayer(state.testMarker); state.testMarker = null; }
+  if (state.testLine) { map.removeLayer(state.testLine); state.testLine = null; }
+  $('testloc').classList.add('hidden');
+  try { localStorage.removeItem('testPoint'); } catch (_) {}
+}
+
+let testInfoSeq = 0;
+async function updateTestInfo() {
+  if (!state.testPoint) return;
+  const seq = ++testInfoSeq;
+  const p = state.testPoint;
+  const box = $('testloc-info');
+  if (state.testLine) { map.removeLayer(state.testLine); state.testLine = null; }
+  const route = state.selectedRoute;
+  if (state.selected && route && route.stops.length) {
+    // Nearest stop of the selected bus's route, the bus's ETA there, and the walk to it.
+    let best = null;
+    route.stops.forEach(s => { const d = distM(p.lat, p.lng, s.lat, s.lng); if (!best || d < best.d) best = { s, d }; });
+    const walkMin = best.d / WALK_M_PER_MIN;
+    state.testLine = L.polyline([[p.lat, p.lng], [best.s.lat, best.s.lng]], { color: '#e0a100', weight: 3, dashArray: '4 6' }).addTo(map);
+    try {
+      // ETA of every bus currently serving this route to that stop; the selected one plus the soonest you can catch.
+      const onRoute = [...state.buses.values()].filter(b => (b.activeRouteId || b.routeId) === route.id && b.lastLat != null);
+      const etas = (await Promise.all(onRoute.map(b => api('GET', `/api/buses/${b.id}/eta?station_id=${best.s.id}`)
+        .then(e => ({ bus: b, e })).catch(() => null)))).filter(Boolean);
+      if (seq !== testInfoSeq) return;
+      const mine = etas.find(x => x.bus.id === state.selected);
+      if (!mine) throw new Error('No ETA available for this bus yet');
+      const catchable = etas.filter(x => x.e.seconds / 60 >= walkMin).sort((a, b) => a.e.seconds - b.e.seconds)[0];
+      const busMin = mine.e.seconds / 60;
+      const verdict = walkMin <= busMin
+        ? `<span class="badge d-low">You can make it</span> leave within ${fmtDuration((busMin - walkMin) * 60)}`
+        : `<span class="badge d-high">You will miss this bus</span> the walk is longer than its ETA`;
+      const better = catchable && catchable.bus.id !== state.selected
+        ? `<div class="row"><span>Soonest bus you can catch: <strong>${esc(catchable.bus.name)}</strong> in ${fmtDuration(catchable.e.seconds)}</span></div>` : '';
+      box.innerHTML = `
+        <div class="row"><span>Nearest stop: <strong>${esc(best.s.name)}</strong></span></div>
+        <div class="row"><span class="muted">Walk ${Math.round(best.d)} m · ~${fmtDuration(walkMin * 60)}</span></div>
+        <div class="row"><span>Bus ${esc(mine.bus.name)} arrives in <strong>${fmtDuration(mine.e.seconds)}</strong></span>
+        <span class="muted small-text">${(mine.e.distanceM / 1000).toFixed(1)} km by road</span></div>
+        <div class="row gap">${verdict}</div>${better}`;
+    } catch (err) {
+      if (seq === testInfoSeq) box.innerHTML = `<p class="error">${esc(err.message)}</p>`;
+    }
+    return;
+  }
+  // No bus selected: show the closest real stops.
+  try {
+    const near = await api('GET', `/api/stations/near?lat=${p.lat}&lng=${p.lng}&radius=800`);
+    if (seq !== testInfoSeq) return;
+    box.innerHTML = near.length
+      ? '<div class="muted small-text">Closest stops (select a bus to see its ETA to you):</div>' + near.slice(0, 4).map(s => {
+          const d = distM(p.lat, p.lng, s.lat, s.lng);
+          return `<div class="row"><span>${esc(s.name)}</span><span class="muted small-text">${Math.round(d)} m · ${fmtDuration(d / WALK_M_PER_MIN * 60)} walk</span></div>`;
+        }).join('')
+      : '<p class="muted">No bus stop within 800 m.</p>';
+  } catch (err) { box.innerHTML = `<p class="error">${esc(err.message)}</p>`; }
+}
+
+$('test-loc').addEventListener('click', () => {
+  setPicking(!state.picking);
+  if (state.picking) toast('Click on the map to place your test location');
+});
+$('testloc-clear').addEventListener('click', clearTestPoint);
+map.on('click', e => {
+  if (!state.picking) return;
+  setPicking(false);
+  setTestPoint(e.latlng);
+});
+// The bus keeps moving: refresh the ETA comparison every 15 s.
+setInterval(() => { if (state.testPoint && state.selected) updateTestInfo(); }, 15000);
+try {
+  const saved = JSON.parse(localStorage.getItem('testPoint') || 'null');
+  if (saved) setTestPoint(saved, false);
+} catch (_) {}
+
+if ($('logout')) $('logout').addEventListener('click', async () => { await api('POST', '/api/auth/logout'); location.href = '/'; });
 
 async function init() {
   const [routes, stations, buses] = await Promise.all([api('GET', '/api/routes'), api('GET', '/api/stations'), api('GET', '/api/buses')]);

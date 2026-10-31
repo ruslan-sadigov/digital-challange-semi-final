@@ -3,34 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in · Agilli</title>
+<title>{{if eq .Tab "register"}}Register{{else if eq .Tab "operator"}}Operator sign in{{else}}Sign in{{end}} · Agilli</title>
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body class="center">
-<form id="form" class="card">
+<div class="card auth">
   <h1>Agilli Mobillik ve Neqliyyat</h1>
-  <label>Email <input class="input" name="email" type="email" required></label>
-  <label>Password <input class="input" name="password" type="password" minlength="6" required></label>
-  <div class="row gap">
-    <button class="btn" data-action="login" type="submit">Sign in</button>
-    <button class="btn ghost" data-action="register" type="button" id="register">Create passenger account</button>
-  </div>
-  <p id="msg" class="muted"></p>
-  <p class="muted small-text"><a href="/">Continue as guest</a></p>
-</form>
+  <nav class="tabs" role="tablist">
+    <a role="tab" href="/login" class="{{if eq .Tab "passenger"}}active{{end}}">Sign in</a>
+    <a role="tab" href="/register" class="{{if eq .Tab "register"}}active{{end}}">Register</a>
+    <a role="tab" href="/operator/login" class="{{if eq .Tab "operator"}}active{{end}}">Operator</a>
+  </nav>
+
+  {{if eq .Tab "passenger"}}
+  <form id="form" data-endpoint="/api/auth/login" data-next="/">
+    <p class="muted">Sign in to report bus density and keep your history.</p>
+    <label>Email <input class="input" name="email" type="email" autocomplete="email" required></label>
+    <label>Password <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
+    <button class="btn wide" type="submit">Sign in</button>
+    <p class="muted small-text">No account? <a href="/register">Create one</a> · <a href="/">Continue as guest</a></p>
+  {{else if eq .Tab "register"}}
+  <form id="form" data-endpoint="/api/auth/register" data-next="/">
+    <p class="muted">Create a passenger account.</p>
+    <label>Email <input class="input" name="email" type="email" autocomplete="email" required></label>
+    <label>Password <input class="input" name="password" type="password" autocomplete="new-password" minlength="6" required></label>
+    <label>Confirm password <input class="input" name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required></label>
+    <p class="muted small-text">At least 6 characters.</p>
+    <button class="btn wide" type="submit">Create account</button>
+    <p class="muted small-text">Already registered? <a href="/login">Sign in</a></p>
+  {{else}}
+  <form id="form" data-endpoint="/api/auth/operator/login" data-next="/operator" class="operator-form">
+    <p class="banner">Operator access only. Operator accounts are created by an existing operator.</p>
+    <label>Operator email <input class="input" name="email" type="email" autocomplete="username" required></label>
+    <label>Password <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
+    <button class="btn wide" type="submit">Sign in to operator panel</button>
+    <p class="muted small-text"><a href="/">Back to the passenger map</a></p>
+  {{end}}
+    <p id="msg" class="error" role="alert"></p>
+  </form>
+</div>
 <script src="/static/common.js"></script>
 <script>
-const next = {{.Next}} || '';
 const form = document.getElementById('form');
-async function submit(kind) {
+form.addEventListener('submit', async e => {
+  e.preventDefault();
   const fd = new FormData(form);
+  const msg = document.getElementById('msg');
+  msg.textContent = '';
+  if (fd.has('confirmPassword') && fd.get('password') !== fd.get('confirmPassword')) {
+    msg.textContent = 'Passwords do not match';
+    return;
+  }
+  const body = Object.fromEntries(fd.entries());
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = true;
   try {
-    const res = await api('POST', '/api/auth/' + kind, {email: fd.get('email'), password: fd.get('password')});
-    location.href = next || (res.session.role === 'operator' ? '/operator' : '/');
-  } catch (e) { document.getElementById('msg').textContent = e.message; }
-}
-form.addEventListener('submit', e => { e.preventDefault(); submit('login'); });
-document.getElementById('register').addEventListener('click', () => { if (form.reportValidity()) submit('register'); });
+    await api('POST', form.dataset.endpoint, body);
+    location.href = form.dataset.next;
+  } catch (err) {
+    msg.textContent = err.message;
+    btn.disabled = false;
+  }
+});
 </script>
 </body>
 </html>

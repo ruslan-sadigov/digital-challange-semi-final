@@ -15,7 +15,7 @@ document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click
 }));
 
 $('toggle-heat').addEventListener('change', e => (e.target.checked ? st.heat.addTo(map) : map.removeLayer(st.heat)));
-$('logout').addEventListener('click', async () => { await api('POST', '/api/auth/logout'); location.href = '/login'; });
+$('logout').addEventListener('click', async () => { await api('POST', '/api/auth/logout'); location.href = '/operator/login'; });
 
 // ---------- notifications ----------
 $('enable-push').addEventListener('click', async () => {
@@ -50,8 +50,8 @@ function drawStations() {
 function showRoute(r) {
   if (st.routeLayer) map.removeLayer(st.routeLayer);
   if (!r || !r.stops.length) return;
-  const pts = r.stops.map(s => [s.lat, s.lng]);
-  st.routeLayer = L.polyline([...pts, pts[0]], { color: '#1f6feb', weight: 4, opacity: .7 }).addTo(map);
+  const pts = r.path && r.path.length > 1 ? r.path : [...r.stops.map(s => [s.lat, s.lng]), [r.stops[0].lat, r.stops[0].lng]];
+  st.routeLayer = L.polyline(pts, { color: '#1f6feb', weight: 4, opacity: .7 }).addTo(map);
 }
 
 // ---------- alerts ----------

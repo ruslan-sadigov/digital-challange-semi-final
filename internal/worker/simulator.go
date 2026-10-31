@@ -34,8 +34,7 @@ type Simulator struct {
 
 type simBus struct {
 	routeID int64
-	seg     int
-	frac    float64
+	arc     float64 // metres driven along the route's road path
 	speed   float64 // m/s
 	lat     float64
 	lng     float64
@@ -167,15 +166,18 @@ func (s *Simulator) step(ctx context.Context) error {
 		if !ok || len(r.Stops) < 2 {
 			continue
 		}
+		path := bl.EffectivePath(&r)
 		sb := s.buses[b.ID]
 		if sb == nil {
-			sb = &simBus{routeID: r.ID, seg: s.rng.Intn(len(r.Stops)), frac: s.rng.Float64(), speed: 6 + s.rng.Float64()*3}
+			sb = &simBus{routeID: r.ID, arc: s.rng.Float64() * bl.PathLengthM(path), speed: 6 + s.rng.Float64()*3}
 			s.buses[b.ID] = sb
 		} else if sb.routeID != r.ID {
-			// rerouted (or back home): continue from the stop of the new route closest to the bus
-			sb.routeID, sb.seg, sb.frac = r.ID, nearestStop(r.Stops, sb.lat, sb.lng), 0
+			// rerouted (or back home): join the new route's road at the point closest to the bus
+			sb.routeID = r.ID
+			sb.arc, _ = bl.ProjectOnPath(path, sb.lat, sb.lng)
 		}
-		advance(sb, r.Stops, sb.speed*s.Tick.Seconds())
+		sb.arc += sb.speed * s.Tick.Seconds()
+		sb.lat, sb.lng = bl.PointAtArc(path, sb.arc)
 		if err := s.Location.RecordBus(ctx, b.ID, sb.lat, sb.lng); err != nil {
 			return err
 		}
@@ -271,40 +273,4 @@ func (s *Simulator) rebalance(buses map[int64]domain.Bus) {
 			}
 		}
 	}
-}
-
-func nearestStop(stops []domain.Station, lat, lng float64) int {
-	best, bi := math.Inf(1), 0
-	for i, st := range stops {
-		if d := bl.DistanceM(lat, lng, st.Lat, st.Lng); d < best {
-			best, bi = d, i
-		}
-	}
-	return bi
-}
-
-// advance moves the bus metres along its circular route and updates its position.
-func advance(b *simBus, stops []domain.Station, metres float64) {
-	n := len(stops)
-	if b.seg >= n {
-		b.seg = 0
-	}
-	for i := 0; i < 4*n; i++ {
-		a, c := stops[b.seg], stops[(b.seg+1)%n]
-		segLen := bl.DistanceM(a.Lat, a.Lng, c.Lat, c.Lng)
-		if segLen < 1 {
-			b.seg, b.frac = (b.seg+1)%n, 0
-			continue
-		}
-		left := (1 - b.frac) * segLen
-		if metres < left {
-			b.frac += metres / segLen
-			break
-		}
-		metres -= left
-		b.seg, b.frac = (b.seg+1)%n, 0
-	}
-	a, c := stops[b.seg], stops[(b.seg+1)%n]
-	b.lat = a.Lat + (c.Lat-a.Lat)*b.frac
-	b.lng = a.Lng + (c.Lng-a.Lng)*b.frac
 }

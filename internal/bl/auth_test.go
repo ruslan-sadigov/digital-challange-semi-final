@@ -83,13 +83,13 @@ func TestRegisterLoginGuest(t *testing.T) {
 	if _, err := a.Register(ctx, "rider@agilli.az", "secret1"); !errors.Is(err, domain.ErrConflict) {
 		t.Fatalf("duplicate email: want conflict, got %v", err)
 	}
-	if _, err := a.Login(ctx, "rider@agilli.az", "nope00"); !errors.Is(err, domain.ErrUnauthorized) {
+	if _, err := a.Login(ctx, "rider@agilli.az", "nope00", domain.RolePassenger); !errors.Is(err, domain.ErrUnauthorized) {
 		t.Fatalf("wrong password: got %v", err)
 	}
-	if _, err := a.Login(ctx, "ghost@agilli.az", "secret1"); !errors.Is(err, domain.ErrUnauthorized) {
+	if _, err := a.Login(ctx, "ghost@agilli.az", "secret1", domain.RolePassenger); !errors.Is(err, domain.ErrUnauthorized) {
 		t.Fatalf("unknown email: got %v", err)
 	}
-	if _, err := a.Login(ctx, "RIDER@agilli.az", "secret1"); err != nil {
+	if _, err := a.Login(ctx, "RIDER@agilli.az", "secret1", domain.RolePassenger); err != nil {
 		t.Fatalf("login: %v", err)
 	}
 	g, err := a.Guest(ctx)
@@ -102,9 +102,26 @@ func TestRegisterLoginGuest(t *testing.T) {
 	if err := a.EnsureOperator(ctx, "op@agilli.az", "operator1"); err != nil {
 		t.Fatal("EnsureOperator must be idempotent")
 	}
-	op, _ := a.Login(ctx, "op@agilli.az", "operator1")
-	if op.Role != domain.RoleOperator {
-		t.Fatal("expected operator role")
+	op, err := a.Login(ctx, "op@agilli.az", "operator1", domain.RoleOperator)
+	if err != nil || op.Role != domain.RoleOperator {
+		t.Fatalf("operator portal: %v", err)
+	}
+	// Portals are separate: operators cannot use the passenger sign-in and vice versa.
+	if _, err := a.Login(ctx, "op@agilli.az", "operator1", domain.RolePassenger); !errors.Is(err, domain.ErrForbidden) {
+		t.Fatalf("operator on passenger portal: %v", err)
+	}
+	if _, err := a.Login(ctx, "rider@agilli.az", "secret1", domain.RoleOperator); !errors.Is(err, domain.ErrForbidden) {
+		t.Fatalf("passenger on operator portal: %v", err)
+	}
+	// Wrong password on the operator portal is still a plain 401, not a hint that the account exists.
+	if _, err := a.Login(ctx, "rider@agilli.az", "wrong00", domain.RoleOperator); !errors.Is(err, domain.ErrUnauthorized) {
+		t.Fatalf("wrong password on operator portal: %v", err)
+	}
+	if _, err := a.RegisterWithConfirmation(ctx, "new@agilli.az", "secret1", "secret2"); err == nil {
+		t.Fatal("mismatched confirmation must fail")
+	}
+	if _, err := a.RegisterWithConfirmation(ctx, "new@agilli.az", "secret1", "secret1"); err != nil {
+		t.Fatal(err)
 	}
 }
 

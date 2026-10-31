@@ -2,7 +2,8 @@
 
 Real-time bus tracking and crowd management for Baku, with two map panels on OpenStreetMap:
 
-- **Passenger panel** (`/`): search buses, see live positions, routes, ETA to any stop and live density; report density; share location.
+- **Passenger panel** (`/`): search buses, see live positions, routes on real roads, ETA to any stop and live density; report density; share location; **test location** (click the map to simulate where you are and see the nearest stop, walk time and bus ETA).
+- **Sign in** (`/login`), **Register** (`/register`) and **Operator sign in** (`/operator/login`) are separate tabs with separate forms; passenger and operator accounts can only use their own sign-in.
 - **Operator panel** (`/operator`): live heatmap of app users, bus / route / station management, density anomaly alerts, reroute suggestions with manual approval, browser notifications.
 
 Go + PostgreSQL, MVC, N-layered (PL / BL / DL).
@@ -14,8 +15,8 @@ docker compose up --build
 ```
 
 Open http://localhost:8080 (passenger, auto guest session) and http://localhost:8080/operator
-(login `operator@agilli.az` / `operator123`). Compose runs in **demo mode**: a simulator drives
-11 buses on 4 routes with ~85 riders and 80 pedestrians, and route **65** is overloaded, so
+(operator sign-in `operator@agilli.az` / `operator123`). Compose runs in **demo mode**: a simulator drives
+11 buses along real Baku roads on 4 routes with ~85 riders and 80 pedestrians, and route **65** is overloaded, so
 within about 3 minutes you see an anomaly, reroute suggestions, and can approve one.
 
 Without Docker for the app (PostgreSQL 16 still required):
@@ -24,6 +25,18 @@ Without Docker for the app (PostgreSQL 16 still required):
 make db      # or point DATABASE_URL at your own PostgreSQL
 make demo    # fast timings; `make run` uses the real 10-minute rule
 ```
+
+## Real map data
+
+The seed network is built from OpenStreetMap: **107 real bus stops** (OSM `highway=bus_stop`, found via
+Nominatim) and **road-following route geometry** (via OSRM). It is generated once by `go run ./cmd/seedgen`
+and embedded in the binary (`internal/worker/seeddata/baku.json`), so the app runs offline. Each route
+anchors on well-known places and includes every real stop the bus passes within 20 m of its road, in
+travel order, at least 300 m apart.
+
+Routes created or edited by an operator are routed along roads at save time through OSRM (`OSRM_URL`,
+default `https://router.project-osrm.org`, `off` to disable); if OSRM is unreachable the route falls back to
+straight lines between stops. Buses in the simulator drive the road path, and ETA is measured along it.
 
 ## How it works
 
@@ -75,6 +88,7 @@ expiry scenario with a fake clock.
 | `SESSION_SECRET` | `dev-secret-change-me` | HMAC key for session cookies |
 | `OPERATOR_EMAIL` / `OPERATOR_PASSWORD` | `operator@agilli.az` / `operator123` | Created on first start |
 | `DEVICE_API_KEY` | `dev-device-key` | For bus GPS devices |
+| `OSRM_URL` | `https://router.project-osrm.org` | Road routing for operator-created routes; `off` = straight lines |
 | `DEMO` | `false` | Fast timings (2 min anomaly, 10 s checks) |
 | `SIMULATE` / `SEED` | `true` | Demo simulator and Baku seed network |
 | `ANOMALY_THRESHOLD` | `10m` (`2m` in demo) | |
@@ -86,7 +100,8 @@ expiry scenario with a fake clock.
 ## Known limits (competition scope)
 
 - Location is collected only while the web app is open; true background tracking needs a native app.
-- ETA uses straight lines between stops and recent bus speed, not a road network.
+- ETA is road distance along the route divided by the bus's recent speed (GPS jumps ignored); it does not model traffic or dwell time at stops.
+- Moving a station does not re-route the routes that use it until the route is saved again.
 - Distances are computed in Go (no PostGIS) and location tables are not partitioned.
 - Push is in-app + browser notifications while the operator panel is open (no Web Push service worker).
 - Station coordinates in the seed data are approximate.

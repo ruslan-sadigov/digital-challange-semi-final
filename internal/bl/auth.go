@@ -99,7 +99,31 @@ func (s *AuthService) EnsureOperator(ctx context.Context, email, pw string) erro
 	return err
 }
 
-func (s *AuthService) Login(ctx context.Context, email, pw string) (*domain.User, error) {
+// Login checks credentials for a sign-in portal: the passenger portal accepts passenger accounts,
+// the operator portal accepts operator accounts only.
+func (s *AuthService) Login(ctx context.Context, email, pw string, portal domain.Role) (*domain.User, error) {
+	u, err := s.checkCredentials(ctx, email, pw)
+	if err != nil {
+		return nil, err
+	}
+	switch {
+	case portal == domain.RoleOperator && u.Role != domain.RoleOperator:
+		return nil, fmt.Errorf("%w: this is not an operator account", domain.ErrForbidden)
+	case portal != domain.RoleOperator && u.Role == domain.RoleOperator:
+		return nil, fmt.Errorf("%w: operators sign in on the operator tab", domain.ErrForbidden)
+	}
+	return u, nil
+}
+
+// RegisterWithConfirmation validates the confirmation field before creating a passenger account.
+func (s *AuthService) RegisterWithConfirmation(ctx context.Context, email, pw, confirm string) (*domain.User, error) {
+	if pw != confirm {
+		return nil, domain.ErrInvalidInput("passwords do not match")
+	}
+	return s.Register(ctx, email, pw)
+}
+
+func (s *AuthService) checkCredentials(ctx context.Context, email, pw string) (*domain.User, error) {
 	u, err := s.users.GetByEmail(ctx, strings.TrimSpace(email))
 	if errors.Is(err, domain.ErrNotFound) {
 		return nil, domain.ErrUnauthorized

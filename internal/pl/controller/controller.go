@@ -53,7 +53,10 @@ func writeError(w http.ResponseWriter, err error) {
 	case errors.Is(err, domain.ErrUnauthorized):
 		status, msg = http.StatusUnauthorized, "invalid credentials"
 	case errors.Is(err, domain.ErrForbidden):
-		status, msg = http.StatusForbidden, "forbidden"
+		status, msg = http.StatusForbidden, strings.TrimPrefix(strings.TrimPrefix(err.Error(), domain.ErrForbidden.Error()), ": ")
+		if msg == "" {
+			msg = "forbidden"
+		}
 	case errors.Is(err, domain.ErrRateLimited):
 		status, msg = http.StatusTooManyRequests, "you already reported this bus recently, try again in a few minutes"
 	default:
@@ -101,8 +104,9 @@ func setCookie(w http.ResponseWriter, token string, maxAge int) {
 type AuthController struct{ S *Services }
 
 type credentials struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email           string `json:"email"`
+	Password        string `json:"password"`
+	ConfirmPassword string `json:"confirmPassword"`
 }
 
 func (c *AuthController) login(w http.ResponseWriter, u *domain.User) {
@@ -117,7 +121,7 @@ func (c *AuthController) Register(w http.ResponseWriter, r *http.Request) {
 		writeError(w, err)
 		return
 	}
-	u, err := c.S.Auth.Register(r.Context(), in.Email, in.Password)
+	u, err := c.S.Auth.RegisterWithConfirmation(r.Context(), in.Email, in.Password, in.ConfirmPassword)
 	if err != nil {
 		writeError(w, err)
 		return
@@ -125,13 +129,22 @@ func (c *AuthController) Register(w http.ResponseWriter, r *http.Request) {
 	c.login(w, u)
 }
 
+// Login is the passenger sign-in; OperatorLogin is the separate operator sign-in.
 func (c *AuthController) Login(w http.ResponseWriter, r *http.Request) {
+	c.loginAs(w, r, domain.RolePassenger)
+}
+
+func (c *AuthController) OperatorLogin(w http.ResponseWriter, r *http.Request) {
+	c.loginAs(w, r, domain.RoleOperator)
+}
+
+func (c *AuthController) loginAs(w http.ResponseWriter, r *http.Request, portal domain.Role) {
 	var in credentials
 	if err := decode(r, &in); err != nil {
 		writeError(w, err)
 		return
 	}
-	u, err := c.S.Auth.Login(r.Context(), in.Email, in.Password)
+	u, err := c.S.Auth.Login(r.Context(), in.Email, in.Password, portal)
 	if err != nil {
 		writeError(w, err)
 		return
@@ -600,14 +613,23 @@ func (c *PageController) Passenger(w http.ResponseWriter, r *http.Request) {
 	c.render(w, "passenger.html", map[string]any{"Session": sess})
 }
 
+// Login, Register and OperatorLogin render the auth page on its passenger, register or operator tab.
 func (c *PageController) Login(w http.ResponseWriter, r *http.Request) {
-	c.render(w, "login.html", map[string]any{"Next": r.URL.Query().Get("next")})
+	c.render(w, "login.html", map[string]any{"Tab": "passenger"})
+}
+
+func (c *PageController) Register(w http.ResponseWriter, r *http.Request) {
+	c.render(w, "login.html", map[string]any{"Tab": "register"})
+}
+
+func (c *PageController) OperatorLogin(w http.ResponseWriter, r *http.Request) {
+	c.render(w, "login.html", map[string]any{"Tab": "operator"})
 }
 
 func (c *PageController) Operator(w http.ResponseWriter, r *http.Request) {
 	sess, ok := middleware.SessionFrom(r.Context())
 	if !ok || sess.Role != domain.RoleOperator {
-		http.Redirect(w, r, "/login?next=/operator", http.StatusSeeOther)
+		http.Redirect(w, r, "/operator/login", http.StatusSeeOther)
 		return
 	}
 	c.render(w, "operator.html", map[string]any{"Session": sess})

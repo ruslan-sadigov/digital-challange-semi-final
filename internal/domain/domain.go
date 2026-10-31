@@ -61,10 +61,11 @@ type Station struct {
 }
 
 type Route struct {
-	ID    int64     `json:"id"`
-	Code  string    `json:"code"`
-	Name  string    `json:"name"`
-	Stops []Station `json:"stops"`
+	ID    int64        `json:"id"`
+	Code  string       `json:"code"`
+	Name  string       `json:"name"`
+	Stops []Station    `json:"stops"`
+	Path  [][2]float64 `json:"path"` // road geometry [lat, lng], closed loop; empty = straight lines between stops
 }
 
 type Bus struct {

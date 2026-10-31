@@ -78,6 +78,13 @@ func TestAverageSpeedKmh(t *testing.T) {
 	if !ok || math.Abs(v-18) > 0.1 {
 		t.Fatalf("got %v %v", v, ok)
 	}
+	// a 5 km GPS jump in one minute is ignored
+	glitch := append([]domain.BusLocation{}, track...)
+	jLat, jLng := north(40.4, 49.85, 5000)
+	glitch = append(glitch, domain.BusLocation{Lat: jLat, Lng: jLng, CreatedAt: t0.Add(5 * time.Minute)})
+	if v, ok := AverageSpeedKmh(glitch); !ok || math.Abs(v-18) > 0.1 {
+		t.Fatalf("glitch should be ignored, got %v %v", v, ok)
+	}
 	if _, ok := AverageSpeedKmh(track[:1]); ok {
 		t.Fatal("one point is not enough")
 	}

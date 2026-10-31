@@ -148,13 +148,13 @@ func (r *StationRepo) Delete(ctx context.Context, id int64) error {
 type RouteRepo struct{ pool *pgxpool.Pool }
 
 func (r *RouteRepo) List(ctx context.Context) ([]domain.Route, error) {
-	rows, err := r.pool.Query(ctx, `SELECT id, code, name FROM route ORDER BY code`)
+	rows, err := r.pool.Query(ctx, `SELECT id, code, name, path FROM route ORDER BY code`)
 	if err != nil {
 		return nil, err
 	}
 	routes, err := pgx.CollectRows(rows, func(row pgx.CollectableRow) (domain.Route, error) {
 		var rt domain.Route
-		err := row.Scan(&rt.ID, &rt.Code, &rt.Name)
+		err := row.Scan(&rt.ID, &rt.Code, &rt.Name, &rt.Path)
 		rt.Stops = []domain.Station{}
 		return rt, err
 	})
@@ -185,7 +185,7 @@ func (r *RouteRepo) List(ctx context.Context) ([]domain.Route, error) {
 
 func (r *RouteRepo) Get(ctx context.Context, id int64) (*domain.Route, error) {
 	var rt domain.Route
-	if err := r.pool.QueryRow(ctx, `SELECT id, code, name FROM route WHERE id=$1`, id).Scan(&rt.ID, &rt.Code, &rt.Name); err != nil {
+	if err := r.pool.QueryRow(ctx, `SELECT id, code, name, path FROM route WHERE id=$1`, id).Scan(&rt.ID, &rt.Code, &rt.Name, &rt.Path); err != nil {
 		return nil, mapErr(err)
 	}
 	rows, err := r.pool.Query(ctx, `SELECT s.id, s.name, s.lat, s.lng FROM route_stop rs JOIN station s ON s.id=rs.station_id WHERE rs.route_id=$1 ORDER BY rs.seq`, id)
@@ -203,6 +203,14 @@ func (r *RouteRepo) Get(ctx context.Context, id int64) (*domain.Route, error) {
 	return &rt, err
 }
 
+// pathArg stores an empty path as NULL.
+func pathArg(p [][2]float64) any {
+	if len(p) == 0 {
+		return nil
+	}
+	return p
+}
+
 func writeStops(ctx context.Context, tx pgx.Tx, routeID int64, stationIDs []int64) error {
 	if _, err := tx.Exec(ctx, `DELETE FROM route_stop WHERE route_id=$1`, routeID); err != nil {
 		return err
@@ -217,7 +225,7 @@ func writeStops(ctx context.Context, tx pgx.Tx, routeID int64, stationIDs []int6
 
 func (r *RouteRepo) Create(ctx context.Context, rt *domain.Route, stationIDs []int64) error {
 	return pgx.BeginFunc(ctx, r.pool, func(tx pgx.Tx) error {
-		if err := tx.QueryRow(ctx, `INSERT INTO route(code, name) VALUES ($1,$2) RETURNING id`, rt.Code, rt.Name).Scan(&rt.ID); err != nil {
+		if err := tx.QueryRow(ctx, `INSERT INTO route(code, name, path) VALUES ($1,$2,$3) RETURNING id`, rt.Code, rt.Name, pathArg(rt.Path)).Scan(&rt.ID); err != nil {
 			return mapErr(err)
 		}
 		return writeStops(ctx, tx, rt.ID, stationIDs)
@@ -226,7 +234,7 @@ func (r *RouteRepo) Create(ctx context.Context, rt *domain.Route, stationIDs []i
 
 func (r *RouteRepo) Update(ctx context.Context, rt *domain.Route, stationIDs []int64) error {
 	return pgx.BeginFunc(ctx, r.pool, func(tx pgx.Tx) error {
-		if err := affected(tx.Exec(ctx, `UPDATE route SET code=$2, name=$3 WHERE id=$1`, rt.ID, rt.Code, rt.Name)); err != nil {
+		if err := affected(tx.Exec(ctx, `UPDATE route SET code=$2, name=$3, path=$4 WHERE id=$1`, rt.ID, rt.Code, rt.Name, pathArg(rt.Path))); err != nil {
 			return err
 		}
 		return writeStops(ctx, tx, rt.ID, stationIDs)

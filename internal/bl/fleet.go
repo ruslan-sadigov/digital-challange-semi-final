@@ -2,7 +2,9 @@ package bl
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"log"
 	"math"
 	"strings"
 	"time"
@@ -14,10 +16,39 @@ import (
 // ---------- fleet (buses, routes, stations) ----------
 
 type FleetService struct {
-	store *dl.Store
+	store   *dl.Store
+	planner RoutePlanner // optional; nil = straight lines between stops
 }
 
-func NewFleetService(store *dl.Store) *FleetService { return &FleetService{store: store} }
+// NewFleetService creates the service. planner may be nil.
+func NewFleetService(store *dl.Store, planner RoutePlanner) *FleetService {
+	return &FleetService{store: store, planner: planner}
+}
+
+// planPath computes the road geometry through the given stations, falling back to straight lines
+// (stored as an empty path) when no planner is configured or it fails.
+func (s *FleetService) planPath(ctx context.Context, stationIDs []int64) ([][2]float64, error) {
+	if s.planner == nil {
+		return nil, nil
+	}
+	stops := make([]domain.Station, 0, len(stationIDs))
+	for _, id := range stationIDs {
+		st, err := s.store.Stations.Get(ctx, id)
+		if err != nil {
+			if errors.Is(err, domain.ErrNotFound) {
+				return nil, domain.ErrInvalidInput(fmt.Sprintf("station %d does not exist", id))
+			}
+			return nil, err
+		}
+		stops = append(stops, *st)
+	}
+	path, err := s.planner.RoadPath(ctx, stops)
+	if err != nil {
+		log.Printf("road routing unavailable, using straight lines: %v", err)
+		return nil, nil
+	}
+	return SimplifyPath(path, 3), nil
+}
 
 func (s *FleetService) Stations(ctx context.Context) ([]domain.Station, error) {
 	return s.store.Stations.List(ctx)
@@ -81,6 +112,13 @@ func (s *FleetService) CreateRoute(ctx context.Context, r *domain.Route, station
 	if err := validateRoute(r, stationIDs); err != nil {
 		return err
 	}
+	if len(r.Path) == 0 {
+		path, err := s.planPath(ctx, stationIDs)
+		if err != nil {
+			return err
+		}
+		r.Path = path
+	}
 	if err := s.store.Routes.Create(ctx, r, stationIDs); err != nil {
 		return err
 	}
@@ -95,6 +133,11 @@ func (s *FleetService) UpdateRoute(ctx context.Context, r *domain.Route, station
 	if err := validateRoute(r, stationIDs); err != nil {
 		return err
 	}
+	path, err := s.planPath(ctx, stationIDs)
+	if err != nil {
+		return err
+	}
+	r.Path = path
 	if err := s.store.Routes.Update(ctx, r, stationIDs); err != nil {
 		return err
 	}
@@ -296,11 +339,17 @@ func AverageSpeedKmh(track []domain.BusLocation) (float64, bool) {
 	if len(track) < 2 {
 		return 0, false
 	}
-	var dist float64
+	// Sum only plausible steps: a jump faster than 90 km/h is a GPS glitch or a teleport, not driving.
+	var dist, secs float64
 	for i := 1; i < len(track); i++ {
-		dist += DistanceM(track[i-1].Lat, track[i-1].Lng, track[i].Lat, track[i].Lng)
+		d := DistanceM(track[i-1].Lat, track[i-1].Lng, track[i].Lat, track[i].Lng)
+		dt := track[i].CreatedAt.Sub(track[i-1].CreatedAt).Seconds()
+		if dt <= 0 || d/dt*3.6 > 90 {
+			continue
+		}
+		dist += d
+		secs += dt
 	}
-	secs := track[len(track)-1].CreatedAt.Sub(track[0].CreatedAt).Seconds()
 	if secs <= 0 || dist <= 0 {
 		return 0, false
 	}
@@ -360,7 +409,8 @@ func (s *ETAService) ETA(ctx context.Context, busID, stationID int64) (*ETAResul
 	if !ok {
 		speed = s.cfg.FallbackSpeedKmh
 	}
-	dist := RouteDistanceM(r.Stops, *b.LastLat, *b.LastLng, target)
+	st := r.Stops[target]
+	dist := PathDistanceM(EffectivePath(r), *b.LastLat, *b.LastLng, st.Lat, st.Lng)
 	return &ETAResult{BusID: busID, StationID: stationID, DistanceM: math.Round(dist), SpeedKmh: math.Round(speed*10) / 10,
 		Seconds: math.Round(dist / (speed / 3.6))}, nil
 }

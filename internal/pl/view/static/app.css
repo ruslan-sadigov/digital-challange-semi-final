@@ -55,3 +55,11 @@ h3 { font-size: 14px; margin: 14px 0 6px; }
 .card h1 { font-size: 18px; margin-top: 0; }
 .card label { display: block; margin: 8px 0; }
 .suggestion { border-left: 3px solid var(--accent); padding-left: 8px; margin-top: 6px; }
+.auth .tabs a { flex: 1; text-align: center; padding: 8px 6px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; color: var(--ink); font-size: 13px; }
+.auth .tabs a.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.btn.wide { width: 100%; margin-top: 8px; }
+.error { color: var(--high); min-height: 1.2em; }
+.operator-form label { font-weight: 500; }
+.btn.picking { background: var(--medium); border-color: var(--medium); }
+.testloc { border: 1px dashed var(--medium); border-radius: 8px; padding: 8px 10px; margin: 8px 0; background: #fffaf0; }
+.testloc .row + .row { margin-top: 4px; }
