@@ -9,12 +9,15 @@ function routeCode(id) { const r = state.routes.get(id); return r ? r.code : '-'
 
 function renderList() {
   const ids = state.filter || [...state.buses.keys()];
-  $('bus-list').innerHTML = ids.map(id => state.buses.get(id)).filter(Boolean).map(b => `
+  const shown = ids.map(id => state.buses.get(id)).filter(Boolean);
+  $('bus-count').textContent = shown.length ? `${shown.length} ${shown.length === 1 ? 'bus' : 'buses'}` : '';
+  $('bus-list').setAttribute('aria-busy', 'false');
+  $('bus-list').innerHTML = shown.map(b => `
     <div class="item ${state.selected === b.id ? 'active' : ''}" data-id="${b.id}">
       <div class="row"><strong>${esc(b.name)}</strong>${densityBadge(b.density)}</div>
       <div class="row"><span class="muted">Route ${esc(routeCode(b.activeRouteId || b.routeId))}</span>
       ${b.activeRouteId ? '<span class="badge temp">temporary route</span>' : ''}</div>
-    </div>`).join('') || '<p class="muted">No buses found.</p>';
+    </div>`).join('') || emptyState('No buses found', 'Try a route number such as 65, or clear the search.');
 }
 
 function upsertMarker(b) {
@@ -39,7 +42,7 @@ async function select(id) {
   $('bus-detail').classList.remove('hidden');
   document.querySelector('.panel').scrollTop = 0; // test-location box, search and detail sit at the top
   $('d-name').textContent = b.name;
-  $('d-density').outerHTML = `<span id="d-density" class="badge d-${b.density}">${esc(b.density)}</span>`;
+  $('d-density').outerHTML = densityBadge(b.density).replace('<span ', '<span id="d-density" ');
   $('d-route').textContent = d.route ? `Route ${d.route.code}: ${d.route.name}` : 'No route assigned';
   $('d-pass').textContent = `Estimated passengers: ${b.currentPassengerCount} / ${b.passengerCapacity}`;
   const temp = $('d-temp');
@@ -49,6 +52,7 @@ async function select(id) {
     temp.classList.remove('hidden');
   } else temp.classList.add('hidden');
   $('d-msg').textContent = '';
+  $('d-msg').className = 'help';
   const stops = d.route ? d.route.stops : [];
   state.selectedRoute = d.route;
   $('d-stops').innerHTML = stops.map(s => `<li data-station="${s.id}">${esc(s.name)}<span class="eta"></span></li>`).join('');
@@ -57,8 +61,8 @@ async function select(id) {
     // Real road geometry when the route has one, otherwise straight lines between stops.
     const pts = d.route.path && d.route.path.length > 1 ? d.route.path : [...stops.map(s => [s.lat, s.lng]), [stops[0].lat, stops[0].lng]];
     state.routeLayer = L.layerGroup([
-      L.polyline(pts, { color: d.temporaryRoute ? '#1f6feb' : '#334', weight: 4, opacity: .7, dashArray: d.temporaryRoute ? '8 6' : null }),
-      ...stops.map(s => L.circleMarker([s.lat, s.lng], { radius: 6, color: '#334', fillColor: '#fff', fillOpacity: 1 })
+      L.polyline(pts, { color: d.temporaryRoute ? ACCENT : INK, weight: 5, opacity: .75, dashArray: d.temporaryRoute ? '8 8' : null, lineCap: 'round' }),
+      ...stops.map(s => L.circleMarker([s.lat, s.lng], { radius: 6, color: INK, weight: 2, fillColor: '#fff', fillOpacity: 1 })
         .bindTooltip(s.name).on('click', () => showETA(id, s.id))),
     ]).addTo(map);
   }
@@ -98,8 +102,10 @@ document.querySelectorAll('[data-density]').forEach(btn => btn.addEventListener(
   if (!state.selected) return;
   try {
     await api('POST', `/api/buses/${state.selected}/density`, { density: btn.dataset.density });
-    $('d-msg').textContent = 'Thanks! Your report was recorded.';
-  } catch (err) { $('d-msg').textContent = err.message; }
+    $('d-msg').className = 'help';
+    $('d-msg').textContent = 'Thanks, your report was recorded.';
+    toast('Density report sent', 'success');
+  } catch (err) { $('d-msg').className = 'error'; $('d-msg').textContent = err.message; }
 }));
 
 let searchTimer;
@@ -143,7 +149,7 @@ try { if (localStorage.getItem('shareLoc')) startSharing(); } catch (_) {}
 const WALK_M_PER_MIN = 80; // ~4.8 km/h
 const youIcon = L.divIcon({
   className: '',
-  html: '<div style="background:#e0a100;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);width:24px;height:24px;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>',
+  html: '<div style="background:#111827;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);width:26px;height:26px;box-shadow:0 2px 4px rgba(17,24,39,.08),0 8px 20px rgba(17,24,39,.16)"></div>',
   iconSize: [24, 24], iconAnchor: [12, 24],
 });
 
@@ -193,7 +199,7 @@ async function updateTestInfo() {
     let best = null;
     route.stops.forEach(s => { const d = distM(p.lat, p.lng, s.lat, s.lng); if (!best || d < best.d) best = { s, d }; });
     const walkMin = best.d / WALK_M_PER_MIN;
-    state.testLine = L.polyline([[p.lat, p.lng], [best.s.lat, best.s.lng]], { color: '#e0a100', weight: 3, dashArray: '4 6' }).addTo(map);
+    state.testLine = L.polyline([[p.lat, p.lng], [best.s.lat, best.s.lng]], { color: MUTED, weight: 3, dashArray: '2 8', lineCap: 'round' }).addTo(map);
     try {
       // ETA of every bus currently serving this route to that stop; the selected one plus the soonest you can catch.
       const onRoute = [...state.buses.values()].filter(b => (b.activeRouteId || b.routeId) === route.id && b.lastLat != null);
@@ -205,16 +211,18 @@ async function updateTestInfo() {
       const catchable = etas.filter(x => x.e.seconds / 60 >= walkMin).sort((a, b) => a.e.seconds - b.e.seconds)[0];
       const busMin = mine.e.seconds / 60;
       const verdict = walkMin <= busMin
-        ? `<span class="badge d-low">You can make it</span> leave within ${fmtDuration((busMin - walkMin) * 60)}`
-        : `<span class="badge d-high">You will miss this bus</span> the walk is longer than its ETA`;
+        ? `<span class="badge d-low">You can make it</span><span class="muted">Leave within ${fmtDuration((busMin - walkMin) * 60)}</span>`
+        : `<span class="badge d-high">You will miss this bus</span><span class="muted">The walk is longer than its ETA</span>`;
       const better = catchable && catchable.bus.id !== state.selected
-        ? `<div class="row"><span>Soonest bus you can catch: <strong>${esc(catchable.bus.name)}</strong> in ${fmtDuration(catchable.e.seconds)}</span></div>` : '';
+        ? `<div class="banner">Soonest bus you can catch: <strong>${esc(catchable.bus.name)}</strong> in ${fmtDuration(catchable.e.seconds)}</div>` : '';
       box.innerHTML = `
-        <div class="row"><span>Nearest stop: <strong>${esc(best.s.name)}</strong></span></div>
-        <div class="row"><span class="muted">Walk ${Math.round(best.d)} m · ~${fmtDuration(walkMin * 60)}</span></div>
-        <div class="row"><span>Bus ${esc(mine.bus.name)} arrives in <strong>${fmtDuration(mine.e.seconds)}</strong></span>
-        <span class="muted small-text">${(mine.e.distanceM / 1000).toFixed(1)} km by road</span></div>
-        <div class="row gap">${verdict}</div>${better}`;
+        <div class="inset kv">
+          <span class="k">Nearest stop</span><span class="v">${esc(best.s.name)}</span>
+          <span class="k">Walk</span><span class="v">${Math.round(best.d)} m · ${fmtDuration(walkMin * 60)}</span>
+          <span class="k">Bus ${esc(mine.bus.name)} arrives</span><span class="v">${fmtDuration(mine.e.seconds)}</span>
+          <span class="k">Road distance</span><span class="v">${(mine.e.distanceM / 1000).toFixed(1)} km</span>
+        </div>
+        <div class="verdict">${verdict}</div>${better}`;
     } catch (err) {
       if (seq === testInfoSeq) box.innerHTML = `<p class="error">${esc(err.message)}</p>`;
     }
@@ -225,11 +233,11 @@ async function updateTestInfo() {
     const near = await api('GET', `/api/stations/near?lat=${p.lat}&lng=${p.lng}&radius=800`);
     if (seq !== testInfoSeq) return;
     box.innerHTML = near.length
-      ? '<div class="muted small-text">Closest stops (select a bus to see its ETA to you):</div>' + near.slice(0, 4).map(s => {
+      ? '<p class="help">Closest stops. Select a bus to compare its ETA with your walk.</p><div class="inset kv">' + near.slice(0, 4).map(s => {
           const d = distM(p.lat, p.lng, s.lat, s.lng);
-          return `<div class="row"><span>${esc(s.name)}</span><span class="muted small-text">${Math.round(d)} m · ${fmtDuration(d / WALK_M_PER_MIN * 60)} walk</span></div>`;
-        }).join('')
-      : '<p class="muted">No bus stop within 800 m.</p>';
+          return `<span class="k">${esc(s.name)}</span><span class="v">${Math.round(d)} m · ${fmtDuration(d / WALK_M_PER_MIN * 60)}</span>`;
+        }).join('') + '</div>'
+      : emptyState('No stop nearby', 'There is no bus stop within 800 m. Drag the pin closer to a road.');
   } catch (err) { box.innerHTML = `<p class="error">${esc(err.message)}</p>`; }
 }
 
@@ -255,7 +263,7 @@ if ($('logout')) $('logout').addEventListener('click', async () => { await api('
 async function init() {
   const [routes, stations, buses] = await Promise.all([api('GET', '/api/routes'), api('GET', '/api/stations'), api('GET', '/api/buses')]);
   routes.forEach(r => state.routes.set(r.id, r));
-  stations.forEach(s => L.circleMarker([s.lat, s.lng], { radius: 3, color: '#667085' }).addTo(map).bindTooltip(s.name));
+  stations.forEach(s => L.circleMarker([s.lat, s.lng], { radius: 3, weight: 1.5, color: MUTED, fillColor: '#fff', fillOpacity: 1 }).addTo(map).bindTooltip(s.name));
   buses.forEach(b => { state.buses.set(b.id, b); upsertMarker(b); });
   renderList();
   connectWS(['buses'], msg => {
@@ -269,7 +277,7 @@ async function init() {
       renderList();
       if (state.selected) {
         const b = state.buses.get(state.selected);
-        $('d-density').outerHTML = `<span id="d-density" class="badge d-${b.density}">${esc(b.density)}</span>`;
+        $('d-density').outerHTML = densityBadge(b.density).replace('<span ', '<span id="d-density" ');
         $('d-pass').textContent = `Estimated passengers: ${b.currentPassengerCount} / ${b.passengerCapacity}`;
       }
     } else if (msg.type === 'override') {

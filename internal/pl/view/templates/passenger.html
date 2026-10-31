@@ -4,48 +4,62 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agilli Mobillik ve Neqliyyat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
 <header class="topbar">
-  <strong>Agilli Mobillik ve Neqliyyat</strong>
+  {{template "brand"}}
   <span class="spacer"></span>
-  <span class="muted" id="who">{{if .Session.Email}}{{.Session.Email}}{{else}}Guest{{end}}</span>
-  <button id="share-loc" class="btn small">Share my location</button>
-  <button id="test-loc" class="btn small ghost" title="Click on the map to simulate where you are">Test location</button>
-  {{if .Session.Email}}<button id="logout" class="btn small ghost">Sign out</button>{{else}}<a class="btn small ghost" href="/login">Sign in</a>
-  <a class="btn small ghost" href="/register">Register</a>{{end}}
+  <span class="who" id="who">{{if .Session.Email}}{{.Session.Email}}{{else}}Guest{{end}}</span>
+  <button id="share-loc" class="btn small secondary" type="button">Share my location</button>
+  <button id="test-loc" class="btn small secondary" type="button" title="Click on the map to simulate where you are">Test location</button>
+  {{if .Session.Email}}<button id="logout" class="btn small ghost" type="button">Sign out</button>
+  {{else}}<a class="btn small ghost" href="/login">Sign in</a>
+  <a class="btn small" href="/register">Register</a>{{end}}
 </header>
 <main class="layout">
-  <aside class="panel">
-    <section id="testloc" class="testloc hidden">
-      <div class="row"><strong>Test location</strong><button id="testloc-clear" class="btn small ghost">Clear</button></div>
-      <p class="muted small-text" id="testloc-hint">Drag the orange pin to move. Your simulated position is used for location sharing, density reports and ETA.</p>
+  <aside class="panel" aria-label="Buses">
+    <section id="testloc" class="card testloc hidden" aria-live="polite">
+      <div class="card-title">
+        <h2><span class="pin" aria-hidden="true"></span>&nbsp; Test location</h2>
+        <button id="testloc-clear" class="btn small ghost" type="button">Clear</button>
+      </div>
+      <p class="help" id="testloc-hint">Drag the pin to move it. It replaces your GPS position for sharing, reports and ETA.</p>
       <div id="testloc-info"></div>
     </section>
-    <input id="search" class="input" type="search" placeholder="Search bus or route (e.g. 65)">
-    <section id="bus-detail" class="detail hidden">
-      <button id="d-close" class="btn small ghost">Back to list</button>
-      <div class="row"><h2 id="d-name"></h2><span id="d-density" class="badge"></span></div>
+
+    <input id="search" class="input search" type="search" placeholder="Search bus or route, e.g. 65" aria-label="Search buses">
+
+    <section id="bus-detail" class="card hidden" aria-live="polite">
+      <button id="d-close" class="btn small ghost" type="button">&larr; All buses</button>
+      <div class="detail-head"><h2 id="d-name"></h2><span id="d-density" class="badge"></span></div>
+      <p class="meta" id="d-route"></p>
+      <p class="meta" id="d-pass"></p>
       <div id="d-temp" class="banner hidden"></div>
-      <p class="muted" id="d-route"></p>
-      <p class="muted" id="d-pass"></p>
-      <h3>Report density</h3>
-      <div class="row gap">
-        <button class="btn d-low" data-density="low">Low</button>
-        <button class="btn d-medium" data-density="medium">Medium</button>
-        <button class="btn d-high" data-density="high">High</button>
+      <h3>How crowded is it?</h3>
+      <div class="row gap" role="group" aria-label="Report density">
+        <button class="btn small secondary" type="button" data-density="low"><span class="dot d-low" aria-hidden="true"></span>Low</button>
+        <button class="btn small secondary" type="button" data-density="medium"><span class="dot d-medium" aria-hidden="true"></span>Medium</button>
+        <button class="btn small secondary" type="button" data-density="high"><span class="dot d-high" aria-hidden="true"></span>High</button>
       </div>
-      <p id="d-msg" class="muted"></p>
-      <h3>Stops <span class="muted small-text">(click for ETA)</span></h3>
+      <p id="d-msg" class="help"></p>
+      <h3>Stops · select one for ETA</h3>
       <ol id="d-stops" class="stops"></ol>
     </section>
-    <div id="bus-list" class="list"></div>
+
+    <section class="card flush" id="bus-list-card">
+      <div class="card-title"><h2>Buses</h2><span class="muted small-text" id="bus-count"></span></div>
+      <div id="bus-list" class="list" aria-busy="true">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </section>
   </aside>
-  <div id="map" class="map"></div>
+  <div id="map" class="map" role="region" aria-label="Map"></div>
 </main>
-<div id="toast" class="toast hidden"></div>
+<div id="toast" class="toast hidden" role="status"></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="/static/common.js"></script>
 <script src="/static/passenger.js"></script>

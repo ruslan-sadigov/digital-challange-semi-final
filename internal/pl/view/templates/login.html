@@ -4,44 +4,53 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{if eq .Tab "register"}}Register{{else if eq .Tab "operator"}}Operator sign in{{else}}Sign in{{end}} · Agilli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body class="center">
-<div class="card auth">
-  <h1>Agilli Mobillik ve Neqliyyat</h1>
-  <nav class="tabs" role="tablist">
-    <a role="tab" href="/login" class="{{if eq .Tab "passenger"}}active{{end}}">Sign in</a>
-    <a role="tab" href="/register" class="{{if eq .Tab "register"}}active{{end}}">Register</a>
-    <a role="tab" href="/operator/login" class="{{if eq .Tab "operator"}}active{{end}}">Operator</a>
+<main class="card auth">
+  {{template "brand"}}
+  <nav class="tabs" aria-label="Account">
+    <a href="/login" class="{{if eq .Tab "passenger"}}active{{end}}" {{if eq .Tab "passenger"}}aria-current="page"{{end}}>Sign in</a>
+    <a href="/register" class="{{if eq .Tab "register"}}active{{end}}" {{if eq .Tab "register"}}aria-current="page"{{end}}>Register</a>
+    <a href="/operator/login" class="{{if eq .Tab "operator"}}active{{end}}" {{if eq .Tab "operator"}}aria-current="page"{{end}}>Operator</a>
   </nav>
 
   {{if eq .Tab "passenger"}}
+  <h1>Welcome back</h1>
+  <p class="lead">Sign in to report bus density and see your trips.</p>
   <form id="form" data-endpoint="/api/auth/login" data-next="/">
-    <p class="muted">Sign in to report bus density and keep your history.</p>
     <label>Email <input class="input" name="email" type="email" autocomplete="email" required></label>
     <label>Password <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
-    <button class="btn wide" type="submit">Sign in</button>
-    <p class="muted small-text">No account? <a href="/register">Create one</a> · <a href="/">Continue as guest</a></p>
+    <p id="msg" class="error" role="alert"></p>
+    <button class="btn large wide" type="submit">Sign in</button>
+  </form>
+  <p class="foot">No account? <a href="/register">Create one</a> · <a href="/">Continue as guest</a></p>
   {{else if eq .Tab "register"}}
+  <h1>Create your account</h1>
+  <p class="lead">A passenger account lets your density reports count more.</p>
   <form id="form" data-endpoint="/api/auth/register" data-next="/">
-    <p class="muted">Create a passenger account.</p>
     <label>Email <input class="input" name="email" type="email" autocomplete="email" required></label>
-    <label>Password <input class="input" name="password" type="password" autocomplete="new-password" minlength="6" required></label>
+    <label>Password <input class="input" name="password" type="password" autocomplete="new-password" minlength="6" required aria-describedby="pw-help"></label>
+    <p class="help" id="pw-help">At least 6 characters.</p>
     <label>Confirm password <input class="input" name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required></label>
-    <p class="muted small-text">At least 6 characters.</p>
-    <button class="btn wide" type="submit">Create account</button>
-    <p class="muted small-text">Already registered? <a href="/login">Sign in</a></p>
+    <p id="msg" class="error" role="alert"></p>
+    <button class="btn large wide" type="submit">Create account</button>
+  </form>
+  <p class="foot">Already registered? <a href="/login">Sign in</a></p>
   {{else}}
-  <form id="form" data-endpoint="/api/auth/operator/login" data-next="/operator" class="operator-form">
-    <p class="banner">Operator access only. Operator accounts are created by an existing operator.</p>
+  <h1>Operator sign in</h1>
+  <p class="lead">For transport operators. Accounts are created by an existing operator.</p>
+  <form id="form" data-endpoint="/api/auth/operator/login" data-next="/operator">
     <label>Operator email <input class="input" name="email" type="email" autocomplete="username" required></label>
     <label>Password <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
-    <button class="btn wide" type="submit">Sign in to operator panel</button>
-    <p class="muted small-text"><a href="/">Back to the passenger map</a></p>
-  {{end}}
     <p id="msg" class="error" role="alert"></p>
+    <button class="btn large wide" type="submit">Sign in to operator panel</button>
   </form>
-</div>
+  <p class="foot"><a href="/">Back to the passenger map</a></p>
+  {{end}}
+</main>
 <script src="/static/common.js"></script>
 <script>
 const form = document.getElementById('form');
@@ -52,13 +61,13 @@ form.addEventListener('submit', async e => {
   msg.textContent = '';
   if (fd.has('confirmPassword') && fd.get('password') !== fd.get('confirmPassword')) {
     msg.textContent = 'Passwords do not match';
+    form.confirmPassword.focus();
     return;
   }
-  const body = Object.fromEntries(fd.entries());
   const btn = form.querySelector('button[type=submit]');
   btn.disabled = true;
   try {
-    await api('POST', form.dataset.endpoint, body);
+    await api('POST', form.dataset.endpoint, Object.fromEntries(fd.entries()));
     location.href = form.dataset.next;
   } catch (err) {
     msg.textContent = err.message;

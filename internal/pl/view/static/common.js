@@ -1,6 +1,8 @@
 // Shared helpers for both panels.
 const BAKU = [40.395, 49.86];
-const COLORS = { low: '#2e9e5b', medium: '#e0a100', high: '#d64545', unknown: '#98a2b3' };
+// Essential tokens used on the map. Status colors only express density.
+const COLORS = { low: '#16A34A', medium: '#D97706', high: '#DC2626', unknown: '#8A929E' };
+const INK = '#111827', ACCENT = '#2563EB', MUTED = '#5B6472';
 
 async function api(method, url, body) {
   const res = await fetch(url, {
@@ -11,7 +13,7 @@ async function api(method, url, body) {
   });
   const text = await res.text();
   const data = text ? JSON.parse(text) : null;
-  if (!res.ok) throw new Error((data && data.error) || res.statusText);
+  if (!res.ok) throw new Error(cap((data && data.error) || res.statusText));
   return data;
 }
 
@@ -19,9 +21,15 @@ function esc(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+function emptyState(title, text) {
+  return `<div class="empty"><strong>${esc(title)}</strong><p>${esc(text)}</p></div>`;
+}
+
+function cap(s) { s = String(s ?? ''); return s.charAt(0).toUpperCase() + s.slice(1); }
+
 function densityBadge(d) {
   d = d || 'unknown';
-  return `<span class="badge d-${d}">${esc(d)}</span>`;
+  return `<span class="badge d-${d}">${esc(cap(d))}</span>`;
 }
 
 function makeMap() {
@@ -34,17 +42,19 @@ function makeMap() {
 
 function busIcon(bus) {
   const c = COLORS[bus.density || 'unknown'];
-  const ring = bus.activeRouteId ? '#1f6feb' : '#fff';
+  const ring = bus.activeRouteId ? ACCENT : '#fff'; // blue ring = temporarily rerouted (active state)
   return L.divIcon({
     className: '',
-    html: `<div style="background:${c};border:3px solid ${ring};border-radius:50%;width:22px;height:22px;color:#fff;font:600 10px/16px system-ui;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.4)">B</div>`,
-    iconSize: [22, 22], iconAnchor: [11, 11],
+    html: `<div style="background:${c};border:3px solid ${ring};border-radius:50%;width:24px;height:24px;display:grid;place-items:center;box-shadow:0 2px 4px rgba(17,24,39,.08),0 8px 20px rgba(17,24,39,.12)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><rect x="5" y="4" width="14" height="12" rx="3"/><path d="M8 20v-4M16 20v-4"/></svg></div>`,
+    iconSize: [24, 24], iconAnchor: [12, 12],
   });
 }
 
+// Toast: surface card, bottom-right, status icon, auto-dismiss after 6 s. cls: '' (info) | 'alert' | 'success'.
 function toast(msg, cls) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
+  const icon = cls === 'alert' ? '!' : cls === 'success' ? '&#10003;' : 'i';
+  t.innerHTML = `<span class="icon" aria-hidden="true">${icon}</span><span>${esc(msg)}</span>`;
   t.className = 'toast ' + (cls || '');
   clearTimeout(toast._t);
   toast._t = setTimeout(() => t.classList.add('hidden'), 6000);

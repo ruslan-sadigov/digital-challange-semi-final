@@ -6,7 +6,7 @@ Real-time bus tracking and crowd management for Baku, with two map panels on Ope
 - **Sign in** (`/login`), **Register** (`/register`) and **Operator sign in** (`/operator/login`) are separate tabs with separate forms; passenger and operator accounts can only use their own sign-in.
 - **Operator panel** (`/operator`): live heatmap of app users, bus / route / station management, density anomaly alerts, reroute suggestions with manual approval, browser notifications.
 
-Go + PostgreSQL, MVC, N-layered (PL / BL / DL).
+Go + PostgreSQL, MVC, N-layered (PL / BL / DL). The UI follows the **Essential** design system: light-gray surfaces, one blue accent, pill controls, 20px cards and soft layered shadows, all as CSS tokens in `internal/pl/view/static/app.css`.
 
 ## Quick start
 
@@ -111,3 +111,4 @@ expiry scenario with a fake clock.
 ![Passenger](docs/screenshots/passenger.png)
 ![Operator alerts](docs/screenshots/operator-alerts.png)
 ![Operator routes and heatmap](docs/screenshots/operator-routes.png)
+![Register](docs/screenshots/register.png)

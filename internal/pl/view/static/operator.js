@@ -21,7 +21,7 @@ $('logout').addEventListener('click', async () => { await api('POST', '/api/auth
 $('enable-push').addEventListener('click', async () => {
   if (!('Notification' in window)) return toast('This browser does not support notifications', 'alert');
   const p = await Notification.requestPermission();
-  toast(p === 'granted' ? 'Notifications enabled' : 'Notifications blocked');
+  toast(p === 'granted' ? 'Notifications enabled' : 'Notifications blocked', p === 'granted' ? 'success' : 'alert');
 });
 function notify(alert) {
   toast(alert.message, alert.type === 'anomaly_opened' ? 'alert' : '');
@@ -43,7 +43,7 @@ function upsertBus(b) {
 function drawStations() {
   st.stationLayer.clearLayers();
   st.stations.forEach(s => {
-    L.circleMarker([s.lat, s.lng], { radius: 6, color: '#334', fillColor: '#fff', fillOpacity: 1 })
+    L.circleMarker([s.lat, s.lng], { radius: 5, weight: 2, color: INK, fillColor: '#fff', fillOpacity: 1 })
       .bindTooltip(s.name).on('click', () => stationClicked(s)).addTo(st.stationLayer);
   });
 }
@@ -51,7 +51,7 @@ function showRoute(r) {
   if (st.routeLayer) map.removeLayer(st.routeLayer);
   if (!r || !r.stops.length) return;
   const pts = r.path && r.path.length > 1 ? r.path : [...r.stops.map(s => [s.lat, s.lng]), [r.stops[0].lat, r.stops[0].lng]];
-  st.routeLayer = L.polyline(pts, { color: '#1f6feb', weight: 4, opacity: .7 }).addTo(map);
+  st.routeLayer = L.polyline(pts, { color: INK, weight: 5, opacity: .75, lineCap: 'round' }).addTo(map);
 }
 
 // ---------- alerts ----------
@@ -61,27 +61,27 @@ async function loadAlerts() {
   $('alert-count').textContent = open.length;
   $('alert-count').classList.toggle('hidden', !open.length);
   $('active-overrides').innerHTML = active.map(o => `
-    <div class="item"><div class="row"><span><strong>${esc(o.busName)}</strong> ${esc(o.fromRouteCode)} → ${esc(o.toRouteCode)}</span>
-    <button class="btn small danger" data-end="${o.id}">End</button></div>
-    <div class="muted small-text">until ${o.endsAt ? new Date(o.endsAt).toLocaleTimeString() : '-'}</div></div>`).join('') || '<p class="muted">None.</p>';
+    <div class="item static"><div class="row"><span><strong>${esc(o.busName)}</strong> ${esc(o.fromRouteCode)} → ${esc(o.toRouteCode)}</span>
+    <button class="btn small secondary" data-end="${o.id}">End reroute</button></div>
+    <div class="muted small-text">until ${o.endsAt ? new Date(o.endsAt).toLocaleTimeString() : '-'}</div></div>`).join('') || emptyState('No active reroutes', 'Approved suggestions appear here until they expire.');
   $('anomalies').innerHTML = anoms.map(a => `
-    <div class="item">
-      <div class="row"><strong>Route ${esc(a.routeCode)}</strong><span class="badge ${a.status === 'open' ? 'd-high' : 'd-low'}">${esc(a.status)}</span></div>
+    <div class="item static">
+      <div class="row"><strong>Route ${esc(a.routeCode)}</strong><span class="badge ${a.status === 'open' ? 'd-high' : 'd-low'}">${esc(cap(a.status))}</span></div>
       <div class="muted small-text">High since ${new Date(a.startedAt).toLocaleTimeString()} · detected ${new Date(a.detectedAt).toLocaleTimeString()}
       ${a.resolvedAt ? ' · resolved ' + new Date(a.resolvedAt).toLocaleTimeString() : ''}</div>
       ${a.overrides.map(o => `<div class="suggestion">
         <div class="row"><span>Move <strong>${esc(o.busName)}</strong> from ${esc(o.fromRouteCode)}</span><span class="muted small-text">${o.distanceKm.toFixed(1)} km</span></div>
         <div class="row gap">${o.status === 'suggested'
-          ? `<button class="btn small" data-approve="${o.id}">Approve</button><button class="btn small ghost" data-reject="${o.id}">Reject</button>`
+          ? `<button class="btn small" data-approve="${o.id}">Approve</button><button class="btn small secondary" data-reject="${o.id}">Reject</button>`
           : `<span class="muted small-text">${esc(o.status)}</span>`}</div></div>`).join('')
         || (a.status === 'open' ? '<p class="muted small-text">No low-density bus available to move.</p>' : '')}
-    </div>`).join('') || '<p class="muted">No anomalies yet.</p>';
+    </div>`).join('') || emptyState('All routes are flowing', 'You will be alerted when a route stays High for the threshold.');
 }
 document.querySelector('[data-pane="alerts"]').addEventListener('click', async e => {
   const t = e.target;
   const act = t.dataset.approve ? ['approve', t.dataset.approve] : t.dataset.reject ? ['reject', t.dataset.reject] : t.dataset.end ? ['end', t.dataset.end] : null;
   if (!act) return;
-  try { await api('POST', `/api/operator/overrides/${act[1]}/${act[0]}`); toast('Reroute ' + { approve: 'approved', reject: 'rejected', end: 'ended' }[act[0]]); }
+  try { await api('POST', `/api/operator/overrides/${act[1]}/${act[0]}`); toast('Reroute ' + { approve: 'approved', reject: 'rejected', end: 'ended' }[act[0]], 'success'); }
   catch (err) { toast(err.message, 'alert'); }
   loadAlerts(); loadBuses();
 });
@@ -94,8 +94,8 @@ function renderRoutes() {
     return `<div class="item" data-route="${r.id}">
       <div class="row"><strong>${esc(r.code)} · ${esc(r.name)}</strong>${densityBadge(s.level)}</div>
       <div class="row"><span class="muted small-text">${r.stops.length} stops${high}</span>
-      <span><button class="btn small ghost" data-edit-route="${r.id}">Edit</button>
-      <button class="btn small danger" data-del-route="${r.id}">Delete</button></span></div></div>`;
+      <span class="actions"><button class="btn small ghost" data-edit-route="${r.id}">Edit</button>
+      <button class="btn small ghost danger" data-del-route="${r.id}">Delete</button></span></div></div>`;
   }).join('');
   const sel = $('bus-route-select');
   const cur = sel.value;
@@ -137,7 +137,7 @@ $('route-form').addEventListener('submit', async e => {
   try {
     if (f.id.value) await api('PUT', '/api/operator/routes/' + f.id.value, body);
     else await api('POST', '/api/operator/routes', body);
-    toast('Route saved'); f.reset(); $('route-reset').click(); await loadRoutes();
+    toast('Route saved', 'success'); f.reset(); $('route-reset').click(); await loadRoutes();
   } catch (err) { toast(err.message, 'alert'); }
 });
 async function loadRoutes() {
@@ -150,9 +150,9 @@ async function loadRoutes() {
 // ---------- buses ----------
 function renderBuses() {
   $('op-bus-list').innerHTML = [...st.buses.values()].map(b => `
-    <div class="item"><div class="row"><strong>${esc(b.name)}</strong>${densityBadge(b.density)}</div>
+    <div class="item static"><div class="row"><strong>${esc(b.name)}</strong>${densityBadge(b.density)}</div>
     <div class="row"><span class="muted small-text">Route ${esc(routeCode(b.activeRouteId || b.routeId))}${b.activeRouteId ? ' (temporary)' : ''} · ~${b.currentPassengerCount}/${b.passengerCapacity}</span>
-    <span><button class="btn small ghost" data-edit-bus="${b.id}">Edit</button><button class="btn small danger" data-del-bus="${b.id}">Delete</button></span></div></div>`).join('');
+    <span class="actions"><button class="btn small ghost" data-edit-bus="${b.id}">Edit</button><button class="btn small ghost danger" data-del-bus="${b.id}">Delete</button></span></div></div>`).join('') || emptyState('No buses yet', 'Add your first bus with the form below.');
 }
 $('op-bus-list').addEventListener('click', async e => {
   const t = e.target;
@@ -179,7 +179,7 @@ $('bus-form').addEventListener('submit', async e => {
   try {
     if (f.id.value) await api('PUT', '/api/operator/buses/' + f.id.value, body);
     else await api('POST', '/api/operator/buses', body);
-    toast('Bus saved'); f.reset(); f.id.value = ''; await loadBuses();
+    toast('Bus saved', 'success'); f.reset(); f.id.value = ''; await loadBuses();
   } catch (err) { toast(err.message, 'alert'); }
 });
 async function loadBuses() {
@@ -192,7 +192,8 @@ async function loadBuses() {
 // ---------- stations ----------
 function renderStations() {
   $('station-list').innerHTML = [...st.stations.values()].map(s => `
-    <div class="item"><div class="row"><span>${esc(s.name)}</span><button class="btn small danger" data-del-station="${s.id}">Delete</button></div></div>`).join('');
+    <div class="item static"><div class="row"><span>${esc(s.name)}</span><button class="btn small ghost danger" data-del-station="${s.id}">Delete</button></div></div>`).join('') || emptyState('No stations yet', 'Click the map to place your first station.');
+  $('station-count').textContent = st.stations.size ? `${st.stations.size} stops` : '';
 }
 map.on('click', e => {
   if (st.tab !== 'stations') return;
@@ -204,7 +205,7 @@ $('station-form').addEventListener('submit', async e => {
   const f = e.target;
   try {
     await api('POST', '/api/operator/stations', { name: f.name.value, lat: Number(f.lat.value), lng: Number(f.lng.value) });
-    f.reset(); toast('Station added'); await loadStations();
+    f.reset(); toast('Station added', 'success'); await loadStations();
   } catch (err) { toast(err.message, 'alert'); }
 });
 $('station-list').addEventListener('click', async e => {
