@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · Agilli</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body class="center">
+<form id="form" class="card">
+  <h1>Agilli Mobillik ve Neqliyyat</h1>
+  <label>Email <input class="input" name="email" type="email" required></label>
+  <label>Password <input class="input" name="password" type="password" minlength="6" required></label>
+  <div class="row gap">
+    <button class="btn" data-action="login" type="submit">Sign in</button>
+    <button class="btn ghost" data-action="register" type="button" id="register">Create passenger account</button>
+  </div>
+  <p id="msg" class="muted"></p>
+  <p class="muted small-text"><a href="/">Continue as guest</a></p>
+</form>
+<script src="/static/common.js"></script>
+<script>
+const next = {{.Next}} || '';
+const form = document.getElementById('form');
+async function submit(kind) {
+  const fd = new FormData(form);
+  try {
+    const res = await api('POST', '/api/auth/' + kind, {email: fd.get('email'), password: fd.get('password')});
+    location.href = next || (res.session.role === 'operator' ? '/operator' : '/');
+  } catch (e) { document.getElementById('msg').textContent = e.message; }
+}
+form.addEventListener('submit', e => { e.preventDefault(); submit('login'); });
+document.getElementById('register').addEventListener('click', () => { if (form.reportValidity()) submit('register'); });
+</script>
+</body>
+</html>

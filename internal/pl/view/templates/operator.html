@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operator · Agilli</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="topbar">
+  <strong>Agilli · Operator</strong>
+  <span class="spacer"></span>
+  <label class="muted"><input type="checkbox" id="toggle-heat" checked> Heatmap</label>
+  <button id="enable-push" class="btn small">Enable notifications</button>
+  <span class="muted">{{.Session.Email}}</span>
+  <button id="logout" class="btn small ghost">Sign out</button>
+</header>
+<main class="layout">
+  <aside class="panel">
+    <nav class="tabs">
+      <button data-tab="alerts" class="active">Alerts <span id="alert-count" class="badge d-high hidden"></span></button>
+      <button data-tab="routes">Routes</button>
+      <button data-tab="buses">Buses</button>
+      <button data-tab="stations">Stations</button>
+    </nav>
+
+    <section data-pane="alerts">
+      <h3>Active reroutes</h3>
+      <div id="active-overrides" class="list"></div>
+      <h3>Anomalies</h3>
+      <div id="anomalies" class="list"></div>
+    </section>
+
+    <section data-pane="routes" class="hidden">
+      <div id="route-list" class="list"></div>
+      <form id="route-form" class="form">
+        <h3 id="route-form-title">New route</h3>
+        <input type="hidden" name="id">
+        <input class="input" name="code" placeholder="Code (e.g. 65)" required>
+        <input class="input" name="name" placeholder="Name" required>
+        <p class="muted small-text">Click stations on the map in order to add stops.</p>
+        <ol id="route-stops" class="stops"></ol>
+        <div class="row gap">
+          <button class="btn" type="submit">Save route</button>
+          <button class="btn ghost" type="button" id="route-undo">Remove last stop</button>
+          <button class="btn ghost" type="reset" id="route-reset">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <section data-pane="buses" class="hidden">
+      <div id="op-bus-list" class="list"></div>
+      <form id="bus-form" class="form">
+        <h3 id="bus-form-title">New bus</h3>
+        <input type="hidden" name="id">
+        <input class="input" name="name" placeholder="Name / plate" required>
+        <input class="input" name="passengerCapacity" type="number" min="1" placeholder="Capacity" required>
+        <select class="input" name="routeId" id="bus-route-select"></select>
+        <div class="row gap">
+          <button class="btn" type="submit">Save bus</button>
+          <button class="btn ghost" type="reset" id="bus-reset">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <section data-pane="stations" class="hidden">
+      <form id="station-form" class="form">
+        <h3>New station</h3>
+        <p class="muted small-text">Click on the map to set the position.</p>
+        <input class="input" name="name" placeholder="Name" required>
+        <div class="row gap">
+          <input class="input" name="lat" placeholder="Lat" required readonly>
+          <input class="input" name="lng" placeholder="Lng" required readonly>
+        </div>
+        <button class="btn" type="submit">Add station</button>
+      </form>
+      <div id="station-list" class="list"></div>
+    </section>
+  </aside>
+  <div id="map" class="map"></div>
+</main>
+<div id="toast" class="toast hidden"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="/static/common.js"></script>
+<script src="/static/operator.js"></script>
+</body>
+</html>

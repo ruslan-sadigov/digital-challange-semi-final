@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agilli Mobillik ve Neqliyyat</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="topbar">
+  <strong>Agilli Mobillik ve Neqliyyat</strong>
+  <span class="spacer"></span>
+  <span class="muted" id="who">{{if .Session.Email}}{{.Session.Email}}{{else}}Guest{{end}}</span>
+  <button id="share-loc" class="btn small">Share my location</button>
+  <a class="btn small ghost" href="/login">Sign in</a>
+</header>
+<main class="layout">
+  <aside class="panel">
+    <input id="search" class="input" type="search" placeholder="Search bus or route (e.g. 65)">
+    <section id="bus-detail" class="detail hidden">
+      <button id="d-close" class="btn small ghost">Back to list</button>
+      <div class="row"><h2 id="d-name"></h2><span id="d-density" class="badge"></span></div>
+      <div id="d-temp" class="banner hidden"></div>
+      <p class="muted" id="d-route"></p>
+      <p class="muted" id="d-pass"></p>
+      <h3>Report density</h3>
+      <div class="row gap">
+        <button class="btn d-low" data-density="low">Low</button>
+        <button class="btn d-medium" data-density="medium">Medium</button>
+        <button class="btn d-high" data-density="high">High</button>
+      </div>
+      <p id="d-msg" class="muted"></p>
+      <h3>Stops <span class="muted small-text">(click for ETA)</span></h3>
+      <ol id="d-stops" class="stops"></ol>
+    </section>
+    <div id="bus-list" class="list"></div>
+  </aside>
+  <div id="map" class="map"></div>
+</main>
+<div id="toast" class="toast hidden"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/common.js"></script>
+<script src="/static/passenger.js"></script>
+</body>
+</html>
