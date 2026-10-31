@@ -1,57 +1,54 @@
 <!doctype html>
 <html lang="az">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+{{template "head"}}
 <title>Smart City Transportation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="/static/app.css">
 </head>
-<body>
+<body data-title-key="app.name">
 <header class="topbar">
   {{template "brand"}}
   <span class="spacer"></span>
-  <span class="who" id="who">{{if .Session.Email}}{{.Session.Email}}{{else}}Guest{{end}}</span>
-  <button id="share-loc" class="btn small secondary" type="button">Share my location</button>
-  <button id="test-loc" class="btn small secondary" type="button" title="Click on the map to simulate where you are">Test location</button>
-  {{if .Session.Email}}<button id="logout" class="btn small ghost" type="button">Sign out</button>
-  {{else}}<a class="btn small ghost" href="/login">Sign in</a>
-  <a class="btn small" href="/register">Register</a>{{end}}
+  <span class="who" id="who">{{if .Session.Email}}{{.Session.Email}}{{else}}<span data-i18n="who.guest">Guest</span>{{end}}</span>
+  <button id="share-loc" class="btn small secondary" type="button" data-i18n="loc.share">Share my location</button>
+  <button id="test-loc" class="btn small secondary" type="button" data-i18n="loc.test" data-i18n-title="loc.test.title">Test location</button>
+  {{if .Session.Email}}<button id="logout" class="btn small ghost" type="button" data-i18n="nav.signout">Sign out</button>
+  {{else}}<a class="btn small ghost" href="/login" data-i18n="nav.signin">Sign in</a>
+  <a class="btn small" href="/register" data-i18n="nav.register">Register</a>{{end}}
+  {{template "prefs"}}
 </header>
 <main class="layout">
-  <aside class="panel" aria-label="Buses">
+  <aside class="panel" data-i18n-aria-label="buses.title">
     <section id="testloc" class="card testloc hidden" aria-live="polite">
       <div class="card-title">
-        <h2><span class="pin" aria-hidden="true"></span>&nbsp; Test location</h2>
-        <button id="testloc-clear" class="btn small ghost" type="button">Clear</button>
+        <h2><span class="pin" aria-hidden="true"></span>&nbsp; <span data-i18n="test.title">Test location</span></h2>
+        <button id="testloc-clear" class="btn small ghost" type="button" data-i18n="test.clear">Clear</button>
       </div>
-      <p class="help" id="testloc-hint">Drag the pin to move it. It replaces your GPS position for sharing, reports and ETA.</p>
+      <p class="help" id="testloc-hint" data-i18n="test.hint"></p>
       <div id="testloc-info"></div>
     </section>
 
-    <input id="search" class="input search" type="search" placeholder="Search bus or route, e.g. 65" aria-label="Search buses">
+    <input id="search" class="input search" type="search" data-i18n-placeholder="search.placeholder" data-i18n-aria-label="search.label">
 
     <section id="bus-detail" class="card hidden" aria-live="polite">
-      <button id="d-close" class="btn small ghost" type="button">&larr; All buses</button>
+      <button id="d-close" class="btn small ghost" type="button" data-i18n="buses.all">← All buses</button>
       <div class="detail-head"><h2 id="d-name"></h2><span id="d-density" class="badge"></span></div>
       <p class="meta" id="d-route"></p>
       <p class="meta" id="d-pass"></p>
       <div id="d-temp" class="banner hidden"></div>
-      <h3>How crowded is it?</h3>
-      <div class="row gap" role="group" aria-label="Report density">
-        <button class="btn small secondary" type="button" data-density="low"><span class="dot d-low" aria-hidden="true"></span>Low</button>
-        <button class="btn small secondary" type="button" data-density="medium"><span class="dot d-medium" aria-hidden="true"></span>Medium</button>
-        <button class="btn small secondary" type="button" data-density="high"><span class="dot d-high" aria-hidden="true"></span>High</button>
+      <h3 data-i18n="density.ask">How crowded is it?</h3>
+      <div class="row gap" role="group" data-i18n-aria-label="density.report">
+        <button class="btn small secondary" type="button" data-density="low"><span class="dot d-low" aria-hidden="true"></span><span data-i18n="level.low">Low</span></button>
+        <button class="btn small secondary" type="button" data-density="medium"><span class="dot d-medium" aria-hidden="true"></span><span data-i18n="level.medium">Medium</span></button>
+        <button class="btn small secondary" type="button" data-density="high"><span class="dot d-high" aria-hidden="true"></span><span data-i18n="level.high">High</span></button>
       </div>
       <p id="d-msg" class="help"></p>
-      <h3>Stops · select one for ETA</h3>
+      <h3 data-i18n="stops.title">Stops</h3>
       <ol id="d-stops" class="stops"></ol>
     </section>
 
     <section class="card flush" id="bus-list-card">
-      <div class="card-title"><h2>Buses</h2><span class="muted small-text" id="bus-count"></span></div>
+      <div class="card-title"><h2 data-i18n="buses.title">Buses</h2><span class="muted small-text" id="bus-count"></span></div>
       <div id="bus-list" class="list" aria-busy="true">
         <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
       </div>
@@ -61,6 +58,8 @@
 </main>
 <div id="toast" class="toast hidden" role="status"></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/i18n.js"></script>
+<script src="/static/theme.js"></script>
 <script src="/static/common.js"></script>
 <script src="/static/passenger.js"></script>
 </body>

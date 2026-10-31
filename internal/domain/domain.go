@@ -78,6 +78,7 @@ type Bus struct {
 	LastLat          *float64   `json:"lastLat"`
 	LastLng          *float64   `json:"lastLng"`
 	LastSeenAt       *time.Time `json:"lastSeenAt"`
+	Heading          *float64   `json:"heading"` // direction of travel, degrees clockwise from north
 	Density          Density    `json:"density"`
 	DensityScore     *float64   `json:"densityScore"`
 	DensityUpdatedAt *time.Time `json:"densityUpdatedAt"`
@@ -97,6 +98,7 @@ type BusLocation struct {
 	BusID     int64     `json:"busId"`
 	Lat       float64   `json:"lat"`
 	Lng       float64   `json:"lng"`
+	Heading   *float64  `json:"heading,omitempty"` // only in live updates, not stored per point
 	CreatedAt time.Time `json:"createdAt"`
 }
 

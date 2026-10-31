@@ -275,13 +275,13 @@ func (r *RouteRepo) Delete(ctx context.Context, id int64) error {
 type BusRepo struct{ pool *pgxpool.Pool }
 
 const busCols = `b.id, b.name, b.route_id, b.active_route_id, b.passenger_capacity, b.current_passenger_count,
-	b.last_lat, b.last_lng, b.last_seen_at, b.density, b.density_score, b.density_updated_at`
+	b.last_lat, b.last_lng, b.last_seen_at, b.density, b.density_score, b.density_updated_at, b.heading`
 
 func scanBus(row pgx.Row) (domain.Bus, error) {
 	var b domain.Bus
 	var d string
 	err := row.Scan(&b.ID, &b.Name, &b.RouteID, &b.ActiveRouteID, &b.Capacity, &b.PassengerCount,
-		&b.LastLat, &b.LastLng, &b.LastSeenAt, &d, &b.DensityScore, &b.DensityUpdatedAt)
+		&b.LastLat, &b.LastLng, &b.LastSeenAt, &d, &b.DensityScore, &b.DensityUpdatedAt, &b.Heading)
 	b.Density = domain.Density(d)
 	return b, err
 }
@@ -333,8 +333,8 @@ func (r *BusRepo) Delete(ctx context.Context, id int64) error {
 	return affected(r.pool.Exec(ctx, `DELETE FROM bus WHERE id=$1`, id))
 }
 
-func (r *BusRepo) UpdatePosition(ctx context.Context, id int64, lat, lng float64, at time.Time) error {
-	return affected(r.pool.Exec(ctx, `UPDATE bus SET last_lat=$2, last_lng=$3, last_seen_at=$4 WHERE id=$1`, id, lat, lng, at))
+func (r *BusRepo) UpdatePosition(ctx context.Context, id int64, lat, lng float64, heading *float64, at time.Time) error {
+	return affected(r.pool.Exec(ctx, `UPDATE bus SET last_lat=$2, last_lng=$3, last_seen_at=$4, heading=COALESCE($5, heading) WHERE id=$1`, id, lat, lng, at, heading))
 }
 
 func (r *BusRepo) UpdateDensity(ctx context.Context, id int64, d domain.Density, score *float64, count int, at time.Time) error {

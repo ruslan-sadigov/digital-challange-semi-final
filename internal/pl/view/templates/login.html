@@ -1,56 +1,54 @@
 <!doctype html>
 <html lang="az">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{if eq .Tab "register"}}Register{{else if eq .Tab "operator"}}Operator sign in{{else}}Sign in{{end}} · Smart City Transportation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/static/app.css">
+{{template "head"}}
+<title>Smart City Transportation</title>
 </head>
-<body class="center">
+<body class="center" data-title-key="{{if eq .Tab "register"}}nav.register{{else if eq .Tab "operator"}}auth.op.title{{else}}nav.signin{{end}}">
 <main class="card auth">
-  {{template "brand"}}
-  <nav class="tabs" aria-label="Account">
-    <a href="/login" class="{{if eq .Tab "passenger"}}active{{end}}" {{if eq .Tab "passenger"}}aria-current="page"{{end}}>Sign in</a>
-    <a href="/register" class="{{if eq .Tab "register"}}active{{end}}" {{if eq .Tab "register"}}aria-current="page"{{end}}>Register</a>
-    <a href="/operator/login" class="{{if eq .Tab "operator"}}active{{end}}" {{if eq .Tab "operator"}}aria-current="page"{{end}}>Operator</a>
+  <div class="auth-top">{{template "brand"}}{{template "prefs"}}</div>
+  <nav class="tabs" data-i18n-aria-label="nav.signin">
+    <a href="/login" class="{{if eq .Tab "passenger"}}active{{end}}" {{if eq .Tab "passenger"}}aria-current="page"{{end}} data-i18n="nav.signin">Sign in</a>
+    <a href="/register" class="{{if eq .Tab "register"}}active{{end}}" {{if eq .Tab "register"}}aria-current="page"{{end}} data-i18n="nav.register">Register</a>
+    <a href="/operator/login" class="{{if eq .Tab "operator"}}active{{end}}" {{if eq .Tab "operator"}}aria-current="page"{{end}} data-i18n="nav.operator">Operator</a>
   </nav>
 
   {{if eq .Tab "passenger"}}
-  <h1>Welcome back</h1>
-  <p class="lead">Sign in to report bus density and see your trips.</p>
+  <h1 data-i18n="auth.signin.title">Welcome back</h1>
+  <p class="lead" data-i18n="auth.signin.lead"></p>
   <form id="form" data-endpoint="/api/auth/login" data-next="/">
-    <label>Email <input class="input" name="email" type="email" autocomplete="email" required></label>
-    <label>Password <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
+    <label><span data-i18n="auth.email">Email</span> <input class="input" name="email" type="email" autocomplete="email" required></label>
+    <label><span data-i18n="auth.password">Password</span> <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
     <p id="msg" class="error" role="alert"></p>
-    <button class="btn large wide" type="submit">Sign in</button>
+    <button class="btn large wide" type="submit" data-i18n="auth.signin.btn">Sign in</button>
   </form>
-  <p class="foot">No account? <a href="/register">Create one</a> · <a href="/">Continue as guest</a></p>
+  <p class="foot"><span data-i18n="auth.noaccount">No account?</span> <a href="/register" data-i18n="auth.create">Create one</a> · <a href="/" data-i18n="auth.guest">Continue as guest</a></p>
   {{else if eq .Tab "register"}}
-  <h1>Create your account</h1>
-  <p class="lead">A passenger account lets your density reports count more.</p>
+  <h1 data-i18n="auth.register.title">Create your account</h1>
+  <p class="lead" data-i18n="auth.register.lead"></p>
   <form id="form" data-endpoint="/api/auth/register" data-next="/">
-    <label>Email <input class="input" name="email" type="email" autocomplete="email" required></label>
-    <label>Password <input class="input" name="password" type="password" autocomplete="new-password" minlength="6" required aria-describedby="pw-help"></label>
-    <p class="help" id="pw-help">At least 6 characters.</p>
-    <label>Confirm password <input class="input" name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required></label>
+    <label><span data-i18n="auth.email">Email</span> <input class="input" name="email" type="email" autocomplete="email" required></label>
+    <label><span data-i18n="auth.password">Password</span> <input class="input" name="password" type="password" autocomplete="new-password" minlength="6" required aria-describedby="pw-help"></label>
+    <p class="help" id="pw-help" data-i18n="auth.pwhelp"></p>
+    <label><span data-i18n="auth.confirm">Confirm password</span> <input class="input" name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required></label>
     <p id="msg" class="error" role="alert"></p>
-    <button class="btn large wide" type="submit">Create account</button>
+    <button class="btn large wide" type="submit" data-i18n="auth.register.btn">Create account</button>
   </form>
-  <p class="foot">Already registered? <a href="/login">Sign in</a></p>
+  <p class="foot"><span data-i18n="auth.already">Already registered?</span> <a href="/login" data-i18n="nav.signin">Sign in</a></p>
   {{else}}
-  <h1>Operator sign in</h1>
-  <p class="lead">For transport operators. Accounts are created by an existing operator.</p>
+  <h1 data-i18n="auth.op.title">Operator sign in</h1>
+  <p class="lead" data-i18n="auth.op.lead"></p>
   <form id="form" data-endpoint="/api/auth/operator/login" data-next="/operator">
-    <label>Operator email <input class="input" name="email" type="email" autocomplete="username" required></label>
-    <label>Password <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
+    <label><span data-i18n="auth.op.email">Operator email</span> <input class="input" name="email" type="email" autocomplete="username" required></label>
+    <label><span data-i18n="auth.password">Password</span> <input class="input" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
     <p id="msg" class="error" role="alert"></p>
-    <button class="btn large wide" type="submit">Sign in to operator panel</button>
+    <button class="btn large wide" type="submit" data-i18n="auth.op.btn">Sign in to operator panel</button>
   </form>
-  <p class="foot"><a href="/">Back to the passenger map</a></p>
+  <p class="foot"><a href="/" data-i18n="auth.back">Back to the passenger map</a></p>
   {{end}}
 </main>
+<script src="/static/i18n.js"></script>
+<script src="/static/theme.js"></script>
 <script src="/static/common.js"></script>
 <script>
 const form = document.getElementById('form');
@@ -60,7 +58,7 @@ form.addEventListener('submit', async e => {
   const msg = document.getElementById('msg');
   msg.textContent = '';
   if (fd.has('confirmPassword') && fd.get('password') !== fd.get('confirmPassword')) {
-    msg.textContent = 'Passwords do not match';
+    msg.textContent = t('auth.mismatch');
     form.confirmPassword.focus();
     return;
   }

@@ -3,6 +3,8 @@
 Real-time bus tracking and crowd management for Baku, with two map panels on OpenStreetMap:
 
 - **Passenger panel** (`/`): search buses, see live positions, routes on real roads, ETA to any stop and live density; report density; share location; **test location** (click the map to simulate where you are and see the nearest stop, walk time and bus ETA).
+- **Languages and themes**: Azerbaijani and English (AZ / EN switch, remembered per browser, Azerbaijani by default unless the browser prefers English), and light / dark themes (follows the system until you pick one; the OpenStreetMap tiles are darkened too).
+- **Bus markers** show the line number, are colored by density, and carry a small triangle pointing the bus's direction of travel (computed on the server from consecutive GPS points). A blue ring marks a temporarily rerouted bus.
 - **Sign in** (`/login`), **Register** (`/register`) and **Operator sign in** (`/operator/login`) are separate tabs with separate forms; passenger and operator accounts can only use their own sign-in.
 - **Operator panel** (`/operator`): live heatmap of app users, bus / route / station management, density anomaly alerts, reroute suggestions with manual approval, browser notifications.
 
@@ -119,6 +121,8 @@ expiry scenario with a fake clock.
 ## Screenshots
 
 ![Passenger](docs/screenshots/passenger.png)
+![Passenger, English, dark theme](docs/screenshots/passenger-dark.png)
+![Bus markers with line number and direction](docs/screenshots/bus-markers.png)
 ![Operator alerts](docs/screenshots/operator-alerts.png)
 ![Operator routes and heatmap](docs/screenshots/operator-routes.png)
 ![Register](docs/screenshots/register.png)

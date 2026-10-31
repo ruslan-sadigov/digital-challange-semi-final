@@ -290,13 +290,24 @@ func (s *LocationService) RecordBus(ctx context.Context, busID int64, lat, lng f
 		return domain.ErrInvalidInput("invalid coordinates")
 	}
 	now := s.clock.Now()
-	if err := s.store.Buses.UpdatePosition(ctx, busID, lat, lng, now); err != nil {
+	prev, err := s.store.Buses.Get(ctx, busID)
+	if err != nil {
+		return err
+	}
+	// Direction of travel from the previous position; kept as-is while the bus stands still.
+	heading := prev.Heading
+	var moved *float64
+	if prev.HasPosition() && DistanceM(*prev.LastLat, *prev.LastLng, lat, lng) >= MinHeadingMoveM {
+		moved = ptr(Bearing(*prev.LastLat, *prev.LastLng, lat, lng))
+		heading = moved
+	}
+	if err := s.store.Buses.UpdatePosition(ctx, busID, lat, lng, moved, now); err != nil {
 		return err
 	}
 	if err := s.store.Locations.AddBusLocation(ctx, domain.BusLocation{BusID: busID, Lat: lat, Lng: lng, CreatedAt: now}); err != nil {
 		return err
 	}
-	s.pub.Publish(ChannelBuses, "bus_location", domain.BusLocation{BusID: busID, Lat: lat, Lng: lng, CreatedAt: now})
+	s.pub.Publish(ChannelBuses, "bus_location", domain.BusLocation{BusID: busID, Lat: lat, Lng: lng, Heading: heading, CreatedAt: now})
 	return nil
 }
 

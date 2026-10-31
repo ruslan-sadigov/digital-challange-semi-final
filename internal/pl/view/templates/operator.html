@@ -1,95 +1,92 @@
 <!doctype html>
 <html lang="az">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+{{template "head"}}
 <title>Operator · Smart City Transportation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="/static/app.css">
 </head>
-<body>
+<body data-title-key="nav.operator">
 <header class="topbar">
   {{template "brand"}}
-  <span class="badge temp">Operator</span>
+  <span class="badge temp" data-i18n="nav.operator">Operator</span>
   <span class="spacer"></span>
-  <label class="chip"><input type="checkbox" id="toggle-heat" checked> Heatmap</label>
-  <button id="enable-push" class="btn small secondary" type="button">Enable notifications</button>
+  <label class="chip"><input type="checkbox" id="toggle-heat" checked> <span data-i18n="op.heatmap">Heatmap</span></label>
+  <button id="enable-push" class="btn small secondary" type="button" data-i18n="op.notify">Enable notifications</button>
   <span class="who">{{.Session.Email}}</span>
-  <button id="logout" class="btn small ghost" type="button">Sign out</button>
+  <button id="logout" class="btn small ghost" type="button" data-i18n="nav.signout">Sign out</button>
+  {{template "prefs"}}
 </header>
 <main class="layout">
-  <aside class="panel" aria-label="Operator tools">
+  <aside class="panel">
     <nav class="tabs" role="tablist">
-      <button type="button" role="tab" data-tab="alerts" class="active">Alerts <span id="alert-count" class="badge count hidden"></span></button>
-      <button type="button" role="tab" data-tab="routes">Routes</button>
-      <button type="button" role="tab" data-tab="buses">Buses</button>
-      <button type="button" role="tab" data-tab="stations">Stations</button>
+      <button type="button" role="tab" data-tab="alerts" class="active"><span data-i18n="tab.alerts">Alerts</span> <span id="alert-count" class="badge count hidden"></span></button>
+      <button type="button" role="tab" data-tab="routes" data-i18n="tab.routes">Routes</button>
+      <button type="button" role="tab" data-tab="buses" data-i18n="tab.buses">Buses</button>
+      <button type="button" role="tab" data-tab="stations" data-i18n="tab.stations">Stations</button>
     </nav>
 
     <section data-pane="alerts" class="pane">
       <div class="card flush">
-        <div class="card-title"><h2>Active reroutes</h2></div>
+        <div class="card-title"><h2 data-i18n="alerts.active">Active reroutes</h2></div>
         <div id="active-overrides" class="list"><div class="skeleton"></div></div>
       </div>
       <div class="card flush">
-        <div class="card-title"><h2>Anomalies</h2><span class="muted small-text">Route High for 10+ min</span></div>
+        <div class="card-title"><h2 data-i18n="alerts.anomalies">Anomalies</h2><span class="muted small-text" data-i18n="alerts.anomalies.hint"></span></div>
         <div id="anomalies" class="list"><div class="skeleton"></div><div class="skeleton"></div></div>
       </div>
     </section>
 
     <section data-pane="routes" class="pane hidden">
       <div class="card flush">
-        <div class="card-title"><h2>Routes</h2><span class="muted small-text">Live density</span></div>
+        <div class="card-title"><h2 data-i18n="routes.title">Routes</h2><span class="muted small-text" data-i18n="routes.live"></span></div>
         <div id="route-list" class="list"><div class="skeleton"></div><div class="skeleton"></div></div>
       </div>
       <form id="route-form" class="card form">
-        <div class="card-title"><h2 id="route-form-title">New route</h2></div>
+        <div class="card-title"><h2 id="route-form-title" data-i18n="routes.new">New route</h2></div>
         <input type="hidden" name="id">
-        <input class="input" name="code" placeholder="Code, e.g. 65" aria-label="Route code" required>
-        <input class="input" name="name" placeholder="Name" aria-label="Route name" required>
-        <p class="help">Select stations on the map in travel order. The road path is planned automatically.</p>
+        <input class="input" name="code" data-i18n-placeholder="routes.code" data-i18n-aria-label="routes.code" required>
+        <input class="input" name="name" data-i18n-placeholder="routes.name" data-i18n-aria-label="routes.name" required>
+        <p class="help" data-i18n="routes.help"></p>
         <ol id="route-stops" class="stops editing"></ol>
         <div class="row gap">
-          <button class="btn" type="submit">Save route</button>
-          <button class="btn secondary" type="button" id="route-undo">Remove last stop</button>
-          <button class="btn ghost" type="reset" id="route-reset">Clear</button>
+          <button class="btn" type="submit" data-i18n="routes.save">Save route</button>
+          <button class="btn secondary" type="button" id="route-undo" data-i18n="routes.undo">Remove last stop</button>
+          <button class="btn ghost" type="reset" id="route-reset" data-i18n="btn.clear">Clear</button>
         </div>
       </form>
     </section>
 
     <section data-pane="buses" class="pane hidden">
       <div class="card flush">
-        <div class="card-title"><h2>Buses</h2></div>
+        <div class="card-title"><h2 data-i18n="tab.buses">Buses</h2></div>
         <div id="op-bus-list" class="list"><div class="skeleton"></div><div class="skeleton"></div></div>
       </div>
       <form id="bus-form" class="card form">
-        <div class="card-title"><h2 id="bus-form-title">New bus</h2></div>
+        <div class="card-title"><h2 id="bus-form-title" data-i18n="busf.new">New bus</h2></div>
         <input type="hidden" name="id">
-        <input class="input" name="name" placeholder="Name or plate" aria-label="Bus name" required>
-        <input class="input" name="passengerCapacity" type="number" min="1" placeholder="Passenger capacity" aria-label="Passenger capacity" required>
-        <select class="input" name="routeId" id="bus-route-select" aria-label="Route"></select>
+        <input class="input" name="name" data-i18n-placeholder="busf.name" data-i18n-aria-label="busf.name" required>
+        <input class="input" name="passengerCapacity" type="number" min="1" data-i18n-placeholder="busf.capacity" data-i18n-aria-label="busf.capacity" required>
+        <select class="input" name="routeId" id="bus-route-select" data-i18n-aria-label="tab.routes"></select>
         <div class="row gap">
-          <button class="btn" type="submit">Save bus</button>
-          <button class="btn ghost" type="reset" id="bus-reset">Clear</button>
+          <button class="btn" type="submit" data-i18n="busf.save">Save bus</button>
+          <button class="btn ghost" type="reset" id="bus-reset" data-i18n="btn.clear">Clear</button>
         </div>
       </form>
     </section>
 
     <section data-pane="stations" class="pane hidden">
       <form id="station-form" class="card form">
-        <div class="card-title"><h2>New station</h2></div>
-        <p class="help">Click on the map to set the position.</p>
-        <input class="input" name="name" placeholder="Name" aria-label="Station name" required>
+        <div class="card-title"><h2 data-i18n="st.new">New station</h2></div>
+        <p class="help" data-i18n="st.help"></p>
+        <input class="input" name="name" data-i18n-placeholder="st.name" data-i18n-aria-label="st.name" required>
         <div class="form-row">
-          <input class="input" name="lat" placeholder="Latitude" aria-label="Latitude" required readonly>
-          <input class="input" name="lng" placeholder="Longitude" aria-label="Longitude" required readonly>
+          <input class="input" name="lat" data-i18n-placeholder="st.lat" data-i18n-aria-label="st.lat" required readonly>
+          <input class="input" name="lng" data-i18n-placeholder="st.lng" data-i18n-aria-label="st.lng" required readonly>
         </div>
-        <div class="row gap"><button class="btn" type="submit">Add station</button></div>
+        <div class="row gap"><button class="btn" type="submit" data-i18n="st.add">Add station</button></div>
       </form>
       <div class="card flush">
-        <div class="card-title"><h2>Stations</h2><span class="muted small-text" id="station-count"></span></div>
+        <div class="card-title"><h2 data-i18n="st.title">Stations</h2><span class="muted small-text" id="station-count"></span></div>
         <div id="station-list" class="list"><div class="skeleton"></div></div>
       </div>
     </section>
@@ -99,6 +96,8 @@
 <div id="toast" class="toast hidden" role="status"></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="/static/i18n.js"></script>
+<script src="/static/theme.js"></script>
 <script src="/static/common.js"></script>
 <script src="/static/operator.js"></script>
 </body>

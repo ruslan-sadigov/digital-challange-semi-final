@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"net/http"
 	"strings"
 	"testing"
@@ -71,14 +72,14 @@ func TestRepositories(t *testing.T) {
 
 	bus := e.mustBus(t, "13-A")
 	now := e.clock.Now()
-	if err := e.store.Buses.UpdatePosition(ctx, bus.ID, 40.39, 49.80, now); err != nil {
+	if err := e.store.Buses.UpdatePosition(ctx, bus.ID, 40.39, 49.80, ptr(90.0), now); err != nil {
 		t.Fatal(err)
 	}
 	if err := e.store.Buses.UpdateDensity(ctx, bus.ID, domain.DensityHigh, ptr(1.8), 70, now); err != nil {
 		t.Fatal(err)
 	}
 	got, _ := e.store.Buses.Get(ctx, bus.ID)
-	if *got.LastLat != 40.39 || got.Density != domain.DensityHigh || got.PassengerCount != 70 {
+	if *got.LastLat != 40.39 || got.Density != domain.DensityHigh || got.PassengerCount != 70 || got.Heading == nil || *got.Heading != 90 {
 		t.Fatalf("bus not updated: %+v", got)
 	}
 	if _, err := e.store.Buses.Get(ctx, 99999); err != domain.ErrNotFound {
@@ -231,6 +232,13 @@ func TestPassengerFeatures(t *testing.T) {
 			t.Fatal(err)
 		}
 		e.clock.Advance(time.Minute)
+	}
+
+	// heading follows the direction of travel (stop 0 -> stop 1)
+	moved, _ := e.store.Buses.Get(ctx, bus.ID)
+	want := bl.Bearing(r65.Stops[0].Lat, r65.Stops[0].Lng, r65.Stops[1].Lat, r65.Stops[1].Lng)
+	if moved.Heading == nil || math.Abs(*moved.Heading-want) > 1 {
+		t.Fatalf("heading %v, want %.0f", moved.Heading, want)
 	}
 
 	c := e.newClient(t)

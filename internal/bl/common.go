@@ -61,6 +61,9 @@ type Alert struct {
 	RouteCode string  `json:"routeCode"`
 	Message   string  `json:"message"`
 	HighForS  float64 `json:"highForSeconds"`
+	// Suggestions is the number of reroute suggestions created (anomaly_opened only).
+	// Clients render the message in the user's language from these fields; Message is the English fallback.
+	Suggestions int `json:"suggestions"`
 }
 
 // Notifier delivers anomaly alerts to operators (push, in-app, ...).
@@ -180,3 +183,16 @@ func validCoord(lat, lng float64) bool {
 }
 
 func ptr[T any](v T) *T { return &v }
+
+// MinHeadingMoveM: GPS movements shorter than this do not change the bus's heading (noise while standing).
+const MinHeadingMoveM = 3
+
+// Bearing is the initial compass bearing from point 1 to point 2, in degrees [0, 360), 0 = north, 90 = east.
+func Bearing(lat1, lng1, lat2, lng2 float64) float64 {
+	p1, p2 := rad(lat1), rad(lat2)
+	dl := rad(lng2 - lng1)
+	y := math.Sin(dl) * math.Cos(p2)
+	x := math.Cos(p1)*math.Sin(p2) - math.Sin(p1)*math.Cos(p2)*math.Cos(dl)
+	b := math.Atan2(y, x) * 180 / math.Pi
+	return math.Mod(b+360, 360)
+}

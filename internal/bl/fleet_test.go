@@ -135,3 +135,22 @@ func TestValidation(t *testing.T) {
 		t.Fatal("lat 95 must fail")
 	}
 }
+
+func TestBearing(t *testing.T) {
+	cases := []struct {
+		lat2, lng2, want float64
+	}{
+		{40.41, 49.85, 0},   // north
+		{40.40, 49.86, 90},  // east
+		{40.39, 49.85, 180}, // south
+		{40.40, 49.84, 270}, // west
+	}
+	for _, c := range cases {
+		if got := Bearing(40.40, 49.85, c.lat2, c.lng2); math.Abs(got-c.want) > 0.1 {
+			t.Errorf("bearing to (%v,%v) = %v, want %v", c.lat2, c.lng2, got, c.want)
+		}
+	}
+	if got := Bearing(40.40, 49.85, 40.41, 49.86); got < 30 || got > 60 {
+		t.Errorf("north-east bearing %v", got)
+	}
+}

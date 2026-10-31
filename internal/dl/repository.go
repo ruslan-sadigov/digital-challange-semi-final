@@ -41,7 +41,8 @@ type BusRepository interface {
 	Create(ctx context.Context, b *domain.Bus) error
 	Update(ctx context.Context, b *domain.Bus) error
 	Delete(ctx context.Context, id int64) error
-	UpdatePosition(ctx context.Context, id int64, lat, lng float64, at time.Time) error
+	// UpdatePosition stores the latest position; a nil heading keeps the previous one (bus standing still).
+	UpdatePosition(ctx context.Context, id int64, lat, lng float64, heading *float64, at time.Time) error
 	UpdateDensity(ctx context.Context, id int64, d domain.Density, score *float64, passengerCount int, at time.Time) error
 	SetActiveRoute(ctx context.Context, id int64, routeID *int64) error
 }

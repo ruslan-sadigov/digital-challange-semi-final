@@ -192,7 +192,7 @@ func (s *AnomalyService) Tick(ctx context.Context) error {
 			if err != nil {
 				return err
 			}
-			_ = s.notifier.Notify(ctx, Alert{Type: "anomaly_opened", AnomalyID: a.ID, RouteID: r.ID, RouteCode: r.Code, HighForS: highFor,
+			_ = s.notifier.Notify(ctx, Alert{Type: "anomaly_opened", AnomalyID: a.ID, RouteID: r.ID, RouteCode: r.Code, HighForS: highFor, Suggestions: n,
 				Message: fmt.Sprintf("Route %s has been High for %s. %d reroute suggestion(s) ready.", r.Code, humanDuration(highFor), n)})
 		case EventResolve:
 			if err := s.resolve(ctx, open, now); err != nil {
